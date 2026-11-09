@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Feather &amp; Iron</title>
+<meta name="description" content="Game design for a Chikn NFT browser strategy game: NFT tickets, starting eggs, resources, rules and art picks.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@400;500;600;700&family=Saira+Stencil+One&family=Courier+Prime:wght@400;700&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+/* Layout: a long game dossier. Sticky chapter nav; each chapter is a band with a 1180px column;
+   the design chapter is a three-column gallery (one column per art direction). Single dark look: night on the farm. */
+:root{
+  --night:#0f141a;--iron:#161d25;--iron2:#1e2731;--iron3:#2a3541;
+  --ash:#ece5d6;--ash2:#b3ad9f;--ash3:#857f74;
+  --yolk:#f0b43c;--yolk2:#c98f22;--barn:#cf5a40;--moss:#9cbc78;
+  --line:rgba(236,229,214,.12);--line2:rgba(236,229,214,.22);
+  --f-disp:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
+  --f-body:'Literata',Georgia,'Times New Roman',serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth;scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--night);color:var(--ash);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--night)}
+a{color:var(--yolk)}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--yolk);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--yolk)}
+.h2{font-family:var(--f-disp);font-weight:800;font-size:clamp(38px,5.4vw,62px);line-height:.98;letter-spacing:.005em;text-transform:uppercase}
+.h3{font-family:var(--f-disp);font-weight:700;font-size:28px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
+.h4{font-family:var(--f-disp);font-weight:700;font-size:21px;letter-spacing:.02em;text-transform:uppercase}
+.lede{font-size:19px;line-height:1.55;color:var(--ash2);max-width:62ch}
+.muted{color:var(--ash2)}
+.small{font-size:14px;line-height:1.5}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+/* nav */
+.topnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(15,20,26,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;align-items:center;gap:18px;height:58px}
+.brand{font-family:var(--f-disp);font-weight:800;font-size:20px;letter-spacing:.04em;text-transform:uppercase;color:var(--ash);text-decoration:none;white-space:nowrap}
+.brand span{color:var(--yolk)}
+.navlinks{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash2);text-decoration:none;padding:7px 10px;border-radius:4px;white-space:nowrap}
+.navlinks a:hover{color:var(--ash);background:var(--iron2)}
+.navpick{display:flex;gap:4px;align-items:center;text-decoration:none;font-family:var(--f-mono);font-size:12px;color:var(--ash2);white-space:nowrap}
+.navpick b{display:inline-grid;place-items:center;width:22px;height:22px;border:1px solid var(--line2);border-radius:3px;color:var(--ash3);font-weight:600}
+.navpick b.on{background:var(--yolk);border-color:var(--yolk);color:#1d1404}
+@media (max-width:720px){.navpick{display:none}.brand{font-size:17px}}
+
+/* hero */
+.hero{position:relative;background:#101824;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-art{position:absolute;inset:0}
+.hero-art svg{width:100%;height:100%;display:block}
+.hero .wrap{position:relative;padding-top:clamp(40px,7vw,84px);padding-bottom:clamp(220px,30vw,330px)}
+.hero h1{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;font-size:clamp(64px,12vw,148px);line-height:.86;letter-spacing:-.005em;margin:14px 0 18px;color:#f6eedb;text-shadow:0 2px 30px rgba(0,0,0,.45)}
+.hero h1 em{font-style:normal;color:var(--yolk)}
+.hero .tagline{font-family:var(--f-disp);font-weight:600;font-size:clamp(22px,3vw,30px);letter-spacing:.02em;color:#f1e3c4;margin-bottom:12px}
+.hero .lede{color:#d9d1c0;max-width:56ch;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.pbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;border-radius:4px;border:1px solid var(--line2);background:var(--iron2);color:var(--ash);text-decoration:none;cursor:pointer;line-height:1.1}
+.pbtn:hover{border-color:var(--ash3)}
+.pbtn.pri{background:var(--yolk);border-color:var(--yolk);color:#1d1404;font-weight:600}
+.pbtn.pri:hover{background:#ffc552}
+.pbtn.sm{padding:7px 11px;font-size:12px}
+.pbtn[aria-pressed="true"]{background:var(--yolk);border-color:var(--yolk);color:#1d1404;font-weight:600}
+.facts{position:relative;background:rgba(10,8,11,.86);border-top:1px solid var(--line)}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.fact{padding:18px 18px 18px 0;border-right:1px solid var(--line);margin-right:18px}
+.fact:last-child{border-right:0}
+.fact b{display:block;font-family:var(--f-disp);font-weight:800;font-size:36px;line-height:1;color:var(--yolk)}
+.fact span{display:block;font-size:14px;color:var(--ash2);margin-top:6px;line-height:1.4}
+@media (max-width:860px){.facts .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}.fact:nth-child(2){border-right:0}.fact{border-bottom:1px solid var(--line)}}
+
+/* chapters */
+.ch{padding-block:clamp(56px,8vw,92px);border-bottom:1px solid var(--line)}
+.ch.alt{background:var(--iron)}
+.ch-head{display:flex;flex-direction:column;gap:14px;margin-bottom:38px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,4vw,56px)}
+@media (max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}}
+
+/* lore */
+.tline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tline li{position:relative;padding:0 0 26px 54px}
+.tline li::before{content:attr(data-n);position:absolute;left:0;top:2px;width:34px;height:34px;display:grid;place-items:center;font-family:var(--f-mono);font-size:13px;border:1px solid var(--line2);border-radius:50%;color:var(--yolk);background:var(--night)}
+.tline li::after{content:"";position:absolute;left:17px;top:40px;bottom:6px;width:1px;background:var(--line2)}
+.tline li:last-child::after{display:none}
+.tline h3{font-family:var(--f-disp);font-weight:700;font-size:23px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:6px}
+.tline p{color:var(--ash2);max-width:60ch}
+.quote{margin-top:10px;padding:22px 24px;border-left:3px solid var(--barn);background:var(--iron2);font-family:var(--f-disp);font-size:26px;font-weight:600;line-height:1.2;letter-spacing:.01em}
+.quote small{display:block;font-family:var(--f-body);font-size:14px;font-weight:400;color:var(--ash2);margin-top:8px;letter-spacing:0}
+.why{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.why div{padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--iron2)}
+.why b{display:block;font-family:var(--f-disp);font-size:21px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+.why p{font-size:15px;color:var(--ash2);line-height:1.5}
+@media (max-width:520px){.why{grid-template-columns:minmax(0,1fr)}}
+.oath{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+.oath div{padding:18px;border-radius:6px;border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.oath svg{width:36px;height:36px}
+.oath b{font-family:var(--f-disp);font-size:24px;text-transform:uppercase}
+.oath q{font-style:italic;color:var(--ash)}
+.oath span{font-family:var(--f-mono);font-size:12.5px;color:var(--yolk)}
+.oath p{font-size:14.5px;color:var(--ash2);line-height:1.5}
+@media (max-width:760px){.oath{grid-template-columns:minmax(0,1fr)}}
+
+/* world */
+.chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.chain div{padding:14px 16px;background:var(--iron2);border:1px solid var(--line);border-radius:6px;position:relative}
+.chain div:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:50%;transform:translate(50%,-50%);color:var(--yolk);font-family:var(--f-mono);z-index:1}
+.chain b{display:block;font-family:var(--f-disp);font-size:24px;text-transform:uppercase;line-height:1.05}
+.chain span{font-size:14px;color:var(--ash2);line-height:1.4;display:block;margin-top:4px}
+@media (max-width:760px){.chain{grid-template-columns:repeat(2,minmax(0,1fr))}.chain div:nth-child(2)::after{display:none}}
+.paddr{font-size:16px;color:var(--ash2);margin-bottom:34px}
+.paddr b{font-family:var(--f-mono);color:var(--ash);background:var(--iron3);padding:2px 8px;border-radius:3px;font-weight:600}
+.explore{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.explore{grid-template-columns:minmax(0,1fr)}}
+.chartbox{background:var(--iron2);border:1px solid var(--line);border-radius:8px;padding:18px 16px 10px;position:relative}
+.chartbox h3{margin-bottom:2px}
+.chart-scroll{overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:560px;height:auto}
+.chart .bar{cursor:pointer}
+.chart .bar rect.mk{fill:#5d6a78;transition:fill .15s}
+.chart .bar:hover rect.mk,.chart .bar:focus rect.mk{fill:#8a98a7}
+.chart .bar.sel rect.mk{fill:var(--yolk)}
+.chart .bar rect.hit{fill:transparent}
+.chart .bar:focus{outline:none}
+.chart .bar:focus-visible rect.hit{stroke:var(--yolk);stroke-width:1.5}
+.chart text{font-family:var(--f-mono);font-size:11px;fill:var(--ash2)}
+.chart text.zl{fill:var(--ash);font-size:11.5px;letter-spacing:.06em}
+.chart text.vl{fill:var(--ash);font-weight:600;font-size:12px}
+.chart line.g{stroke:rgba(236,229,214,.09)}
+.chart line.zb{stroke:var(--line2)}
+.tip{position:absolute;pointer-events:none;background:#0b0f14;border:1px solid var(--line2);border-radius:5px;padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;color:var(--ash);white-space:nowrap;transform:translate(-50%,-100%);z-index:3}
+.plot{background:var(--iron2);border:1px solid var(--line);border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.plot .z{font-family:var(--f-disp);font-size:34px;font-weight:800;text-transform:uppercase;line-height:1}
+.plot .r{font-family:var(--f-mono);font-size:15px;color:var(--yolk)}
+.plot dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:6px 0 0;font-size:15px}
+.plot dt{color:var(--ash3);font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding-top:3px}
+.plot dd{margin:0}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;margin-top:20px}
+table.t{border-collapse:collapse;width:100%;font-size:15px;min-width:560px}
+table.t th{text-align:left;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ash3);font-weight:500;padding:10px 12px;border-bottom:1px solid var(--line2);background:var(--iron2)}
+table.t td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:last-child td{border-bottom:0}
+table.t td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.t td b{font-weight:600}
+.hoods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:20px}
+.hoods div{padding:12px 14px;border:1px solid var(--line);border-radius:6px}
+.hoods i{font-style:normal;font-family:var(--f-mono);font-size:12px;color:var(--ash3)}
+.hoods b{display:block;font-family:var(--f-disp);font-size:20px;text-transform:uppercase;line-height:1.1}
+.hoods span{font-family:var(--f-mono);font-size:12.5px;color:var(--yolk)}
+@media (max-width:760px){.hoods{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* eggs */
+.flow{list-style:none;margin:0 0 34px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:f}
+.flow li{padding:18px;border:1px solid var(--line);border-radius:6px;background:var(--iron2);counter-increment:f;position:relative}
+.flow li::before{content:counter(f);font-family:var(--f-disp);font-weight:800;font-size:44px;line-height:1;color:var(--yolk);display:block;margin-bottom:8px}
+.flow b{display:block;font-family:var(--f-disp);font-size:21px;text-transform:uppercase;margin-bottom:4px}
+.flow p{font-size:15px;color:var(--ash2);line-height:1.5}
+@media (max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.flow{grid-template-columns:minmax(0,1fr)}}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:22px;border:1px solid var(--line2);border-radius:8px;background:linear-gradient(160deg,#1f2833,#161d25)}
+@media (max-width:900px){.calc{grid-template-columns:minmax(0,1fr)}}
+.ctl{display:flex;flex-direction:column;gap:16px}
+.ctl label{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ash2);margin-bottom:6px}
+.ctl label output{color:var(--ash);font-weight:600;letter-spacing:0;font-size:15px}
+input[type=range]{width:100%;accent-color:var(--yolk);height:22px}
+.outs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.out{padding:12px 14px;border-radius:6px;background:rgba(0,0,0,.22);border:1px solid var(--line)}
+.out b{display:block;font-family:var(--f-disp);font-weight:800;font-size:32px;line-height:1.05;color:var(--ash)}
+.out span{display:block;font-size:13.5px;color:var(--ash2);line-height:1.35}
+.out small{display:block;font-family:var(--f-mono);font-size:11.5px;color:var(--ash3);margin-top:4px}
+@media (max-width:520px){.outs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ptime{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;padding-top:12px;border-top:1px solid var(--line)}
+.ptime b{font-family:var(--f-disp);font-size:26px;color:var(--yolk)}
+.prar{display:inline-block;padding:1px 8px;border-radius:3px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.prar.o{background:#5c5a52;color:#f4efe2}.prar.r{background:#2f6aa8;color:#fff}.prar.e{background:#6b4aa0;color:#fff}.prar.l{background:#d39b2e;color:#1f1400}
+
+/* rules */
+.res5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:28px}
+.res5 div{padding:14px;border:1px solid var(--line);border-radius:6px;background:var(--iron2)}
+.res5 svg{width:26px;height:26px;color:var(--yolk)}
+.res5 b{display:block;font-family:var(--f-disp);font-size:22px;text-transform:uppercase;margin:6px 0 2px}
+.res5 p{font-size:14px;color:var(--ash2);line-height:1.45}
+@media (max-width:900px){.res5{grid-template-columns:repeat(2,minmax(0,1fr))}.res5 div:last-child{grid-column:1/-1}}
+.pips{display:inline-grid;grid-template-columns:repeat(10,6px);gap:2px;vertical-align:middle}
+.pips i{height:10px;background:var(--iron3);border-radius:1px}
+.pips i.on{background:var(--yolk)}
+.cols4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:28px}
+.cols4 h4{font-family:var(--f-disp);font-size:20px;text-transform:uppercase;letter-spacing:.03em;padding-bottom:6px;border-bottom:1px solid var(--line2);margin-bottom:8px}
+.cols4 ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.cols4 li{font-size:14.5px;color:var(--ash2);line-height:1.45}
+.cols4 li b{color:var(--ash);font-weight:600}
+@media (max-width:900px){.cols4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.cols4{grid-template-columns:minmax(0,1fr)}}
+.miss9{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.miss9 div{padding:12px 14px;border:1px solid var(--line);border-radius:6px;font-size:14.5px;color:var(--ash2);line-height:1.45}
+.miss9 b{display:block;color:var(--ash);font-family:var(--f-disp);font-size:19px;text-transform:uppercase;letter-spacing:.02em}
+@media (max-width:760px){.miss9{grid-template-columns:minmax(0,1fr)}}
+.spec{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:14px}
+.spec div{padding:14px;border-radius:6px;background:var(--iron2);border:1px solid var(--line)}
+.spec b{display:block;font-family:var(--f-disp);font-size:20px;text-transform:uppercase;color:var(--yolk);margin-bottom:4px}
+.spec p{font-size:14px;color:var(--ash2);line-height:1.45}
+@media (max-width:900px){.spec{grid-template-columns:repeat(2,minmax(0,1fr))}.spec div:last-child{grid-column:1/-1}}
+.psub{margin-top:44px}
+
+/* design picker */
+.dirs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:46px}
+.dir{border-radius:8px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.dir .sw{display:grid;grid-template-columns:repeat(5,1fr);height:44px}
+.dir .bd{padding:16px 18px;display:flex;flex-direction:column;gap:8px;background:var(--iron2);flex:1}
+.dir .nm{font-size:28px;line-height:1}
+.dir p{font-size:15px;color:var(--ash2);line-height:1.5}
+.dir .fn{font-family:var(--f-mono);font-size:12px;color:var(--ash3);margin-top:auto}
+.dir.A .nm{font-family:'Saira Stencil One',var(--f-disp);color:#e5d7ae}
+.dir.B .nm{font-family:'Cinzel',Georgia,serif;font-weight:700;color:#f0d38a;font-size:25px}
+.dir.C .nm{font-family:'Chakra Petch',var(--f-disp);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5ff0ff;font-size:24px}
+@media (max-width:860px){.dirs{grid-template-columns:minmax(0,1fr)}}
+.pick{margin-top:56px;scroll-margin-top:80px}
+.pick-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
+.pick-h .h3{font-size:34px}
+.pick-h p{color:var(--ash2);font-size:15.5px;max-width:64ch;margin-top:6px}
+.cur{font-family:var(--f-mono);font-size:12.5px;color:var(--ash2);padding:6px 10px;border:1px dashed var(--line2);border-radius:4px;white-space:nowrap}
+.cur.on{border-style:solid;border-color:var(--yolk);color:var(--yolk)}
+.seg{display:none;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+#skinBtns{flex-wrap:wrap}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.col{border-radius:8px;border:2px solid transparent;display:flex;flex-direction:column;overflow:hidden;transition:border-color .15s}
+.col.sel{border-color:var(--yolk);box-shadow:0 0 0 4px rgba(240,180,60,.12)}
+.col-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;background:var(--iron2)}
+.col-h b{font-family:var(--f-disp);font-size:20px;text-transform:uppercase;letter-spacing:.02em}
+.col-h b i{font-style:normal;color:var(--yolk);margin-right:6px}
+.sheet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:8px;flex:1}
+.card{border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.card.wide{grid-column:1/-1}
+.card svg{display:block;width:100%;height:auto}
+.card figcaption{padding:6px 10px 9px;display:flex;flex-direction:column;gap:1px}
+.card figcaption b{font-size:15px;line-height:1.2}
+.card figcaption span{font-size:12px;opacity:.8}
+.card{margin:0}
+.sA{background:#2b2c23}.sB{background:#3b1517}.sC{background:#050c17}
+.sA .card{background:#d9ccaa;color:#1f1c15;box-shadow:inset 0 0 0 2px #1f1c15}
+.sA .card figcaption b{font-family:'Saira Stencil One',var(--f-disp);font-weight:400;letter-spacing:.03em;text-transform:uppercase;font-size:14px}
+.sA .card figcaption span{font-family:'Courier Prime',monospace}
+.sB .card{background:#efe3c4;color:#2a1a12;box-shadow:inset 0 0 0 1.5px #d4a338}
+.sB .card figcaption b{font-family:'Cinzel',Georgia,serif;font-weight:700;font-size:13.5px;color:#a51d27}
+.sB .card figcaption span{font-family:'Cormorant Garamond',Georgia,serif;font-size:14px;font-style:italic}
+.sC .card{background:#071426;color:#d9fbff;box-shadow:inset 0 0 0 1px rgba(95,240,255,.3)}
+.sC .card figcaption b{font-family:'Chakra Petch',var(--f-disp);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;color:#5ff0ff}
+.sC .card figcaption span{font-family:'JetBrains Mono',monospace;font-size:11px;color:#7fb3c2}
+@media (max-width:860px){
+  .seg{display:flex}
+  .cols3{grid-template-columns:minmax(0,1fr)}
+  .cols3[data-show="A"] .col:not([data-s="A"]),.cols3[data-show="B"] .col:not([data-s="B"]),.cols3[data-show="C"] .col:not([data-s="C"]){display:none}
+}
+.mocks{display:flex;flex-direction:column;gap:26px}
+.mfig{margin:0;border-radius:8px;border:2px solid var(--line);overflow:hidden;background:var(--iron2);transition:border-color .15s}
+.mfig.sel{border-color:var(--yolk);box-shadow:0 0 0 4px rgba(240,180,60,.12)}
+.mfig-h{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px}
+.mfig-h b{font-family:var(--f-disp);font-size:22px;text-transform:uppercase;letter-spacing:.02em}
+.mfig-h b i{font-style:normal;color:var(--yolk);margin-right:6px}
+.mfig-h p{font-size:14.5px;color:var(--ash2);max-width:70ch;margin-top:2px}
+.mfig-h .acts{display:flex;gap:8px}
+.mfig .mock{border-radius:0}
+.skinbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:14px;padding:10px 12px;border-radius:6px;background:var(--iron2);border:1px solid var(--line)}
+.skinbar span{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash2);margin-right:4px}
+.skinbar .grow{flex:1}
+.ogrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ogrid .mfig:first-child{grid-column:1/-1}
+@media (max-width:860px){.ogrid{grid-template-columns:minmax(0,1fr)}}
+.ogrid .mfig-h b{font-size:19px}
+
+/* summary */
+.sum{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.sum{grid-template-columns:minmax(0,1fr)}}
+.sumt{border:1px solid var(--line2);border-radius:8px;overflow:hidden}
+.sumt div{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.sumt div:last-child{border-bottom:0}
+.sumt span{font-family:var(--f-disp);font-size:21px;text-transform:uppercase;letter-spacing:.02em}
+.sumt a{font-family:var(--f-mono);font-size:13px;text-decoration:none;color:var(--ash3)}
+.sumt a.on{color:var(--yolk);font-weight:600}
+.notes label{display:block;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash2);margin-bottom:8px}
+.notes textarea{width:100%;min-height:132px;resize:vertical;background:var(--iron2);color:var(--ash);border:1px solid var(--line2);border-radius:6px;padding:12px;font:inherit;font-size:15.5px;line-height:1.5;box-sizing:border-box}
+.saveline{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px}
+.status{font-family:var(--f-mono);font-size:12.5px;color:var(--ash2)}
+.status.ok{color:var(--moss)}
+.status.warn{color:var(--yolk)}
+.copytxt{width:100%;margin-top:10px;font-family:var(--f-mono);font-size:12.5px;background:var(--night);color:var(--ash2);border:1px solid var(--line);border-radius:6px;padding:10px;box-sizing:border-box;min-height:96px}
+
+footer.foot{padding-block:36px 46px;color:var(--ash3);font-size:14px}
+footer.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(5,7,10,.94);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.lb-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+.lb-bar b{font-family:var(--f-disp);font-size:22px;text-transform:uppercase}
+.lb-body{flex:1;overflow:auto;padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.lb-canvas{margin:0 auto;position:relative;overflow:hidden;border-radius:6px}
+.lb-canvas>.cv{position:absolute;left:0;top:0;transform-origin:0 0}
+
+/* ---------- v0.2 additions ---------- */
+.hero-art img{width:100%;height:100%;object-fit:cover;object-position:64% 45%;display:block}
+.hero-art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,11,16,.86) 0%,rgba(9,11,16,.6) 36%,rgba(9,11,16,.08) 68%),linear-gradient(0deg,rgba(9,11,16,.55),rgba(9,11,16,0) 30%)}
+@media (max-width:760px){.hero-art::after{background:linear-gradient(180deg,rgba(9,11,16,.82) 0%,rgba(9,11,16,.55) 55%,rgba(9,11,16,.2) 100%)}}
+.hero .tagline{font-family:var(--f-disp);font-weight:600;font-size:clamp(22px,3vw,30px);letter-spacing:.02em;color:#f1e3c4;margin-bottom:12px}
+.story p{font-size:18.5px;line-height:1.7;color:var(--ash);max-width:60ch}
+.story p:first-child::first-letter{font-family:var(--f-disp);font-weight:800;font-size:3.1em;float:left;line-height:.85;margin:6px 10px 0 0;color:var(--yolk)}
+.rules4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:40px}
+.rules4 div{padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--iron2)}
+.rules4 b{display:block;font-family:var(--f-disp);font-size:21px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:6px}
+.rules4 p{font-size:15px;color:var(--ash2);line-height:1.5}
+@media (max-width:900px){.rules4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.rules4{grid-template-columns:minmax(0,1fr)}}
+.decide{padding:clamp(16px,3vw,28px);border:1px solid rgba(240,180,60,.35);border-radius:10px;background:linear-gradient(160deg,#1f2833,#161d25);scroll-margin-top:80px}
+.decide-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:22px}
+.decide-h .muted{max-width:64ch;margin-top:8px}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.opt{position:relative;text-align:left;display:flex;flex-direction:column;gap:6px;padding:18px;border-radius:8px;border:2px solid var(--line2);background:var(--night);color:var(--ash);cursor:pointer;font:inherit}
+.opt:hover{border-color:var(--ash3)}
+.opt[aria-pressed="true"]{border-color:var(--yolk);box-shadow:0 0 0 4px rgba(240,180,60,.14)}
+.opt .ot{font-family:var(--f-disp);font-size:34px;font-weight:800;text-transform:uppercase;line-height:1}
+.opt .od{font-family:var(--f-mono);font-size:13px;color:var(--yolk)}
+.opt .om{font-size:14.5px;color:var(--ash2);line-height:1.45}
+.opt .ob{margin-top:auto;padding-top:10px;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+.opt[aria-pressed="true"] .ob{color:var(--yolk)}
+.tagrec{position:absolute;top:-11px;right:14px;background:var(--yolk);color:#1d1404;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+@media (max-width:760px){.opts{grid-template-columns:minmax(0,1fr)}}
+.rate{margin-top:14px;font-family:var(--f-mono);font-size:13px;color:var(--ash2)}
+.flowd{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.fl-row{display:flex;align-items:stretch;gap:8px}
+.fl-row>.node{flex:1}
+.node{padding:12px 14px;border-radius:8px;background:var(--iron2);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0}
+.node .ico{width:22px;height:22px;color:var(--yolk);margin-bottom:2px}
+.node b{font-family:var(--f-disp);font-size:19px;text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
+.node span{font-size:13px;color:var(--ash2);line-height:1.4}
+.node .oil{color:var(--yolk)}
+.node.sink{border-color:var(--line2);background:transparent}
+.node.nft{border-color:rgba(240,180,60,.5)}
+.node-group{display:flex;flex-direction:column;gap:6px;flex:1.3;min-width:0}
+.node-group .node{flex-direction:row;align-items:center;gap:10px}
+.node-group .node .ico{margin:0}
+.node-group .node span{margin-left:auto}
+.arrow{flex:0 0 78px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--yolk)}
+.arrow::after{content:"→";font-size:22px;line-height:1;color:var(--ash2)}
+@media (max-width:760px){.fl-row{flex-direction:column}.arrow{flex:0 0 auto;flex-direction:row;gap:8px}.arrow::after{content:"↓"}}
+.plain{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.plain li{font-size:15px;color:var(--ash2);line-height:1.55;padding-left:16px;position:relative}
+.plain li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;background:var(--yolk);border-radius:1px}
+.plain li b{color:var(--ash);font-weight:600}
+.dirs{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cols3.cols2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:860px){.dirs,.cols3.cols2{grid-template-columns:minmax(0,1fr)}}
+.card img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.card.bld img{aspect-ratio:4/3}
+.card.wide{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center}
+#colsBuildings .card.wide img{aspect-ratio:4/3}
+.card.wide figcaption{padding:14px 16px;gap:6px}
+.card.wide figcaption b{font-size:21px}
+.card figcaption em{font-style:normal;font-size:12.5px;opacity:.85;line-height:1.45}
+@media (max-width:520px){.card.wide{grid-template-columns:minmax(0,1fr)}}
+.sA .card figcaption em{font-family:'Courier Prime',monospace}
+.sB .card figcaption em{font-family:'Cormorant Garamond',Georgia,serif;font-size:15px}
+.hoods{grid-template-columns:repeat(6,minmax(0,1fr))}
+@media (max-width:900px){.hoods{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.hoods{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ===== game screen mockups (fixed 1280px canvas, scaled by JS) ===== */
+.mock{position:relative;width:100%;aspect-ratio:1280/800;overflow:hidden;border-radius:6px;background:#111;max-width:100%}
+.mock.tall{aspect-ratio:1280/760}
+.mock>.cv{position:absolute;left:0;top:0;width:1280px;height:800px;transform-origin:0 0;transform:scale(var(--k,.5))}
+.mock.tall>.cv{height:760px}
+.cv,.cv *{box-sizing:border-box}
+.cv .ico{width:18px;height:18px;flex:none}
+.cv table{border-collapse:collapse;width:100%}
+.cv .num{font-family:var(--nm);font-variant-numeric:tabular-nums}
+
+/* ---------- skins ---------- */
+.cv{--paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .26 0 0 0 0 .16 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.skA{--bg:#2b2c23;--bg2:#3a3b2f;--panel:#d9cca8;--panel2:#cbbd96;--ink:#1f1c15;--ink2:#5a5442;--line:rgba(31,28,21,.32);--acc:#a3442a;--acc2:#8a6d2f;--ok:#4f6b3a;--bad:#a3442a;--frame:#4a504d;--glow:#f2b544;
+  --hd:'Saira Stencil One','Big Shoulders Display',Impact,sans-serif;--bd:'Courier Prime','Courier New',monospace;--nm:'Courier Prime','Courier New',monospace;--lb:'Big Shoulders Display','Arial Narrow',sans-serif;
+  background:var(--bg);color:var(--ink);font-family:var(--bd);font-size:14px}
+.skB{--bg:#3b1517;--bg2:#4d1d21;--panel:#f2e6c8;--panel2:#e8d6aa;--ink:#2a1a12;--ink2:#6e4e35;--line:rgba(122,90,46,.4);--acc:#a51d27;--acc2:#c9962a;--gold:#d4a338;--ok:#3f6d34;--bad:#a51d27;--glow:#f6c94f;
+  --hd:'Cinzel',Georgia,serif;--bd:'Cormorant Garamond',Georgia,serif;--nm:'Cormorant Garamond',Georgia,serif;--lb:'Cinzel',Georgia,serif;
+  background:var(--bg);color:var(--ink);font-family:var(--bd);font-size:17px}
+
+.cv .pnl{position:relative;background:var(--panel)}
+.skA .pnl{background:var(--panel) var(--paper);border:5px solid var(--frame);box-shadow:inset 0 0 0 1px rgba(0,0,0,.22),0 3px 0 rgba(0,0,0,.45)}
+.skA .pnl::after{content:"";position:absolute;inset:-5px;pointer-events:none;
+  background:radial-gradient(circle,#a9b0ab 0 1.5px,#1b1e1d 2.1px,transparent 2.7px) top left/10px 10px no-repeat,
+  radial-gradient(circle,#a9b0ab 0 1.5px,#1b1e1d 2.1px,transparent 2.7px) top right/10px 10px no-repeat,
+  radial-gradient(circle,#a9b0ab 0 1.5px,#1b1e1d 2.1px,transparent 2.7px) bottom left/10px 10px no-repeat,
+  radial-gradient(circle,#a9b0ab 0 1.5px,#1b1e1d 2.1px,transparent 2.7px) bottom right/10px 10px no-repeat}
+.skB .pnl{background:var(--panel) var(--paper);border:1.5px solid var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.skB .pnl::before{content:"";position:absolute;inset:5px;border:1px solid rgba(201,150,42,.55);pointer-events:none}
+
+.cv h3{margin:0 0 10px;font-weight:400}
+.skA h3{font-family:var(--hd);font-size:16px;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:4px}
+.skB h3{font-family:var(--hd);font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:700;text-align:center;padding-bottom:6px;border-bottom:1px solid var(--gold)}
+
+.cv .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:7px 14px;cursor:default;white-space:nowrap;line-height:1}
+.skA .btn{font-family:var(--hd);text-transform:uppercase;letter-spacing:.05em;border:2px solid var(--acc);color:var(--acc);font-size:13px}
+.skA .btn.pri{background:var(--acc);color:#f3e9d2;box-shadow:2px 2px 0 var(--ink)}
+.skB .btn{font-family:var(--hd);font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--gold);color:var(--acc);background:rgba(255,255,255,.35);font-weight:700}
+.skB .btn.pri{background:var(--acc);color:#f8ecc9;box-shadow:inset 0 0 0 2px rgba(255,220,140,.35)}
+
+.cv .bar{display:block;height:8px;background:rgba(0,0,0,.18);position:relative;overflow:hidden}
+.cv .bar>u{position:absolute;left:0;top:0;bottom:0;background:var(--acc)}
+.skA .bar{border:1.5px solid var(--ink);height:10px}.skA .bar>u{background:var(--ink2)}
+.skB .bar{border:1px solid var(--gold);border-radius:5px;height:9px}.skB .bar>u{background:var(--acc)}
+
+.cv .chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:2px 7px;white-space:nowrap}
+.skA .chip{border:1.5px solid var(--ink);font-family:var(--lb);text-transform:uppercase;letter-spacing:.05em}
+.skB .chip{border:1px solid var(--gold);border-radius:10px;font-family:var(--hd);font-size:11px}
+.cv .chip.bad{color:var(--bad);border-color:var(--bad)}
+.cv .chip.ok{color:var(--ok);border-color:var(--ok)}
+.cv .chip.gold{color:var(--acc2);border-color:var(--acc2)}
+
+/* ---------- main A: Štab ---------- */
+.mA{display:grid;grid-template-columns:196px minmax(0,1fr) 336px;grid-template-rows:78px 1fr 30px;gap:12px;padding:12px;height:800px;
+  background:linear-gradient(180deg,#30312a,#25261f)}
+.mA-top{grid-column:1/-1;display:flex;align-items:stretch;gap:12px}
+.mA-logo{width:196px;flex:none;display:flex;flex-direction:column;justify-content:center;padding:0 12px;background:#1d1e18;border:3px solid #4a504d;color:#e8dcbc}
+.mA-logo b{font-family:var(--hd);font-size:19px;letter-spacing:.04em;font-weight:400}
+.mA-logo small{font-family:var(--lb);font-size:12px;letter-spacing:.14em;color:#b9ab84}
+.mA-res{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.cv .plate{display:flex;align-items:center;gap:9px;padding:0 10px;background:linear-gradient(#5b625f,#40464400 160%),#454c4a;border:2px solid #23272600;box-shadow:inset 0 1px 0 #7f8783,inset 0 -2px 0 #2a2e2d;color:#efe6cc;position:relative}
+.cv .plate .ico{width:24px;height:24px;color:#f2c76b}
+.cv .plate b{display:block;font-family:var(--nm);font-size:19px;letter-spacing:-.01em}
+.cv .plate small{display:block;font-family:var(--lb);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#c9c0a6}
+.cv .plate::before,.cv .plate::after{content:"";position:absolute;top:5px;width:4px;height:4px;border-radius:50%;background:#1a1d1c;box-shadow:0 49px 0 #1a1d1c}
+.cv .plate::before{left:4px}.cv .plate::after{right:4px}
+.mA-user{width:220px;flex:none;display:flex;flex-direction:column;justify-content:center;padding:0 14px;background:var(--panel) var(--paper);border:3px solid #4a504d}
+.mA-user b{font-family:var(--hd);font-size:17px;font-weight:400;letter-spacing:.03em}
+.mA-user small{font-size:12px;color:var(--ink2)}
+.mA-nav{display:flex;flex-direction:column;gap:5px}
+.mA-nav .tab{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#b9ab84;border:2px solid #1f1c15;border-left-width:6px;font-family:var(--lb);font-size:16px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#1f1c15;position:relative}
+.mA-nav .tab:nth-child(even){margin-left:8px}
+.mA-nav .tab.on{background:var(--panel) var(--paper);border-left-color:var(--acc);margin-right:-14px;z-index:2}
+.mA-nav .tab em{margin-left:auto;font-style:normal;background:var(--acc);color:#f3e9d2;font-family:var(--nm);font-size:12px;padding:0 6px}
+.mA-center{display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:12px;min-height:0}
+.mA-center>*,.mA-right>*{min-height:0}
+.mA-photo{padding:10px 10px 34px;background:#efe6cf;transform:rotate(-.4deg);border-color:#3f4442}
+.mA-ph{height:100%;min-height:0;filter:sepia(.35) contrast(1.05);border:1px solid #1f1c15;overflow:hidden}
+.mA-ph svg{width:100%;height:100%;display:block}
+.mA-cap{position:absolute;left:14px;bottom:8px;font-size:14px;letter-spacing:.04em}
+.mA-cap b{font-family:var(--hd);font-weight:400;font-size:16px}
+.mA-stamp{position:absolute;right:26px;top:22px;border:3px solid var(--acc);color:var(--acc);font-family:var(--hd);font-size:22px;padding:4px 12px;transform:rotate(8deg);text-align:center;line-height:1;opacity:.85;background:rgba(239,230,207,.5)}
+.mA-stamp small{font-size:11px;letter-spacing:.2em}
+.mA-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mA-stats .st{padding:8px 10px;display:flex;flex-direction:column;gap:3px;border-width:4px}
+.mA-stats small{font-family:var(--lb);font-size:12px;letter-spacing:.12em;color:var(--ink2);font-weight:600}
+.mA-stats b{font-family:var(--hd);font-size:22px;font-weight:400;line-height:1}
+.mA-stats span{font-size:12px;color:var(--ink2)}
+.mA-queue{padding:10px 14px}
+.mA-queue td{padding:6px 4px;border-bottom:1px dotted var(--line);font-size:14px}
+.mA-queue td .ico{color:var(--ink2)}
+.mA-queue td:nth-child(3){font-family:var(--nm);font-weight:700;font-size:16px;text-align:right;width:90px}
+.mA-queue td:last-child{text-align:right;width:150px}
+.mA-queue .sub{display:block;font-size:12px;color:var(--ink2)}
+.mA-right{display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:12px;min-height:0}
+.cv .tele{padding:10px 12px}
+.cv .tele .ev{display:grid;grid-template-columns:1fr auto;gap:1px 8px;padding:4px 8px;margin-bottom:5px;background:#ece2c4;border:1px solid #1f1c15;border-left:6px solid var(--ink2);font-size:12.5px}
+.cv .tele .ev b{font-family:var(--lb);font-size:13.5px;letter-spacing:.08em}
+.cv .tele .ev .t{font-family:var(--nm);font-weight:700;font-size:15px;grid-row:1/3;grid-column:2;align-self:center}
+.cv .tele .ev.bad{border-left-color:var(--acc);background:#e9c9b4}
+.cv .tele .ev.bad b{color:var(--acc)}
+.cv .tele .ev.in{border-left-color:var(--ok)}
+.cv .tags{padding:10px 12px}
+.cv .tag{display:grid;grid-template-columns:1fr auto;padding:3px 10px 3px 22px;margin-bottom:4px;background:linear-gradient(#b8bdb9,#8f9592);border:1.5px solid #2c302f;border-radius:4px 14px 14px 4px;position:relative;font-size:12.5px}
+.cv .tag::before{content:"";position:absolute;left:8px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#2c302f}
+.cv .tag b{font-family:var(--lb);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.cv .tag i{font-style:normal;font-family:var(--nm);grid-row:1/3;grid-column:2;align-self:center}
+.cv .tag.on{background:linear-gradient(#e7d9ad,#c7b583);border-color:var(--acc)}
+.cv .wal{padding:10px 12px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-content:start}
+.cv .wal h3{grid-column:1/-1}
+.cv .wal .btn{grid-column:1/-1}
+.cv .wal .big{font-family:var(--hd);font-size:36px;line-height:1}
+.cv .wal p{margin:0;font-size:12.5px;color:var(--ink2)}
+.mA-foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding:0 14px;background:#1d1e18;color:#c9bd98;font-family:var(--lb);letter-spacing:.14em;font-size:12.5px;border:2px solid #4a504d}
+
+/* ---------- main B: Dvor ---------- */
+.mB{position:relative;height:800px;padding:14px 18px;display:grid;grid-template-columns:268px minmax(0,1fr) 292px;grid-template-rows:112px 50px 1fr 84px;gap:12px;
+  background:radial-gradient(ellipse at 50% 0%,#5a2227,transparent 60%),linear-gradient(#3b1517,#2a0f11)}
+.mB::before{content:"";position:absolute;inset:6px;border:2px solid #b88a2e;pointer-events:none;box-shadow:inset 0 0 0 4px #3b1517,inset 0 0 0 5px #8a6420}
+.mB-top{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.mB-res{display:flex;gap:12px}
+.mB-res.r{justify-content:flex-end}
+.cv .seal{display:flex;align-items:center;gap:8px;color:#f3e2b6}
+.cv .seal i{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#c23a40,#7d1218 70%);box-shadow:0 0 0 2px #d4a338,0 0 0 4px #3b1517,0 0 0 5px #8a6420;color:#f8e3a6}
+.cv .seal i .ico{width:22px;height:22px}
+.cv .seal b{display:block;font-family:var(--nm);font-size:21px;font-weight:700;line-height:1;color:#f8e9c4}
+.cv .seal small{display:block;font-family:var(--hd);font-size:10.5px;letter-spacing:.14em;color:#d8b46a;text-transform:uppercase}
+.mB-crest{display:flex;align-items:center;gap:14px;color:#f6e7c1;text-align:center}
+.mB-crest svg{width:62px;height:74px}
+.mB-crest h1{margin:0;font-family:var(--hd);font-size:24px;letter-spacing:.06em;font-weight:700;color:#f7e4b0}
+.mB-crest p{margin:2px 0 0;font-size:16px;font-style:italic;color:#d8b46a}
+.mB-nav{grid-column:1/-1;display:flex;justify-content:center;gap:6px;min-width:0;overflow:hidden}
+.mB-nav .sh{display:flex;align-items:center;gap:6px;padding:0 10px;height:42px;background:linear-gradient(#f3e5c0,#dcc58e);border:1.5px solid #d4a338;color:#4a2a17;font-family:var(--hd);font-size:11.5px;letter-spacing:.05em;font-weight:700;clip-path:polygon(0 0,100% 0,100% 70%,50% 100%,0 70%)}
+.mB-nav .sh.on{background:linear-gradient(#c22e36,#8d1820);color:#f8e7b8}
+.mB-nav .sh .ico{width:16px;height:16px}
+.mB-left{padding:16px 16px;display:flex;flex-direction:column;gap:10px}
+.mB-left dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:16px}
+.mB-left dt{font-family:var(--hd);font-size:11px;letter-spacing:.1em;color:var(--ink2);text-transform:uppercase;align-self:center}
+.mB-left dd{margin:0;text-align:right;font-weight:600}
+.mB-left .por{display:flex;gap:10px;align-items:center;border-top:1px solid var(--gold);padding-top:10px}
+.mB-left .por svg{width:64px;height:64px;border:1.5px solid var(--gold);border-radius:50%;background:#efe1bd}
+.mB-left .por b{font-family:var(--hd);font-size:13px;display:block}
+.mB-left .por span{font-size:15px;font-style:italic;color:var(--ink2)}
+.mB-center{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:10px;min-height:0;min-width:0}
+.mB-map{padding:12px;min-height:0;display:flex}
+.mB-map .fr{flex:1;border:3px double var(--gold);overflow:hidden;min-height:0}
+.mB-map svg{width:100%;height:100%;display:block}
+.mB-rib{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);background:var(--acc);color:#f8e7b8;font-family:var(--hd);font-size:14px;letter-spacing:.1em;padding:7px 30px;clip-path:polygon(0 0,100% 0,96% 50%,100% 100%,0 100%,4% 50%);white-space:nowrap}
+.mB-work{padding:12px 16px}
+.mB-work .row{display:grid;grid-template-columns:22px 1fr auto auto;gap:10px;align-items:center;padding:4px 0;border-bottom:1px solid var(--line);font-size:16px}
+.mB-work .row:last-child{border:0}
+.mB-work .t{font-family:var(--nm);font-weight:700;font-size:17px}
+.mB-right{padding:16px 14px;display:flex;flex-direction:column;gap:8px}
+.cv .news{padding:8px 4px 8px 34px;position:relative;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.25}
+.cv .news::before{content:"";position:absolute;left:4px;top:10px;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c23a40,#7d1218 70%);box-shadow:0 0 0 1.5px #d4a338}
+.cv .news.in::before{background:radial-gradient(circle at 35% 30%,#5d8a4d,#2f5426 70%)}
+.cv .news.out::before{background:radial-gradient(circle at 35% 30%,#3d6aa6,#1b3b6b 70%)}
+.cv .news b{font-family:var(--hd);font-size:12px;letter-spacing:.08em;display:block;text-transform:uppercase}
+.cv .news.bad b{color:var(--acc)}
+.cv .news .t{float:right;font-family:var(--nm);font-weight:700;font-size:17px}
+.mB-foot{grid-column:1/-1;display:flex;justify-content:center;gap:14px;align-items:flex-start}
+.cv .pen{width:190px;height:78px;padding:8px 10px 0;text-align:center;background:linear-gradient(#f2e6c8,#e2cf9f);border:1.5px solid #d4a338;clip-path:polygon(0 0,100% 0,100% 72%,50% 100%,0 72%);color:#3a2414}
+.cv .pen b{display:block;font-family:var(--hd);font-size:12px;letter-spacing:.06em}
+.cv .pen span{font-size:14.5px;font-style:italic}
+.cv .pen.on{background:linear-gradient(#c22e36,#8d1820);color:#f8e7b8}
+
+/* ---------- main C: HUD ---------- */
+
+.cv .rs{display:grid;grid-template-columns:auto 1fr;gap:0 8px;align-items:center}
+.cv .rs .ico{grid-row:1/3;width:22px;height:22px;color:var(--acc)}
+.cv .rs b{font-family:var(--nm);font-size:17px;font-weight:600;color:var(--ink)}
+.cv .rs small{font-family:var(--nm);font-size:10.5px;color:var(--ink2);display:flex;justify-content:space-between;gap:6px}
+.cv .rs .bar{grid-column:2;margin-top:3px}
+.cv .tl{padding:9px 0 9px 14px;border-bottom:1px solid var(--line);position:relative}
+.cv .tl::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;background:var(--acc);transform:rotate(45deg)}
+.cv .tl.bad::before{background:var(--bad);box-shadow:0 0 10px var(--bad)}
+.cv .tl.in::before{background:var(--ok)}
+.cv .tl .h{display:flex;justify-content:space-between;align-items:baseline}
+.cv .tl b{font-family:var(--hd);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.cv .tl.bad b,.cv .tl.bad .t{color:var(--bad)}
+.cv .tl .t{font-family:var(--nm);font-size:15px;font-weight:600;color:var(--ink)}
+.cv .tl p{margin:3px 0 6px;font-size:12px;color:var(--ink2)}
+.cv .tl.bad .bar>u{background:var(--bad);box-shadow:0 0 8px var(--bad)}
+.cv .qi{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.cv .qi svg.ring{width:54px;height:54px}
+.cv .qi b{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.cv .qi span{font-family:var(--nm);font-size:12.5px;color:var(--acc2)}
+.cv .dk{flex:1;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;position:relative;background:rgba(9,26,44,.6);border:1px solid var(--line)}
+.cv .dk.on{border-color:var(--acc);box-shadow:0 0 20px rgba(95,240,255,.2) inset}
+.cv .dk b{font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.cv .dk span{font-family:var(--nm);font-size:11px;color:var(--ink2)}
+.cv .dk i{position:absolute;top:8px;right:10px;font-style:normal;font-family:var(--nm);font-size:11px;color:var(--acc2)}
+.cv .dk svg{position:absolute;left:8px;top:6px;width:64px;height:auto}
+.cv .mini{display:grid;grid-template-columns:repeat(15,1fr);gap:3px;margin-top:6px}
+.cv .mini i{height:30px;border:1px solid var(--line);background:rgba(95,240,255,.05);position:relative}
+.cv .mini i.o{background:rgba(95,240,255,.18)}
+.cv .mini i.me{background:var(--acc2);border-color:var(--acc2);box-shadow:0 0 10px rgba(255,195,90,.6)}
+.cv .mini i.al{background:rgba(95,240,255,.45)}
+.cv .mini i.en{background:rgba(255,122,92,.55);border-color:var(--bad)}
+.cv .mini-z{display:grid;grid-template-columns:3fr 3fr 3fr 3fr 3fr;margin-top:4px;font-family:var(--nm);font-size:9.5px;color:var(--ink2);letter-spacing:.04em}
+
+/* ---------- other screens (shared layout) ---------- */
+.cv.scr{height:760px;display:flex;flex-direction:column;padding:16px 18px;gap:14px}
+.skA.scr{background:linear-gradient(180deg,#30312a,#25261f)}
+.skB.scr{background:radial-gradient(ellipse at 50% 0%,#5a2227,transparent 60%),linear-gradient(#3b1517,#2a0f11)}
+.cv .scr-h{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 16px}
+.cv .scr-h .tt{display:flex;align-items:center;gap:12px}
+.cv .scr-h .tt .ico{width:30px;height:30px}
+.cv .scr-h h2{margin:0;font-weight:400;line-height:1}
+.cv .scr-h p{margin:3px 0 0;font-size:13px;color:var(--ink2)}
+.skA .scr-h h2{font-family:var(--hd);font-size:28px;text-transform:uppercase;letter-spacing:.04em}
+.skB .scr-h h2{font-family:var(--hd);font-size:26px;font-weight:700;color:var(--acc);letter-spacing:.06em}
+.skB .scr-h p{font-size:16px;font-style:italic}
+.cv .mres{display:flex;gap:14px}
+.cv .mres span{display:flex;align-items:center;gap:5px;font-family:var(--nm);font-size:14px;font-weight:700}
+.cv .mres .ico{width:16px;height:16px;color:var(--acc2)}
+.cv .scr-b{flex:1;min-height:0;display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.cv .scr-b>*{min-width:0}
+.cv .cell-p{padding:14px 16px;min-height:0;display:flex;flex-direction:column}
+
+.cv .tbl th{text-align:left;font-weight:400;padding:6px 8px;white-space:nowrap}
+.cv .tbl td{padding:2px 8px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+.skA .tbl th{font-family:var(--lb);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;border-bottom:2px solid var(--ink)}
+.skA .tbl td{border-bottom-style:dotted;font-size:13.5px}
+.skB .tbl th{font-family:var(--hd);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:700;border-bottom:1.5px solid var(--gold)}
+.skB .tbl td{font-size:16px}
+.cv .tbl tr.me td{background:rgba(163,68,42,.14)}
+.skB .tbl tr.me td{background:rgba(212,163,56,.22)}
+.cv .tbl tr.free td{color:var(--ink2);font-style:italic}
+.cv .tbl .mini-c{width:38px;height:28px;display:block}
+.cv .tbl .acts{display:flex;gap:6px;color:var(--ink2)}
+.cv .tbl .acts .ico{width:17px;height:17px}
+.cv .st-n{color:var(--ink2)}.cv .st-m{color:var(--acc2)}.cv .st-s{color:var(--ok)}
+.cv .zone{display:flex;flex-direction:column;gap:6px}
+.cv .zone div{display:grid;grid-template-columns:60px 1fr;gap:8px;align-items:center;font-size:13px}
+.cv .zone div i{height:26px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-style:normal;font-family:var(--nm);font-size:12px}
+.cv .zone div.me i{background:var(--acc);color:#fff;border-color:var(--acc)}
+.cv .legend{display:grid;gap:5px;font-size:13px;margin-top:auto}
+
+.cv .ugrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.cv .ucard{display:flex;flex-direction:column;gap:6px;padding:8px;position:relative;background:var(--panel2)}
+.skA .ucard{border:2px solid var(--ink)}
+.skB .ucard{border:1px solid var(--gold);border-radius:4px}
+.cv .ucard.sel{outline:3px solid var(--acc2);outline-offset:-1px}
+.skA .ucard.sel{outline-color:var(--acc)}
+.cv .ucard svg{width:100%;height:auto;display:block}
+.cv .ucard b{font-size:14px}
+.skA .ucard b{font-family:var(--lb);font-size:16px;text-transform:uppercase;letter-spacing:.06em}
+.skB .ucard b{font-family:var(--hd);font-size:13px}
+.cv .ucard .cost{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2)}
+.cv .ucard .cost strong{font-family:var(--nm);color:var(--ink)}
+.cv .step{display:grid;grid-template-columns:28px 1fr 28px;border:1px solid var(--line);text-align:center;font-family:var(--nm);font-weight:700;align-items:center;height:28px}
+.cv .step span{display:grid;place-items:center;height:100%;color:var(--ink2)}
+.cv .step span .ico{width:14px;height:14px}
+.cv .tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.cv .tabs .tb{padding:6px 12px;font-size:13px;border:1px solid var(--line);color:var(--ink2)}
+.cv .tabs .tb.on{color:var(--ink);border-color:var(--ink);font-weight:700}
+.skA .tabs .tb{font-family:var(--lb);text-transform:uppercase;letter-spacing:.08em;font-size:14px}
+.skA .tabs .tb.on{background:var(--ink);color:var(--panel)}
+.skB .tabs .tb{font-family:var(--hd);font-size:12px;letter-spacing:.06em;border-color:var(--gold);border-radius:12px}
+.skB .tabs .tb.on{background:var(--acc);color:#f8e7b8;border-color:var(--acc)}
+.cv .kv{display:grid;grid-template-columns:1fr auto;gap:7px 12px;font-size:14px;align-items:baseline}
+.cv .kv dt{color:var(--ink2)}
+.cv .kv dd{margin:0;text-align:right;font-family:var(--nm);font-weight:700}
+.skB .kv{font-size:16.5px}
+.cv .bigegg{font-family:var(--hd);font-size:50px;line-height:1;margin:4px 0}
+.skB .bigegg{color:var(--acc)}
+.cv .mchikn{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}
+.cv .mchikn svg{width:44px;height:44px;border-radius:50%;background:var(--panel2)}
+.cv .mchikn small{display:block;color:var(--ink2);font-size:11.5px}
+.cv .note{font-size:12.5px;color:var(--ink2);line-height:1.35}
+.skB .note{font-size:15px;font-style:italic}
+
+.cv .utbl td .uimg{width:58px;height:48px;display:block}
+.cv .inp{display:inline-block;min-width:74px;padding:5px 8px;border:1px solid var(--ink2);font-family:var(--nm);font-weight:700;text-align:right;background:rgba(255,255,255,.35)}
+.cv .miss{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cv .miss div{display:flex;align-items:center;gap:8px;padding:9px 10px;border:1px solid var(--line);font-size:13.5px}
+.cv .miss div.on{border:2px solid var(--acc);color:var(--acc);font-weight:700}
+.skA .miss div{font-family:var(--lb);text-transform:uppercase;letter-spacing:.06em;font-size:14px;border-color:var(--ink2)}
+.skB .miss div{font-family:var(--hd);font-size:12px;border-color:var(--gold)}
+.cv .addr{display:flex;gap:8px;align-items:center;margin:4px 0 12px;font-size:14px}
+.cv .speed{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:4px 0 2px}
+.cv .speed i{height:14px;background:var(--acc);opacity:.9}
+.skA .speed i{background:var(--ink2)}
+
+.cv .rep-h{display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
+.cv .rep-h .res{font-family:var(--hd);font-size:20px;color:var(--ok)}
+.skA .rep-h .res{text-transform:uppercase}
+.cv .rep-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.cv .rep-g .tbl td:nth-child(n+2),.cv .rep-g .tbl th:nth-child(n+2){text-align:right}
+.cv .rep-g .tbl td.l{color:var(--bad);font-family:var(--nm);font-weight:700}
+.cv .side-t{font-size:13px;color:var(--ink2);margin-bottom:8px}
+.cv .rounds{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cv .rd{display:flex;flex-direction:column;gap:5px;font-size:12.5px}
+.cv .rd .bar{height:12px}
+.cv .rd .bar.d>u{background:var(--bad)}
+.cv .loot{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cv .loot div{padding:10px 12px;border:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.cv .loot small{font-size:12px;color:var(--ink2)}
+.cv .loot b{font-family:var(--nm);font-size:22px}
+.skB .loot div{border-color:var(--gold)}
+
+.cv .cgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cv .ccard{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:10px;align-items:start;background:var(--panel)}
+.skA .ccard{border:3px solid var(--frame);background:var(--panel) var(--paper)}
+.skB .ccard{border:1.5px solid var(--gold);background:var(--panel) var(--paper)}
+.cv .ccard svg{width:96px;height:96px;display:block;background:var(--panel2);border-radius:50%}
+.skA .ccard svg{border-radius:0;border:2px solid var(--ink);filter:sepia(.25)}
+.cv .ccard .id{font-family:var(--nm);font-size:12px;color:var(--ink2)}
+.cv .ccard b{display:block;font-size:15px;line-height:1.15}
+.skA .ccard b{font-family:var(--lb);font-size:17px;text-transform:uppercase;letter-spacing:.04em}
+.skB .ccard b{font-family:var(--hd);font-size:13.5px}
+.cv .ccard .tr{font-size:12.5px;margin:4px 0;line-height:1.3}
+.skB .ccard .tr{font-size:15px}
+.cv .ccard .as{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:7px;font-size:12.5px}
+.cv .ccard.empty{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;border-style:dashed;color:var(--ink2)}
+.cv .rar{font-size:11px;padding:1px 6px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.cv .rar.l{background:#c8932b;color:#1f1400}.cv .rar.e{background:#6b4aa0;color:#fff}.cv .rar.r{background:#2f6aa8;color:#fff}.cv .rar.o{background:#7a7566;color:#fff}
+
+/* ---------- v0.2: photo art inside mockups ---------- */
+.cv img{max-width:none}
+.cv img.yard{width:100%;height:100%;object-fit:cover;display:block}
+.cv .mA-ph{filter:sepia(.18) contrast(1.04)}
+.cv .egg-badge{display:inline-grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;background:var(--panel2);border:1px solid var(--line);color:var(--acc)}
+.skB .egg-badge{border-color:var(--gold);color:var(--acc)}
+.cv .egg-badge .ico{width:22px;height:22px}
+.cv .egg-badge.big{width:62px;height:62px}
+.cv .egg-badge.big .ico{width:30px;height:30px}
+.cv .mB-left .por{align-items:center}
+.cv .ticket{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--line);background:rgba(255,255,255,.18)}
+.cv .ticket.on{border:2px solid var(--acc)}
+.skB .ticket{border-color:var(--gold)}
+.cv .ticket .id{font-family:var(--nm);font-size:12.5px;color:var(--ink2)}
+.cv .ticket b{display:block;font-size:18px;line-height:1.15}
+.skA .ticket b{font-family:var(--lb);text-transform:uppercase;letter-spacing:.05em}
+.skB .ticket b{font-family:var(--hd);font-size:16px}
+.cv .ugrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cv .ucard img{width:100%;height:116px;object-fit:cover;object-position:center 40%;display:block}
+.cv .utbl img.uimg{width:42px;height:42px;object-fit:cover;display:block;border-radius:3px}
+.cv .tbl img.mini-c{width:40px;height:28px;object-fit:cover;display:block;border-radius:2px}
+.cv .mchikn{grid-template-columns:44px 1fr auto}
+
+</style>
+<nav class="topnav" aria-label="Chapters">
+  <div class="wrap">
+    <a class="brand" href="#top">Feather <span>&amp;</span> Iron</a>
+    <div class="navlinks">
+      <a href="#story">Story</a><a href="#ticket">Ticket &amp; eggs</a><a href="#resources">Resources</a><a href="#world">World</a><a href="#rules">Rules</a><a href="#design">Pick the art</a><a href="#picks">Your picks</a>
+    </div>
+    <a class="navpick" href="#picks" id="navpick" aria-label="Pick status"><span>Picks</span><b data-k="eggs">E</b><b data-k="units">U</b><b data-k="buildings">B</b><b data-k="main">M</b><b data-k="screens">S</b></a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-art"><img src="img/hero.webp" alt="A column of helmeted war hens marches at dusk past a giant armored Brahma hen carrying a war tower"></div>
+  <div class="wrap">
+    <p class="eyebrow">Game design · v0.2 · Chikn NFT</p>
+    <h1>Feather <em>&amp;</em><br>Iron</h1>
+    <p class="tagline">32,000 Chikn. One world. No Farmer.</p>
+    <p class="lede">A browser strategy game where every Chikn NFT is a ticket into the world. Build your coop, turn the eggs your Chikn brings into an army, and fight for the top of the Pecking Order.</p>
+    <div class="cta"><a class="pbtn pri" href="#ticket">Decide the starting eggs</a><a class="pbtn" href="#design">Pick the art</a></div>
+  </div>
+  <div class="facts">
+    <div class="wrap">
+      <div class="fact"><b>32,000</b><span>tickets, one seat per Chikn NFT</span></div>
+      <div class="fact"><b>1,000</b><span>eggs per NFT, our proposed starting stock</span></div>
+      <div class="fact"><b>4 + eggs</b><span>Grain, Grit, Oil and Power, plus eggs from the NFT</span></div>
+      <div class="fact"><b>44–238</b><span>build fields, set by the plot's place on the street</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="ch" id="story">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Story</p><h2 class="h2">The spring the Farmer didn't come</h2></div>
+    <div class="grid2">
+      <div class="stack story">
+        <p>For generations the Farmer opened the gate at dawn, poured the grain and collected the eggs. Every coop on the Estate had an address, and every Chikn had its place in the Pecking Order.</p>
+        <p>One spring the gate stayed shut. In the farmhouse kitchen the Chikn found the Farmer's notebook on hatching. It taught them that an egg can hatch whatever the flock needs: a soldier, a pack hen, a wall.</p>
+        <p>The old coops by the farmhouse claimed the notebook and the full silo. The coops along the fence refused. The night the shared feeder was kicked over, the war for the Pecking Order began.</p>
+      </div>
+      <div class="stack">
+        <h3 class="h3">What they fight over</h3>
+        <div class="why">
+          <div><b>Grain</b><p>The big silo is full, and every building and every soldier eats grain.</p></div>
+          <div><b>Eggs</b><p>The only thing on the Estate that can become anything. Whoever holds eggs holds an army.</p></div>
+          <div><b>Meadow plots</b><p>Plots 4 to 6 have the most room to build. Each street has only three.</p></div>
+          <div><b>The Pecking Order</b><p>Rank used to be settled by the Farmer. Now it is taken.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch alt" id="ticket">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">The ticket</p><h2 class="h2">Every Chikn is a seat in the world</h2>
+      <p class="lede">You play by holding a Chikn NFT. Each NFT opens one account with one home coop and brings a fixed stock of eggs into your wallet.</p></div>
+    <div class="rules4">
+      <div><b>One NFT, one account</b><p>Connect a wallet and pick a Chikn. It becomes the account's ticket, and its home coop lands on a free Meadow or Gardens plot.</p></div>
+      <div><b>The account follows the NFT</b><p>Sell or transfer the NFT and the account moves with it: coops, flocks and research.</p></div>
+      <div><b>One seat per wallet</b><p>A wallet plays one account in a world at a time. Extra Chikn are spare tickets to sell or lend.</p></div>
+      <div><b>Eggs ride in the wallet</b><p>Eggs are a token. They can be traded, nobody can raid them, and using one in the game burns it.</p></div>
+    </div>
+
+    <div class="decide" id="eggs">
+      <div class="decide-h"><div><p class="eyebrow">The one open number</p><h3 class="h3">How many eggs does each Chikn start with?</h3>
+        <p class="muted">We recommend 1,000. That is about a week of early production: you feel it on day one, and by day 30 an active player produces as much in under a day.</p></div>
+        <span class="cur" data-cur="eggs">Not picked</span></div>
+      <div class="opts">
+        <button class="opt" type="button" data-pick="eggs" data-v="500" aria-pressed="false"><span class="ot">500 eggs</span><span class="od">About 4 to 5 days of early production</span><span class="om">Total supply 16 million eggs. A gentle boost.</span><span class="ob">Pick 500</span></button>
+        <button class="opt rec" type="button" data-pick="eggs" data-v="1000" aria-pressed="false"><span class="tagrec">Recommended</span><span class="ot">1,000 eggs</span><span class="od">About one week of early production</span><span class="om">Total supply 32 million eggs. A strong first week that fades by week four.</span><span class="ob">Pick 1,000</span></button>
+        <button class="opt" type="button" data-pick="eggs" data-v="2000" aria-pressed="false"><span class="ot">2,000 eggs</span><span class="od">About a week and a half of early production</span><span class="om">Total supply 64 million eggs. Day-one flocks get big and new players feel more pressure.</span><span class="ob">Pick 2,000</span></button>
+      </div>
+      <h3 class="h4" style="margin:30px 0 12px">What the starting eggs buy</h3>
+      <div class="calc">
+        <div class="ctl">
+          <div><label for="cE">Eggs <output id="oE">1,000</output></label><input type="range" id="cE" min="0" max="3000" step="10" value="1000"></div>
+          <div><label for="cL">Hatchery level <output id="oL">3</output></label><input type="range" id="cL" min="1" max="20" step="1" value="3"></div>
+          <div><label for="cG">Egg Genetics <output id="oG">0</output></label><input type="range" id="cG" min="0" max="10" step="1" value="0"></div>
+          <p class="small muted">New coops start with a level 3 Hatchery. Each card is one way to spend all the eggs, so the cards don't add up.</p>
+        </div>
+        <div class="outs" id="outs"></div>
+      </div>
+      <p class="rate">1 egg = 200 Grain = 100 Grit = 50 Oil = 10 minutes of speed-up. Units cost eggs at the same value.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="resources">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Resources</p><h2 class="h2">Grain, Grit, Oil, Power and Eggs</h2>
+      <p class="lede">Every coop mines three resources. Power keeps the mines running. Eggs come from outside the game, through the NFT.</p></div>
+    <div class="flowd" role="img" aria-label="Windmills make Power, Power runs the Grain Field, Grit Pit and Oil Press, their output fills storage and is spent on buildings, research, units and defense; Oil also fuels every flock trip; eggs from the Chikn NFT go through the Hatchery">
+      <div class="fl-row">
+        <div class="node pw"><i data-ic="snaga"></i><b>Windmill</b><span>and Compost Furnace</span></div>
+        <div class="arrow"><span>Power</span></div>
+        <div class="node-group">
+          <div class="node"><i data-ic="zrno"></i><b>Grain Field</b><span>Grain</span></div>
+          <div class="node"><i data-ic="krec"></i><b>Grit Pit</b><span>Grit</span></div>
+          <div class="node"><i data-ic="ulje"></i><b>Oil Press</b><span>Oil</span></div>
+        </div>
+        <div class="arrow"><span>storage</span></div>
+        <div class="node sink"><b>Spent on</b><span>buildings · research · units · defense</span><span class="oil">Oil also burns on every flock trip</span></div>
+      </div>
+      <div class="fl-row egg">
+        <div class="node nft"><i data-ic="novcanik"></i><b>Chikn NFT</b><span>starting eggs</span></div>
+        <div class="arrow"><span>Eggs</span></div>
+        <div class="node"><i data-ic="inkubator"></i><b>Hatchery</b><span>eggs per hour by level</span></div>
+        <div class="arrow"><span>becomes</span></div>
+        <div class="node sink"><b>Anything</b><span>units · defense · resources · speed-ups</span></div>
+      </div>
+    </div>
+    <div class="tblwrap"><table class="t"><thead><tr><th>Resource</th><th>Made by</th><th>Spent on</th><th>How it fits</th></tr></thead><tbody>
+      <tr><td><b>Grain</b></td><td>Grain Field</td><td>Every building and every unit</td><td>The bulk material. Cheapest and most plentiful, so raids carry off the most of it.</td></tr>
+      <tr><td><b>Grit</b></td><td>Grit Pit</td><td>Research, armor, heavy units, defenses</td><td>Harder to dig, so it becomes the bottleneck in the mid game.</td></tr>
+      <tr><td><b>Oil</b></td><td>Oil Press</td><td>Flock travel, top units, Compost Furnace</td><td>Every trip burns it. Hot plots press more: +1.5% per °C above 15 °C, less on cold plots.</td></tr>
+      <tr><td><b>Power</b></td><td>Windmill, Compost Furnace</td><td>Running the three producers</td><td>Not stored. If Power falls short, all three producers slow by the same share.</td></tr>
+      <tr><td><b>Eggs</b></td><td>The Chikn NFT</td><td>Hatchery: units, defense, resources, speed-ups</td><td>Fixed supply. Can't be raided. Burned when used.</td></tr>
+    </tbody></table></div>
+    <div class="grid2 psub">
+      <div><h3 class="h3">Production per hour</h3><p class="small muted" style="margin:6px 0 0">Starting balance at 18 °C. The curves are ours and get tuned in testing.</p>
+        <div class="tblwrap"><table class="t" id="prod" style="min-width:460px"><thead><tr><th>Building</th><th>Lv 1</th><th>Lv 5</th><th>Lv 10</th><th>Lv 15</th><th>Lv 20</th></tr></thead><tbody></tbody></table></div></div>
+      <div><h3 class="h3">Storage and raids</h3>
+        <ul class="plain"><li><b>Granary, Grit Bin and Oil Tank</b> cap what a coop can hold. Production stops when storage is full.</li><li><b>A raid takes up to 40%</b> of each stored resource, limited by the raiders' cargo.</li><li><b>Eggs are never in a coop</b>, so no raid can reach them.</li><li><b>Exchange value</b>: Grain, Grit and Oil trade at 1 : 2 : 4.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch alt" id="world">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">World</p><h2 class="h2">Coops instead of planets</h2>
+      <p class="lede">Each account starts with one coop on one plot. The plot works like a planet: its place on the street sets how many fields you can build on and how hot it is.</p></div>
+    <div class="chain">
+      <div><b>1 world</b><span>one server, 32,000 seats</span></div>
+      <div><b>12 neighborhoods</b><span>in a ring around the farmhouse</span></div>
+      <div><b>500 streets</b><span>in each neighborhood</span></div>
+      <div><b>15 plots</b><span>per street, from the road to the grove</span></div>
+    </div>
+    <p class="paddr">Addresses read like a village address: <b>Sunflower 117/6</b> is the Sunflower neighborhood, street 117, plot 6. A trip along the same street takes minutes, across a neighborhood hours, and to another neighborhood most of a day. 90,000 plots in total.</p>
+    <div class="explore">
+      <div class="chartbox">
+        <h3 class="h4">Build fields by plot</h3>
+        <p class="small muted">The range of fields a plot rolls when it is settled. Pick a column to see the plot.</p>
+        <div class="chart-scroll"><div class="chart" id="chart"></div></div>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+      <div class="plot" id="plot" aria-live="polite"></div>
+    </div>
+    <div class="tblwrap"><table class="t" id="zoneTable"><thead><tr><th>Zone</th><th>Plots</th><th>Fields</th><th>Temperature</th><th>Oil output</th></tr></thead><tbody></tbody></table></div>
+    <div class="psub"><h3 class="h3">Twelve neighborhoods</h3><p class="muted" style="margin-top:6px">They form a ring, so Clover Hill borders Old Estate.</p><div class="hoods" id="hoods"></div></div>
+  </div>
+</section>
+
+<section class="ch" id="rules">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Game systems</p><h2 class="h2">Build, research, hatch, raid</h2>
+      <p class="lede">The loop is the one players know from the browser strategy classics: mines feed buildings and research, the Hatchery turns resources and eggs into units, and flocks travel to raid, trade and settle. Names, numbers and balance below are our own.</p></div>
+    <div class="cols4">
+      <div><h4>Production</h4><ul><li><b>Grain Field</b> · Grain</li><li><b>Grit Pit</b> · Grit</li><li><b>Oil Press</b> · Oil</li><li><b>Windmill</b> · Power</li><li><b>Compost Furnace</b> · Power from Oil</li></ul></div>
+      <div><h4>Storage</h4><ul><li><b>Granary</b> · holds Grain</li><li><b>Grit Bin</b> · holds Grit</li><li><b>Oil Tank</b> · holds Oil</li></ul></div>
+      <div><h4>Facilities</h4><ul><li><b>Henhouse</b> · main building, faster construction</li><li><b>Workshop</b> · faster hatching, unlocks heavy units</li><li><b>Hatchery</b> · units, defense and egg use</li><li><b>Academy</b> · research</li><li><b>Fence Extension</b> · +4 fields per level</li><li><b>Watchtower</b> · spots incoming flocks earlier</li><li><b>Feeder Depot</b> · feeds allied flocks on guard</li></ul></div>
+      <div><h4>Research</h4><ul><li><b>Beak Sharpening</b> · +5% attack per level</li><li><b>Shell Plating</b> · +5% health</li><li><b>Down Padding</b> · +2% armor, up to +20%</li><li><b>Long Stride, Pack Training, Heavy March</b> · speed for light, pack and heavy units</li><li><b>Scouting</b> · fuller reports</li><li><b>Cartography</b> · +1 coop every 2 levels</li><li><b>Agronomy</b> · +2% production</li><li><b>Egg Genetics</b> · +3% units per egg</li><li><b>Logistics</b> · +1 flock in the field</li></ul></div>
+    </div>
+    <h3 class="h3 psub" style="margin-bottom:12px">Flock units: every one a chicken</h3>
+    <div class="tblwrap"><table class="t" id="units" style="min-width:900px"><thead><tr><th>Unit</th><th>Role</th><th>Grain / Grit / Oil</th><th>Eggs</th><th>Attack</th><th>Armor</th><th>Health</th><th>Speed</th><th>Cargo</th></tr></thead><tbody></tbody></table></div>
+    <h3 class="h3 psub" style="margin-bottom:12px">Defenses</h3>
+    <div class="tblwrap"><table class="t" id="defs" style="min-width:760px"><thead><tr><th>Defense</th><th>Grain / Grit / Oil</th><th>Eggs</th><th>Attack</th><th>Armor</th><th>Health</th><th>Note</th></tr></thead><tbody></tbody></table></div>
+    <div class="grid2 psub">
+      <div><h3 class="h3">Missions</h3>
+        <div class="miss9" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+          <div><b>Raid</b>Fight and carry off resources.</div><div><b>Joint Raid</b>Up to four allies strike together.</div>
+          <div><b>Transport</b>Move resources to any coop.</div><div><b>Station</b>Move a flock to another of your coops.</div>
+          <div><b>Guard</b>Defend an ally's coop until recalled.</div><div><b>Scout</b>Report on resources, defense and flocks.</div>
+          <div><b>Settle</b>A Settler Hen claims a free plot.</div><div><b>Glean</b>Gleaners turn a feather field into resources.</div>
+          <div style="grid-column:1/-1"><b>Expedition</b>Past the fence into the Wilds. It can bring back resources, stray chickens that join you, or feathers, come back early or late, or not come back at all.</div>
+        </div></div>
+      <div><h3 class="h3">Combat</h3>
+        <ul class="plain"><li>A battle lasts up to <b>6 rounds</b>. Each round, every unit strikes one random enemy.</li><li><b>Damage = Attack × (1 − target Armor)</b>. A Shell Dome soaks damage first, up to its capacity each round.</li><li><b>Frenzy</b>: some units strike again after hitting their favorite target. Peckers chase Scouts, Egg Mortars hammer Slinger Nests and Corn Cannons, Breachers smash domes and towers.</li><li><b>35%</b> of the Grain and Grit in destroyed units falls as a <b>feather field</b> over the plot.</li><li><b>60%</b> of destroyed defenses rebuild themselves after the battle.</li></ul></div>
+    </div>
+    <div class="psub"><h3 class="h3">Protection</h3>
+      <div class="spec" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+        <div><b>Fledgling shield</b><p>New accounts can't be attacked for 7 days. The shield drops early if you raid a player.</p></div>
+        <div><b>Molting</b><p>Holiday mode, 2 to 30 days. Production stops and nobody can attack you or be attacked by you.</p></div>
+        <div><b>Inactive tags</b><p>(i) after 7 days, (I) after 28. Inactive coops can be raided, and the account stays with its NFT.</p></div>
+        <div><b>Alliances</b><p>Joint Raids of up to four players, Guard missions for allies, and a shared ranking in the Pecking Order.</p></div>
+      </div></div>
+  </div>
+</section>
+
+<section class="ch alt" id="design">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Pick the art</p><h2 class="h2">Two styles, four picks</h2>
+      <p class="lede">Every unit is a chicken. Armor and war gear set them apart. Pick a style for units, buildings, the main screen and the other screens. Styles can be mixed. All art is made with Runway.</p></div>
+    <div class="dirs">
+      <div class="dir A"><div class="sw"><i style="background:#2b2c23"></i><i style="background:#5e6240"></i><i style="background:#d9cca8"></i><i style="background:#a3442a"></i><i style="background:#7b8380"></i></div>
+        <div class="bd"><b class="nm">A · Trench</b><p>Trench war on the farm. Steel helmets, goggles, chain veils, canvas webbing and corrugated tin. Screens look like a field dossier with typed text, stamps and rivets.</p><span class="fn">Saira Stencil · Courier Prime</span></div></div>
+      <div class="dir B"><div class="sw"><i style="background:#3b1517"></i><i style="background:#a51d27"></i><i style="background:#d4a338"></i><i style="background:#1f4f8c"></i><i style="background:#f2e6c8"></i></div>
+        <div class="bd"><b class="nm">B · Heraldic</b><p>A knightly order on the farm. Beaked helms, mail, crested shields, towers and banners. Screens look like an illuminated manuscript of parchment, gold and wax seals.</p><span class="fn">Cinzel · Cormorant Garamond</span></div></div>
+    </div>
+
+    <div class="pick" id="units-pick">
+      <div class="pick-h"><div><h3 class="h3">1 · Units</h3><p>Seven of the twelve units in each style, from the Scout to the War Brahma.</p></div><span class="cur" data-cur="units">Not picked</span></div>
+      <div class="seg" data-seg="units"></div>
+      <div class="cols3 cols2" id="colsUnits" data-show="A"></div>
+    </div>
+
+    <div class="pick" id="buildings-pick">
+      <div class="pick-h"><div><h3 class="h3">2 · Buildings</h3><p>Five buildings every player sees on day one.</p></div><span class="cur" data-cur="buildings">Not picked</span></div>
+      <div class="seg" data-seg="buildings"></div>
+      <div class="cols3 cols2" id="colsBuildings" data-show="A"></div>
+    </div>
+
+    <div class="pick" id="main-pick">
+      <div class="pick-h"><div><h3 class="h3">3 · Main screen</h3><p>The coop overview: resources, menu, the yard, the build queue and flock movements. Both show the same data in a different layout.</p></div><span class="cur" data-cur="main">Not picked</span></div>
+      <div class="mocks" id="mainMocks"></div>
+    </div>
+
+    <div class="pick" id="screens-pick">
+      <div class="pick-h"><div><h3 class="h3">4 · Other screens</h3><p>Five screens in the chosen style: Neighborhood, Hatchery, Send Flock, Battle Report and Chikn Wallet. The layout stays, the style changes.</p></div><span class="cur" data-cur="screens">Not picked</span></div>
+      <div class="skinbar"><span>Show in style</span><span id="skinBtns" style="display:flex;gap:6px;margin:0"></span><span class="grow"></span><button class="pbtn pri sm" id="pickSkin" type="button">Pick this style</button></div>
+      <div class="ogrid" id="otherMocks"></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="picks">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Your picks</p><h2 class="h2">What goes into the prototype</h2>
+      <p class="lede">Picks are saved with this page. Tell me in the chat when you're done and I'll read them from here.</p></div>
+    <div class="sum">
+      <div class="sumt" id="sumt"></div>
+      <div class="notes">
+        <label for="note">Notes for the next round</label>
+        <textarea id="note" placeholder="For example: Trench units, Heraldic buildings, and a scarier Scarecrow Tower."></textarea>
+        <div class="saveline"><button class="pbtn pri" id="saveBtn" type="button">Save picks</button><button class="pbtn" id="copyBtn" type="button">Copy as text</button><span class="status" id="status" role="status">Loading saved picks…</span></div>
+        <textarea class="copytxt" id="copyTxt" readonly hidden aria-label="Picks as text"></textarea>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap"><span>Feather &amp; Iron · design v0.2 · 9 November 2026</span><span>Balance numbers are a starting point. Screen data is example data. Art made with Runway.</span></div></footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+  <div class="lb-bar"><b id="lbTitle">Screen</b><span style="display:flex;gap:8px"><button class="pbtn sm" id="lbZoom" type="button">100%</button><button class="pbtn sm" id="lbClose" type="button">Close</button></span></div>
+  <div class="lb-body" id="lbBody"><div class="lb-canvas" id="lbCanvas"></div></div>
+</div>
+
+<script>
+/* Feather & Iron: UI icons (stroke, currentColor) */
+(function (global) {
+  'use strict';
+  const ICON = {
+    zrno: '<path d="M12 21V8"/><path d="M12 8c-2.6-.6-4-2.6-4-5 2.6 0 4 1.8 4 4 0-2.2 1.4-4 4-4 0 2.4-1.4 4.4-4 5z"/><path d="M12 14c-2.6-.6-4-2.4-4-4.6 2.6 0 4 1.6 4 3.4 0-1.8 1.4-3.4 4-3.4 0 2.2-1.4 4-4 4.6z"/>',
+    krec: '<path d="M4 9l8-5 8 5v7l-8 5-8-5z"/><path d="M4 9l8 5 8-5M12 14v7"/>',
+    ulje: '<path d="M12 3c3 5 6 8 6 12a6 6 0 0 1-12 0c0-4 3-7 6-12z"/>',
+    snaga: '<path d="M13 2L5 13h6l-1 9 8-12h-6z"/>',
+    jaja: '<path d="M12 3c4 0 7 6 7 11a7 7 0 0 1-14 0c0-5 3-11 7-11z"/>',
+    perje: '<path d="M20 4C11 4 6 10 6 18"/><path d="M6 18c7 0 13-5 14-14"/><path d="M4 20l2-2M9 14h4M11 11h4"/>',
+    pregled: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',
+    zgrade: '<path d="M14 4l6 6-3 3-6-6z"/><path d="M11 7L4 14l3 3 7-7"/><path d="M4 20h9"/>',
+    istrazivanja: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/>',
+    inkubator: '<path d="M12 6c3 0 5 4 5 7.5a5 5 0 0 1-10 0C7 10 9 6 12 6z"/><path d="M6 3l1.5 2M18 3l-1.5 2M12 2v2"/><path d="M4 21h16"/>',
+    odbrana: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',
+    odred: '<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',
+    komsiluk: '<path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/>',
+    jato: '<path d="M3 14c3-4 6-4 9 0 3-4 6-4 9 0"/><path d="M6 9c2-2.6 4-2.6 6 0 2-2.6 4-2.6 6 0"/>',
+    poruke: '<rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/>',
+    rang: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
+    novcanik: '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12h5v3h-5a1.5 1.5 0 0 1 0-3z"/><path d="M5 6l10-3 1 3"/>',
+    upozorenje: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',
+    sat: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    strelica: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    uhodi: '<circle cx="12" cy="12" r="3"/><path d="M2 12c3-5 6-7 10-7s7 2 10 7c-3 5-6 7-10 7s-7-2-10-7z"/>',
+    napad: '<path d="M14 4l6 0 0 6-9 9-3-3 9-9"/><path d="M4 20l4-4M6 14l4 4"/>',
+    transport: '<rect x="2" y="7" width="13" height="10" rx="1"/><path d="M15 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
+    poruka: '<path d="M4 5h16v11H9l-5 4z"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    minus: '<path d="M5 12h14"/>'
+  };
+  function icon(name, cls) {
+    return `<svg class="ico${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name] || ''}</svg>`;
+  }
+
+  global.ICO = icon;
+})(window);
+
+/* Feather & Iron: game screen mockups. Example data only. */
+(function (global) {
+  'use strict';
+  const I = (n) => ICO(n);
+  const IMG = (f, cls, alt) => `<img src="img/${f}.webp" alt="${alt || ''}" class="${cls || ''}" decoding="async">`;
+
+  const RES = [
+    { ic: 'zrno', l: 'Grain', v: '184,220', r: '+3,812/h' },
+    { ic: 'krec', l: 'Grit', v: '92,415', r: '+1,406/h' },
+    { ic: 'ulje', l: 'Oil', v: '31,870', r: '+514/h' },
+    { ic: 'snaga', l: 'Power', v: '+142', r: '1,420 / 1,278' },
+    { ic: 'jaja', l: 'Eggs', v: '2,412', r: 'in wallet' }
+  ];
+  const NAV = [
+    { ic: 'pregled', l: 'Overview', b: 'Hall' }, { ic: 'zgrade', l: 'Buildings', b: 'Works' }, { ic: 'istrazivanja', l: 'Research', b: 'Lore' },
+    { ic: 'inkubator', l: 'Hatchery', b: 'Hatchery' }, { ic: 'odbrana', l: 'Defense', b: 'Walls' }, { ic: 'odred', l: 'Flocks', b: 'Hosts' },
+    { ic: 'komsiluk', l: 'Neighborhood', b: 'Neighbors' }, { ic: 'jato', l: 'Alliance', b: 'Alliance' }, { ic: 'poruke', l: 'Messages', b: 'Heralds', n: 3 }, { ic: 'rang', l: 'Pecking Order', b: 'Ranks' }
+  ];
+  const EVENTS = [
+    { k: 'bad', t: '00:47:10', a: 'Hostile flock', b: 'Gravel Queen [FENCE] → Sunflower 117/6', c: 'about 340 units · seen by Watchtower 9' },
+    { k: 'out', t: '00:12:41', a: 'Raid', b: 'Sunflower 117/6 → Brickworks 44/9', c: 'Vanguard 120 · Pecker 860 · Pack Brahma 24' },
+    { k: 'in', t: '01:05:22', a: 'Transport', b: 'Sunflower 121/11 → Sunflower 117/6', c: 'Grain 60,000 · Grit 25,000' },
+    { k: 'out', t: '03:40:00', a: 'Expedition', b: 'Pasture 203/14 → the Wilds', c: 'Pack Brahma 8 · Scout 4' }
+  ];
+  const QUEUE = [
+    { ic: 'zgrade', n: 'Grit Pit', d: 'level 19 → 20', t: '01:24:05', e: 9 },
+    { ic: 'inkubator', n: 'Pecker ×120', d: 'from 240 eggs · Hatchery 8', t: '02:11:00', e: 14 },
+    { ic: 'istrazivanja', n: 'Egg Genetics', d: 'level 6 → 7', t: '05:12:44', e: 32 }
+  ];
+  const COOPS = [
+    { n: 'Home Coop', a: 'Sunflower 117/6', p: '148/192', on: 1 },
+    { n: 'Creek Outpost', a: 'Sunflower 121/11', p: '97/138' },
+    { n: 'Roadside Outpost', a: 'Brickworks 44/2', p: '61/74' },
+    { n: 'Grove Watch', a: 'Pasture 203/14', p: '88/112' }
+  ];
+  const crest = `<svg viewBox="0 0 62 74" aria-hidden="true"><path d="M3,3 H59 V34 C59,54 44,66 31,71 C18,66 3,54 3,34 Z" fill="#a51d27" stroke="#d4a338" stroke-width="3"/><ellipse cx="31" cy="33" rx="11" ry="14" fill="#f2d27a" stroke="#2a1a12" stroke-width="2"/><path d="M14,12 l4,6 4,-6 M40,12 l4,6 4,-6" stroke="#f2d27a" stroke-width="2.5" fill="none"/></svg>`;
+
+  function mainA() {
+    return `<div class="cv main mA skA">
+  <header class="mA-top">
+    <div class="mA-logo"><b>FEATHER &amp; IRON</b><small>WORLD 1 · DAY 64</small></div>
+    <div class="mA-res">${RES.map(r => `<div class="plate">${I(r.ic)}<div><b>${r.v}</b><small>${r.l} · ${r.r}</small></div></div>`).join('')}</div>
+    <div class="mA-user"><b>RED SPUR</b><small>[BEAK] Beak of Justice · #412</small></div>
+  </header>
+  <nav class="mA-nav">${NAV.map((n, i) => `<div class="tab${i === 0 ? ' on' : ''}">${I(n.ic)}<span>${n.l}</span>${n.n ? `<em>${n.n}</em>` : ''}</div>`).join('')}</nav>
+  <main class="mA-center">
+    <div class="mA-photo pnl"><div class="mA-ph">${IMG('sA_yard', 'yard', 'Home coop yard')}</div>
+      <div class="mA-cap"><b>SUNFLOWER 117/6</b> · home coop, photographed 09.11.</div>
+      <div class="mA-stamp">MEADOW<br><small>PLOT 6</small></div></div>
+    <div class="mA-stats">
+      <div class="pnl st"><small>FIELDS</small><b>148 / 192</b><i class="bar"><u style="width:77%"></u></i></div>
+      <div class="pnl st"><small>CLIMATE</small><b>18 °C</b><span>temperate · Oil +5%</span></div>
+      <div class="pnl st"><small>DEFENSE</small><b>312</b><span>6 Scarecrow Towers · dome</span></div>
+      <div class="pnl st"><small>TICKET</small><b>#04117</b><span>Chikn NFT · World 1</span></div>
+    </div>
+    <div class="mA-queue pnl"><h3>Under construction</h3><table>${QUEUE.map(q => `<tr><td style="width:26px">${I(q.ic)}</td><td><b>${q.n}</b><span class="sub">${q.d}</span></td><td>${q.t}</td><td><span class="btn">Speed up · ${q.e} eggs</span></td></tr>`).join('')}</table></div>
+  </main>
+  <aside class="mA-right">
+    <div class="pnl tele"><h3>Telegraph · flocks</h3>${EVENTS.slice(0, 3).map(e => `<div class="ev ${e.k}"><b>${e.k === 'bad' ? '⚠ ' : ''}${e.a.toUpperCase()}</b><span class="t">${e.t}</span><span>${e.b}</span></div>`).join('')}</div>
+    <div class="pnl tags"><h3>Coops 4 / 6</h3>${COOPS.map(c => `<div class="tag${c.on ? ' on' : ''}"><b>${c.n}</b><i>${c.p}</i><span>${c.a}</span></div>`).join('')}</div>
+    <div class="pnl wal"><h3>Eggs in wallet</h3><div class="big">2,412</div><p>3 Chikn tickets<br>1 seat in use</p><span class="btn pri">${I('inkubator')} Open Hatchery</span></div>
+  </aside>
+  <footer class="mA-foot"><span>SERVER TIME 21:32:07</span><span>FLEDGLING SHIELD: OFF</span><span>WORLD 1: 28,410 / 32,000 SEATS</span><span>1,937 COMMANDERS ONLINE</span></footer>
+</div>`;
+  }
+
+  function mainB() {
+    const seal = (r) => `<div class="seal"><i>${I(r.ic)}</i><div><b>${r.v}</b><small>${r.l}</small><small>${r.r}</small></div></div>`;
+    return `<div class="cv main mB skB">
+  <header class="mB-top">
+    <div class="mB-res">${seal(RES[0])}${seal(RES[1])}</div>
+    <div class="mB-crest">${crest}<div><h1>House of the Red Spur</h1><p>Alliance Beak of Justice · 412th in the Pecking Order</p></div></div>
+    <div class="mB-res r">${seal(RES[2])}${seal(RES[4])}</div>
+  </header>
+  <nav class="mB-nav">${NAV.map((n, i) => `<div class="sh${i === 0 ? ' on' : ''}">${I(n.ic)}${n.b}${n.n ? ` (${n.n})` : ''}</div>`).join('')}</nav>
+  <section class="mB-left pnl"><h3>The Estate</h3>
+    <dl><dt>Address</dt><dd>Sunflower 117/6</dd><dt>Zone</dt><dd>Meadow</dd><dt>Fields</dt><dd>148 of 192</dd></dl>
+    <i class="bar"><u style="width:77%"></u></i>
+    <dl><dt>Power</dt><dd>+142 (1,420 / 1,278)</dd><dt>Climate</dt><dd>18 °C, temperate</dd><dt>Walls</dt><dd>312 defenders</dd><dt>Scarecrows</dt><dd>6 towers</dd><dt>Dome</dt><dd>small, intact</dd></dl>
+    <div class="por"><span class="egg-badge">${I('jaja')}</span><div><b>Ticket · Chikn #04117</b><span>Seat in World 1. Two spare tickets in this wallet.</span></div></div>
+  </section>
+  <section class="mB-center">
+    <div class="mB-map pnl"><div class="fr">${IMG('sB_yard', 'yard', 'Home estate')}</div><div class="mB-rib">Sunflower · Street 117 · Plot 6</div></div>
+    <div class="mB-work pnl">${QUEUE.map(q => `<div class="row">${I(q.ic)}<span><b>${q.n}</b> <i>${q.d}</i></span><span class="t">${q.t}</span><span class="btn">Speed up · ${q.e} eggs</span></div>`).join('')}</div>
+  </section>
+  <section class="mB-right pnl"><h3>Tidings of the Estate</h3>
+    ${EVENTS.map(e => `<div class="news ${e.k}"><span class="t">${e.t}</span><b>${e.a}</b>${e.b}<br><i>${e.c}</i></div>`).join('')}
+    <span class="btn pri" style="margin-top:auto">${I('inkubator')} Open the Hatchery</span>
+  </section>
+  <footer class="mB-foot">${COOPS.map(c => `<div class="pen${c.on ? ' on' : ''}"><b>${c.n}</b><span>${c.a} · ${c.p}</span></div>`).join('')}</footer>
+</div>`;
+  }
+
+  /* ---------- other screens ---------- */
+  function head(ic, title, sub) {
+    return `<div class="pnl scr-h"><div class="tt">${I(ic)}<div><h2>${title}</h2><p>${sub}</p></div></div><div class="mres">${RES.filter(r => r.ic !== 'snaga').map(r => `<span>${I(r.ic)}${r.v}</span>`).join('')}</div></div>`;
+  }
+
+  const PLOTS = [
+    [1, null, 'Roadside'], [2, ['Dusty Corner', 'Dusty Hen', 'GRAIN', 61, '', 'i']], [3, ['Road Watch', 'Gravel Queen', 'FENCE', 88, '4,200']],
+    [4, ['Meadow Hall', 'Featherfist', 'BEAK', 214, '']], [5, ['Golden Meadow', 'Clucky Ann', 'FENCE', 231, '']], [6, ['Home Coop', 'Red Spur', 'BEAK', 192, '', 'me']],
+    [7, null, 'Gardens'], [8, ["Gardener's House", 'Shaggy', 'GRAIN', 176, '', 'm']], [9, ['Cherry Shade', 'Black Rooster', '', 163, '66,780']],
+    [10, ['By the Creek', 'Little Clucker', '', 120, '', 'f']], [11, ['Creek Outpost', 'Red Spur', 'BEAK', 138, '', 'me']], [12, null, 'Creek'],
+    [13, ['Grove House', 'Mossy Comb', 'MOSS', 94, '', 'i']], [14, null, 'Grove'], [15, ['Last Fence', 'Pecky Mila', 'FENCE', 101, '']]
+  ];
+  const STAT = { i: '<span class="st-n">(i)</span>', m: '<span class="st-m">(m)</span>', f: '<span class="st-s">(f)</span>', me: '' };
+
+  function scrMap(s) {
+    const zone = [['1–3', 'Roadside · 44–110 fields'], ['4–6', 'Meadow · 150–238 fields'], ['7–9', 'Gardens · 132–204 fields'], ['10–12', 'Creek · 102–166 fields'], ['13–15', 'Grove · 70–132 fields']];
+    const mc = IMG('b' + s + '_henhouse', 'mini-c', '');
+    return `<div class="cv scr ${'sk' + s}">${head('komsiluk', 'Neighborhood', 'Sunflower · street 117 of 500')}
+<div class="scr-b" style="grid-template-columns:minmax(0,1fr) 270px">
+  <div class="pnl cell-p"><div class="addr"><span class="btn">◀</span><b>Neighborhood III · Sunflower</b><span class="btn">▶</span><span style="width:24px"></span><span class="btn">◀</span><b>Street 117</b><span class="btn">▶</span><span style="flex:1"></span><span class="chip">Scouts: 80</span><span class="chip">Pack Brahmas: 30</span></div>
+  <table class="tbl"><thead><tr><th>Plot</th><th></th><th>Coop</th><th>Owner</th><th>Alliance</th><th>Fields</th><th>Feathers</th><th>Actions</th></tr></thead><tbody>
+  ${PLOTS.map(([n, d, z]) => d ? `<tr class="${d[5] === 'me' ? 'me' : ''}"><td class="num">${n}</td><td>${mc}</td><td>${d[0]}</td><td>${d[1]} ${STAT[d[5]] || ''}</td><td>${d[2] ? '[' + d[2] + ']' : '—'}</td><td class="num">${d[3]}</td><td class="num">${d[4] || '—'}</td><td><span class="acts">${d[5] === 'me' ? '' : I('uhodi') + I('napad') + I('transport') + I('poruka')}</span></td></tr>`
+      : `<tr class="free"><td class="num">${n}</td><td></td><td>Free plot · ${z}</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="chip">Settle</span></td></tr>`).join('')}
+  </tbody></table></div>
+  <div class="pnl cell-p" style="gap:14px"><h3>Street zones</h3>
+    <div class="zone">${zone.map((z, i) => `<div class="${i === 1 ? 'me' : ''}"><i>${z[0]}</i><span>${z[1]}</span></div>`).join('')}</div>
+    <p class="note">Plot 6 is Meadow: the most fields and a temperate climate.</p>
+    <div class="legend"><span><span class="st-n">(i)</span> inactive 7+ days</span><span><span class="st-m">(m)</span> molting, can't be attacked</span><span><span class="st-s">(f)</span> fledgling shield</span><span>Feathers: feather field left by a battle</span></div>
+  </div>
+</div></div>`;
+  }
+
+  const HUNITS = [['scout', 'Scout', 2, '0 / 0% / 20'], ['pecker', 'Pecker', 2, '8 / 0% / 40'], ['spurguard', 'Spurguard', 4, '20 / 15% / 110'], ['vanguard', 'Vanguard', 14, '60 / 20% / 280'], ['mortar', 'Egg Mortar', 62, '240 / 10% / 480'], ['pack', 'Pack Brahma', 7, '1 / 5% / 180']];
+
+  function scrInk(s) {
+    return `<div class="cv scr ${'sk' + s}">${head('inkubator', 'Hatchery', 'Turn eggs into units, defense, resources or speed-ups · Sunflower 117/6 · level 8')}
+<div class="scr-b" style="grid-template-columns:270px minmax(0,1fr) 300px">
+  <div class="pnl cell-p" style="gap:8px"><h3>Wallet</h3><span class="chip ok">● connected · 0x7a3…e91c</span>
+    <div class="bigegg">2,412</div><div class="note">eggs ready to use<br>3 Chikn tickets in this wallet</div>
+    ${[['#04117', 'playing · World 1'], ['#20511', 'spare ticket'], ['#12890', 'spare ticket']].map(c => `<div class="mchikn"><span class="egg-badge">${I('jaja')}</span><span>Chikn ${c[0]}<small>${c[1]}</small></span><span class="chip">${c[1].startsWith('playing') ? 'seat' : 'free'}</span></div>`).join('')}
+    <div class="note" style="margin-top:auto">Eggs in the wallet can't be raided. Raiders only take Grain, Grit and Oil.</div>
+  </div>
+  <div class="pnl cell-p"><div class="tabs"><span class="tb on">All</span><span class="tb">Army</span><span class="tb">Transport</span><span class="tb">Defense</span><span class="tb">Resources</span><span class="tb">Speed-ups</span></div>
+    <div class="ugrid">${HUNITS.map((c, i) => `<div class="ucard${i === 1 ? ' sel' : ''}">${IMG('u' + s + '_' + c[0], 'uimg-card', c[1])}<b>${c[1]}</b><div class="cost"><span>Atk / Armor / HP</span></div><div class="cost"><span>${c[3]}</span><strong>${c[2]} eggs</strong></div><div class="step"><span>${I('minus')}</span>${i === 1 ? 120 : 0}<span>${I('plus')}</span></div></div>`).join('')}</div>
+    <div class="tabs" style="margin:14px 0 6px"><span class="tb on">Resources</span></div>
+    <table class="tbl"><tr><td>1 egg → 200 Grain</td><td>1 egg → 100 Grit</td><td>1 egg → 50 Oil</td><td>1 egg → 10 min speed-up</td></tr></table>
+  </div>
+  <div class="pnl cell-p" style="gap:10px"><h3>Order</h3>
+    <dl class="kv"><dt>Pecker × 120</dt><dd>240 eggs</dd><dt>Egg Genetics 7</dt><dd>+21%</dd><dt>You get</dt><dd>145 Peckers</dd><dt>Hatchery capacity</dt><dd>110 eggs/h</dd><dt>Hatch time</dt><dd>2 h 11 min</dd><dt>Left in wallet</dt><dd>2,172 eggs</dd></dl>
+    <span class="btn pri">${I('jaja')} Hatch 240 eggs</span>
+    <p class="note">Used eggs are burned on-chain. You confirm with a wallet signature.</p>
+    <h3 style="margin-top:6px">Hatch queue</h3>
+    <div class="kv"><dt>Pecker ×145</dt><dd>34%</dd></div><i class="bar"><u style="width:34%"></u></i>
+    <div class="kv"><dt>Pack Brahma ×12</dt><dd>waiting</dd></div><i class="bar"><u style="width:0%"></u></i>
+  </div>
+</div></div>`;
+  }
+
+  function scrSend(s) {
+    const us = [['vanguard', 'Vanguard', '164', '120'], ['pecker', 'Pecker', '1,240', '860'], ['mortar', 'Egg Mortar', '52', '40'], ['pack', 'Pack Brahma', '30', '24'], ['scout', 'Scout', '80', '0'], ['titan', 'War Brahma', '1', '0']];
+    const ms = [['napad', 'Raid', 1], ['jato', 'Joint Raid'], ['transport', 'Transport'], ['strelica', 'Station'], ['odbrana', 'Guard'], ['uhodi', 'Scout'], ['pregled', 'Settle'], ['perje', 'Glean'], ['komsiluk', 'Expedition']];
+    return `<div class="cv scr ${'sk' + s}">${head('odred', 'Send Flock', 'From: Sunflower 117/6 · home coop')}
+<div class="scr-b" style="grid-template-columns:minmax(0,1fr) 330px">
+  <div style="display:grid;grid-template-rows:auto 1fr;gap:14px;min-height:0">
+    <div class="pnl cell-p"><h3>1 · Units</h3><table class="tbl utbl"><thead><tr><th></th><th>Unit</th><th>Available</th><th>Sending</th><th></th></tr></thead><tbody>
+    ${us.map(u => `<tr><td style="width:52px">${IMG('u' + s + '_' + u[0], 'uimg', u[1])}</td><td>${u[1]}</td><td class="num">${u[2]}</td><td><span class="inp">${u[3]}</span></td><td><span class="chip">all</span></td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="pnl cell-p"><h3>2 · Target and mission</h3>
+      <div class="addr"><span>Neighborhood</span><span class="inp" style="text-align:left">Brickworks</span><span>street</span><span class="inp">44</span><span>plot</span><span class="inp">9</span><span class="chip">Black Rooster · 163 fields</span></div>
+      <div class="miss">${ms.map(m => `<div class="${m[2] ? 'on' : ''}">${I(m[0])}${m[1]}</div>`).join('')}</div>
+    </div>
+  </div>
+  <div class="pnl cell-p" style="gap:10px"><h3>3 · Summary</h3>
+    <dl class="kv"><dt>Distance</dt><dd>4 neighborhoods · 73 streets</dd><dt>Flock speed</dt><dd>100%</dd></dl>
+    <div class="speed">${'<i></i>'.repeat(10)}</div>
+    <dl class="kv"><dt>Duration</dt><dd>01:12:30</dd><dt>Arrival</dt><dd>09.11. 22:44:37</dd><dt>Return</dt><dd>10.11. 00:09:44</dd><dt>Oil used</dt><dd>3,120</dd><dt>Cargo</dt><dd>79,600</dd><dt>Attack per round</dt><dd>23,680</dd></dl>
+    <p class="note">The slowest unit sets the flock's speed. Egg Mortars hit defenses three times.</p>
+    <span class="btn pri" style="margin-top:auto">${I('odred')} Send flock</span>
+  </div>
+</div></div>`;
+  }
+
+  function scrRep(s) {
+    const att = [['Vanguard', '120', '104', '16'], ['Pecker', '860', '702', '158'], ['Egg Mortar', '40', '40', '0'], ['Pack Brahma', '24', '24', '0']];
+    const def = [['Pecker', '300', '0', '300'], ['Spurguard', '120', '0', '120'], ['Slinger Nest', '40', '0', '40'], ['Scarecrow Tower', '6', '1', '5'], ['Small Shell Dome', '1', '0', '1']];
+    const t = (rows) => `<table class="tbl"><thead><tr><th>Unit</th><th>Before</th><th>After</th><th>Lost</th></tr></thead><tbody>${rows.map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="l">−${r[3]}</td></tr>`).join('')}</tbody></table>`;
+    const rd = [[96, 88], [91, 52], [87, 19], [86, 0]];
+    return `<div class="cv scr ${'sk' + s}">${head('poruke', 'Battle Report', 'Brickworks 44/9 · 09.11. at 22:44:37')}
+<div class="scr-b" style="grid-template-rows:auto auto auto auto;align-content:start">
+  <div class="pnl rep-h"><div><b>Raid on Cherry Shade</b><p class="note" style="margin:2px 0 0">Attacker Red Spur [BEAK] · Defender Black Rooster</p></div><span class="res">Attacker wins in round 4</span></div>
+  <div class="rep-g"><div class="pnl cell-p"><h3>Attacker · Red Spur</h3><div class="side-t">Beak Sharpening 9 · Shell Plating 8 · Down Padding 7</div>${t(att)}</div><div class="pnl cell-p"><h3>Defender · Black Rooster</h3><div class="side-t">Beak Sharpening 6 · Shell Plating 7 · Down Padding 5</div>${t(def)}</div></div>
+  <div class="pnl cell-p"><h3>Strength after each round</h3><div class="rounds">${rd.map((r, i) => `<div class="rd"><b>Round ${i + 1}</b><span>Attacker ${r[0]}%</span><i class="bar"><u style="width:${r[0]}%"></u></i><span>Defender ${r[1]}%</span><i class="bar d"><u style="width:${r[1]}%"></u></i></div>`).join('')}</div></div>
+  <div class="loot"><div class="pnl"><small>Loot · Grain</small><b>42,000</b></div><div class="pnl"><small>Loot · Grit</small><b>18,500</b></div><div class="pnl"><small>Loot · Oil</small><b>6,200</b></div><div class="pnl"><small>Feather field over 44/9</small><b>66,780</b></div></div>
+</div></div>`;
+  }
+
+  function scrWallet(s) {
+    const T = [['#04117', 'Playing', 'World 1 · account Red Spur', 'Seat in use since 01.11.'], ['#20511', 'Spare ticket', 'Can join another world or be sold', 'Brought 1,000 eggs'], ['#12890', 'Spare ticket', 'Can join another world or be sold', 'Brought 1,000 eggs']];
+    const L = [['09.11.', 'Hatched Pecker ×120', '−240'], ['08.11.', 'Speed-up: Grit Pit 19', '−8'], ['07.11.', 'Cracked into 40,000 Grain', '−200'], ['05.11.', 'Hatched Pack Brahma ×20', '−140'], ['01.11.', '3 tickets connected (3 × 1,000)', '+3,000']];
+    return `<div class="cv scr ${'sk' + s}">${head('novcanik', 'Chikn Wallet', '3 Chikn tickets · 2,412 eggs · 1 seat in use')}
+<div class="scr-b" style="grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)">
+  <div class="pnl cell-p" style="gap:12px"><h3>Tickets</h3>
+    ${T.map((t, i) => `<div class="ticket${i === 0 ? ' on' : ''}"><span class="egg-badge big">${I('jaja')}</span><div><span class="id">Chikn ${t[0]}</span><b>${t[1]}</b><div class="note">${t[2]}</div></div><span class="chip${i === 0 ? ' gold' : ''}">${t[3]}</span></div>`).join('')}
+    <p class="note" style="margin-top:auto">One wallet plays one seat at a time. The account belongs to the NFT: transfer the NFT and the account goes with it.</p>
+  </div>
+  <div class="pnl cell-p" style="gap:10px"><h3>Egg ledger</h3>
+    <div class="bigegg">2,412</div><div class="note">3,000 eggs brought by 3 tickets, 588 used</div>
+    <table class="tbl"><thead><tr><th>Date</th><th>Action</th><th>Eggs</th></tr></thead><tbody>${L.map(l => `<tr><td class="num">${l[0]}</td><td>${l[1]}</td><td class="num">${l[2]}</td></tr>`).join('')}</tbody></table>
+    <p class="note">Used eggs are burned. Eggs can be traded between wallets like any token.</p>
+  </div>
+</div></div>`;
+  }
+
+  const OTHER = [
+    { id: 'neighborhood', name: 'Neighborhood', desc: 'A street of 15 plots: owners, alliances, fields, feather fields and quick actions.', fn: scrMap },
+    { id: 'hatchery', name: 'Hatchery', desc: 'Turning wallet eggs into units, defense, resources or speed-ups.', fn: scrInk },
+    { id: 'send', name: 'Send Flock', desc: 'Pick units, target and mission. See duration, Oil, cargo and attack.', fn: scrSend },
+    { id: 'report', name: 'Battle Report', desc: 'Losses per unit, strength per round, loot and the feather field.', fn: scrRep },
+    { id: 'wallet', name: 'Chikn Wallet', desc: 'Your NFT tickets, which one holds the seat, and every egg spent.', fn: scrWallet }
+  ];
+
+  global.SCREENS = { mainA, mainB, OTHER };
+})(window);
+
+/* Feather & Iron: page logic */
+(function () {
+  'use strict';
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const fmt = (n) => Math.round(n).toLocaleString('en-US');
+  const DIR = { A: 'Trench', B: 'Heraldic' };
+  const STYLES = ['A', 'B'];
+  const KEYS = [['eggs', 'Starting eggs'], ['units', 'Units'], ['buildings', 'Buildings'], ['main', 'Main screen'], ['screens', 'Other screens']];
+  const label = (k, v) => !v ? '' : k === 'eggs' ? fmt(+v) + ' eggs' : v + ' · ' + DIR[v];
+
+  $$('[data-ic]').forEach(el => { el.outerHTML = ICO(el.dataset.ic); });
+
+  /* ---------- world: plots chart ---------- */
+  const ZONES = {
+    Roadside: { who: 'Small plots, but the hottest, so the Oil Press runs best here.' },
+    Meadow: { who: 'The most fields on the street. Best for a home coop and a long game.' },
+    Gardens: { who: 'Large plots with a mild climate.' },
+    Creek: { who: 'Medium plots, cool and damp. Oil runs a little slower.' },
+    Grove: { who: 'Small, cold plots along the trees. The Oil Press struggles.' }
+  };
+  const PLOT = [
+    [1, 'Roadside', 44, 72, 28, 34], [2, 'Roadside', 52, 84, 26, 32], [3, 'Roadside', 70, 110, 24, 30],
+    [4, 'Meadow', 150, 210, 18, 24], [5, 'Meadow', 172, 238, 16, 22], [6, 'Meadow', 165, 226, 16, 22],
+    [7, 'Gardens', 148, 204, 14, 20], [8, 'Gardens', 140, 196, 12, 18], [9, 'Gardens', 132, 186, 12, 18],
+    [10, 'Creek', 118, 166, 8, 14], [11, 'Creek', 110, 156, 6, 12], [12, 'Creek', 102, 148, 6, 12],
+    [13, 'Grove', 90, 132, 2, 8], [14, 'Grove', 80, 120, 0, 6], [15, 'Grove', 70, 110, -2, 4]
+  ];
+  const oilPct = (t) => Math.round((t - 15) * 1.5);
+  const sgn = (n) => (n > 0 ? '+' : n < 0 ? '−' : '±') + Math.abs(n) + '%';
+  const deg = (t) => (t < 0 ? '−' + Math.abs(t) : t);
+  let selPlot = 4;
+  const C = { L: 46, R: 628, T: 28, B: 214, W: 640, H: 270 };
+  const yv = (v) => C.B - (v / 250) * (C.B - C.T);
+  const slot = (C.R - C.L) / 15;
+
+  function drawChart() {
+    let g = '';
+    for (const t of [0, 50, 100, 150, 200, 250]) g += `<line class="g" x1="${C.L}" x2="${C.R}" y1="${yv(t)}" y2="${yv(t)}"/><text x="${C.L - 8}" y="${yv(t) + 4}" text-anchor="end">${t}</text>`;
+    let bars = '';
+    PLOT.forEach((p, i) => {
+      const cx = C.L + slot * i + slot / 2, y1 = yv(p[3]), y0 = yv(p[2]);
+      bars += `<g class="bar${i === selPlot ? ' sel' : ''}" data-i="${i}" role="button" tabindex="0" aria-label="Plot ${p[0]}, ${p[1]}, ${p[2]} to ${p[3]} fields" aria-pressed="${i === selPlot}">` +
+        `<rect class="hit" x="${(C.L + slot * i).toFixed(1)}" y="${C.T}" width="${slot.toFixed(1)}" height="${C.B - C.T}"/>` +
+        `<rect class="mk" x="${(cx - 10).toFixed(1)}" y="${y1.toFixed(1)}" width="20" height="${(y0 - y1).toFixed(1)}" rx="4"/>` +
+        `<text x="${cx.toFixed(1)}" y="${C.B + 16}" text-anchor="middle">${p[0]}</text></g>`;
+    });
+    const sp = PLOT[selPlot], scx = C.L + slot * selPlot + slot / 2;
+    const vl = `<text class="vl" x="${scx.toFixed(1)}" y="${(yv(sp[3]) - 8).toFixed(1)}" text-anchor="middle">${sp[2]}–${sp[3]}</text>`;
+    let zl = '';
+    Object.keys(ZONES).forEach((z, j) => {
+      const x0 = C.L + slot * j * 3 + 4, x1 = C.L + slot * (j * 3 + 3) - 4;
+      zl += `<line class="zb" x1="${x0.toFixed(1)}" x2="${x1.toFixed(1)}" y1="${C.B + 26}" y2="${C.B + 26}"/><text class="zl" x="${((x0 + x1) / 2).toFixed(1)}" y="${C.B + 44}" text-anchor="middle">${z.toUpperCase()}</text>`;
+    });
+    $('#chart').innerHTML = `<svg viewBox="0 0 ${C.W} ${C.H}" role="group" aria-label="Build fields by plot, 1 to 15">${g}${bars}${vl}${zl}</svg>`;
+    drawPlot();
+  }
+  function drawPlot() {
+    const p = PLOT[selPlot];
+    $('#plot').innerHTML = `<p class="eyebrow">Plot ${p[0]} of 15</p><div class="z">${p[1]}</div><div class="r">${p[2]}–${p[3]} fields · ${deg(p[4])} to ${p[5]} °C</div><p class="muted">${ZONES[p[1]].who}</p>` +
+      `<dl><dt>Oil output</dt><dd>${sgn(oilPct(p[4]))} to ${sgn(oilPct(p[5]))}</dd><dt>Example</dt><dd>Sunflower 117/${p[0]}</dd><dt>Rule</dt><dd>Home coops always get 175 fields. Fence Extension adds 4 fields per level.</dd></dl>`;
+  }
+  const chartEl = $('#chart'), tip = $('#tip'), box = $('.chartbox');
+  const focusBar = () => { const b = $(`.bar[data-i="${selPlot}"]`, chartEl); if (b) b.focus({ preventScroll: true }); };
+  chartEl.addEventListener('click', (e) => { const b = e.target.closest('.bar'); if (b) { selPlot = +b.dataset.i; drawChart(); focusBar(); } });
+  chartEl.addEventListener('keydown', (e) => {
+    const b = e.target.closest('.bar'); if (!b) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selPlot = +b.dataset.i; drawChart(); focusBar(); }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); selPlot = Math.max(0, Math.min(14, selPlot + (e.key === 'ArrowRight' ? 1 : -1))); drawChart(); focusBar(); }
+  });
+  function showTip(b) {
+    const p = PLOT[+b.dataset.i], r = b.querySelector('.mk').getBoundingClientRect(), br = box.getBoundingClientRect();
+    tip.innerHTML = `Plot ${p[0]} · ${p[1]}<br>${p[2]}–${p[3]} fields · ${deg(p[4])} to ${p[5]} °C`;
+    tip.style.left = (r.left + r.width / 2 - br.left) + 'px';
+    tip.style.top = (r.top - br.top - 8) + 'px';
+    tip.hidden = false;
+  }
+  chartEl.addEventListener('mouseover', (e) => { const b = e.target.closest('.bar'); if (b) showTip(b); });
+  chartEl.addEventListener('mouseleave', () => { tip.hidden = true; });
+  chartEl.addEventListener('focusin', (e) => { const b = e.target.closest('.bar'); if (b) showTip(b); });
+  chartEl.addEventListener('focusout', () => { tip.hidden = true; });
+  drawChart();
+
+  $('#zoneTable tbody').innerHTML = Object.keys(ZONES).map((z, j) => {
+    const ps = PLOT.slice(j * 3, j * 3 + 3), lo = Math.min(...ps.map(p => p[2])), hi = Math.max(...ps.map(p => p[3]));
+    const t0 = Math.min(...ps.map(p => p[4])), t1 = Math.max(...ps.map(p => p[5]));
+    return `<tr><td><b>${z}</b></td><td class="n">${ps[0][0]}–${ps[2][0]}</td><td class="n">${lo}–${hi}</td><td class="n">${deg(t0)} to ${t1} °C</td><td class="n">${sgn(oilPct(t0))} to ${sgn(oilPct(t1))}</td></tr>`;
+  }).join('');
+  $('#hoods').innerHTML = ['Old Estate', 'Cornfield', 'Sunflower', 'Watermill', 'Vineyard', 'Pasture', 'Brickworks', 'Apiary', 'Orchard', 'Haybarn', 'Millpond', 'Clover Hill']
+    .map((n, i) => `<div><i>Neighborhood ${i + 1}</i><b>${n}</b></div>`).join('');
+
+  /* ---------- resources: production table ---------- */
+  const PROD = [
+    ['Grain Field', 'Grain', L => 20 + 15 * L * Math.pow(1.14, L)],
+    ['Grit Pit', 'Grit', L => 10 + 9 * L * Math.pow(1.14, L)],
+    ['Oil Press', 'Oil', L => 5 * L * Math.pow(1.14, L) * (1 + 0.015 * 3)],
+    ['Windmill', 'Power', L => 14 * L * Math.pow(1.12, L)]
+  ];
+  $('#prod tbody').innerHTML = PROD.map(p => `<tr><td><b>${p[0]}</b> <span class="muted small">${p[1]}</span></td>${[1, 5, 10, 15, 20].map(L => `<td class="n">${fmt(p[2](L))}</td>`).join('')}</tr>`).join('');
+
+  /* ---------- rules: units and defenses ---------- */
+  const eggsOf = (g, r, o) => Math.ceil((g + 2 * r + 4 * o) / 200);
+  const UNITS = [
+    ['Scout', 'Fast spy, light silkie', 0, 100, 10, 0, 0, 20, 120, 5],
+    ['Pecker', 'Line hen, cheap and many', 150, 50, 0, 8, 0, 40, 30, 20],
+    ['Spurguard', 'Heavy hen in mail and spurs', 400, 200, 0, 20, 15, 110, 26, 30],
+    ['Vanguard', 'Rooster shock trooper', 1200, 500, 150, 60, 20, 280, 40, 120],
+    ['Ironhen', 'Brahma in full plate', 3000, 1400, 0, 110, 35, 720, 22, 200],
+    ['Egg Mortar', 'Artillery hen, breaks defenses', 3600, 2000, 1200, 240, 10, 480, 14, 40],
+    ['Breacher', 'Ram rooster, breaks domes', 5000, 4000, 1500, 400, 30, 1100, 12, 150],
+    ['War Brahma', 'Giant hen with a war tower', 300000, 250000, 80000, 9000, 55, 60000, 3, 50000],
+    ['Pack Hen', 'Small transport', 150, 120, 0, 1, 0, 60, 24, 400],
+    ['Pack Brahma', 'Large transport', 450, 400, 0, 1, 5, 180, 20, 2000],
+    ['Settler Hen', 'Claims a free plot', 800, 1500, 800, 2, 0, 400, 10, 500],
+    ['Gleaner', 'Gathers feather fields', 800, 500, 200, 1, 0, 300, 9, 1600]
+  ];
+  $('#units tbody').innerHTML = UNITS.map(u => `<tr><td><b>${u[0]}</b></td><td>${u[1]}</td><td class="n">${fmt(u[2])} / ${fmt(u[3])} / ${fmt(u[4])}</td><td class="n">${fmt(eggsOf(u[2], u[3], u[4]))}</td><td class="n">${fmt(u[5])}</td><td class="n">${u[6]}%</td><td class="n">${fmt(u[7])}</td><td class="n">${u[8]}</td><td class="n">${fmt(u[9])}</td></tr>`).join('');
+  const DEFS = [
+    ['Wattle Fence', 100, 0, 0, 2, 20, 100, 'Cheap wall that soaks hits'],
+    ['Barbed Wire', 160, 40, 0, 6, 0, 90, 'Hurts light units'],
+    ['Slinger Nest', 250, 80, 0, 14, 10, 120, 'The basic shooter'],
+    ['Corn Cannon', 900, 400, 100, 70, 20, 450, 'Strong against heavy hens'],
+    ['Scarecrow Tower', 4000, 2500, 600, 300, 30, 2200, 'The heavy tower'],
+    ['Small Shell Dome', 2000, 2000, 0, 0, 0, 0, 'Soaks 4,000 damage a round. One per coop'],
+    ['Large Shell Dome', 10000, 10000, 0, 0, 0, 0, 'Soaks 20,000 damage a round. One per coop']
+  ];
+  $('#defs tbody').innerHTML = DEFS.map(d => `<tr><td><b>${d[0]}</b></td><td class="n">${fmt(d[1])} / ${fmt(d[2])} / ${fmt(d[3])}</td><td class="n">${fmt(eggsOf(d[1], d[2], d[3]))}</td><td class="n">${d[4] ? fmt(d[4]) : '—'}</td><td class="n">${d[6] ? d[5] + '%' : '—'}</td><td class="n">${d[6] ? fmt(d[6]) : '—'}</td><td>${d[7]}</td></tr>`).join('');
+
+  /* ---------- eggs calculator ---------- */
+  const cE = $('#cE'), cL = $('#cL'), cG = $('#cG');
+  const cap = (L) => Math.round(6 * Math.pow(L, 1.4));
+  function calc() {
+    const E = +cE.value, L = +cL.value, Gn = +cG.value, bonus = 1 + Gn * .03, c = cap(L);
+    $('#oE').textContent = fmt(E); $('#oL').textContent = L; $('#oG').textContent = Gn ? Gn + ' (+' + Gn * 3 + '%)' : '0';
+    const u = (eggs) => Math.floor(E / eggs * bonus);
+    const mins = E * 10, spd = mins >= 120 ? fmt(mins / 60) + ' h' : fmt(mins) + ' min';
+    const tiles = [
+      [fmt(u(2)), 'Peckers', 'line hens · 2 eggs each'], [fmt(u(14)), 'Vanguards', 'rooster shock troops · 14 eggs'], [fmt(u(7)), 'Pack Brahmas', 'cargo ' + fmt(u(7) * 2000)],
+      [fmt(u(57)), 'Scarecrow Towers', 'heavy defense · 57 eggs'], [fmt(E * 200), 'Grain', '1 egg = 200 Grain'], [spd, 'of speed-ups', '1 egg = 10 minutes']
+    ];
+    const hrs = c ? E / c : 0, h = Math.floor(hrs), m = Math.round((hrs - h) * 60);
+    $('#outs').innerHTML = tiles.map(t => `<div class="out"><b>${t[0]}</b><span>${t[1]}</span><small>${t[2]}</small></div>`).join('') +
+      `<div class="ptime"><span class="muted">Every egg passes through the Hatchery. All of them take</span><b>${h} h ${m} min</b><span class="small muted">A level ${L} Hatchery handles ${fmt(c)} eggs an hour.</span></div>`;
+  }
+  [cE, cL, cG].forEach(i => i.addEventListener('input', calc));
+  calc();
+
+  /* ---------- design picker ---------- */
+  const st = { eggs: null, units: null, buildings: null, main: null, screens: null, notes: '' };
+  let viewSkin = 'A';
+  const UL = [['titan', 'War Brahma', 'Titan · giant hen with a war tower', '5,600 eggs · Attack 9,000 · Health 60,000 · Cargo 50,000'], ['scout', 'Scout', 'Spy · 2 eggs'], ['pecker', 'Pecker', 'Line hen · 2 eggs'], ['spurguard', 'Spurguard', 'Heavy hen · 4 eggs'], ['vanguard', 'Vanguard', 'Rooster shock trooper · 14 eggs'], ['mortar', 'Egg Mortar', 'Artillery · 62 eggs'], ['pack', 'Pack Brahma', 'Large transport · 7 eggs']];
+  const BL = [['henhouse', 'Henhouse', 'Main building', 'Speeds up construction. Its level gates the other buildings.'], ['windmill', 'Windmill', 'Power'], ['grain', 'Grain Field', 'Grain'], ['hatchery', 'Hatchery', 'Units and egg use'], ['scarecrow', 'Scarecrow Tower', 'Heavy defense · 57 eggs']];
+  function cols(key, list, prefix) {
+    return STYLES.map(s => `<div class="col s${s}" data-s="${s}"><div class="col-h"><b><i>${s}</i>${DIR[s]}</b><button class="pbtn sm" type="button" data-pick="${key}" data-v="${s}" aria-pressed="false">Pick ${s}</button></div>` +
+      `<div class="sheet">${list.map((it, i) => i === 0
+        ? `<figure class="card wide"><img src="img/${prefix}${s}_${it[0]}.webp" alt="${it[1]}, style ${DIR[s]}" decoding="async"><figcaption><b>${it[1]}</b><span>${it[2]}</span><em>${it[3]}</em></figcaption></figure>`
+        : `<figure class="card${prefix === 'b' ? ' bld' : ''}"><img src="img/${prefix}${s}_${it[0]}.webp" alt="${it[1]}, style ${DIR[s]}" loading="lazy" decoding="async"><figcaption><b>${it[1]}</b><span>${it[2]}</span></figcaption></figure>`).join('')}</div></div>`).join('');
+  }
+  $('#colsUnits').innerHTML = cols('units', UL, 'u');
+  $('#colsBuildings').innerHTML = cols('buildings', BL, 'b');
+  $$('.seg').forEach(sg => {
+    const key = sg.dataset.seg;
+    sg.innerHTML = STYLES.map(s => `<button class="pbtn sm" type="button" data-show="${s}" aria-pressed="${s === 'A'}">${s} · ${DIR[s]}</button>`).join('');
+    sg.addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      $(key === 'units' ? '#colsUnits' : '#colsBuildings').dataset.show = b.dataset.show;
+      $$('button', sg).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    });
+  });
+
+  const MAINS = [['A', 'Command Post', 'Menu on the left as file tabs, resources as riveted plates, the yard as a field photograph, and a telegraph of flock movements on the right.', SCREENS.mainA],
+    ['B', 'Great Hall', 'Crest and wax seals on top, a row of shield buttons, an illuminated picture of the estate, news as a scroll, and coops as pennants.', SCREENS.mainB]];
+  $('#mainMocks').innerHTML = MAINS.map(m => `<figure class="mfig" data-s="${m[0]}"><div class="mfig-h"><div><b><i>${m[0]}</i>${m[1]}</b><p>${m[2]}</p></div><div class="acts"><button class="pbtn sm" type="button" data-zoom="main${m[0]}">Enlarge</button><button class="pbtn sm" type="button" data-pick="main" data-v="${m[0]}" aria-pressed="false">Pick ${m[0]}</button></div></div><div class="mock">${m[3]()}</div></figure>`).join('');
+
+  function renderOther() {
+    $('#otherMocks').innerHTML = SCREENS.OTHER.map(o => `<figure class="mfig"><div class="mfig-h"><div><b>${o.name}</b><p>${o.desc}</p></div><div class="acts"><button class="pbtn sm" type="button" data-zoom="o:${o.id}">Enlarge</button></div></div><div class="mock tall">${o.fn(viewSkin)}</div></figure>`).join('');
+    $('#skinBtns').innerHTML = STYLES.map(s => `<button class="pbtn sm" type="button" data-skin="${s}" aria-pressed="${s === viewSkin}">${s} · ${DIR[s]}</button>`).join('');
+    observeMocks();
+    renderState();
+  }
+  $('#skinBtns').addEventListener('click', (e) => { const b = e.target.closest('[data-skin]'); if (b && b.dataset.skin !== viewSkin) { viewSkin = b.dataset.skin; renderOther(); } });
+  $('#pickSkin').addEventListener('click', () => pick('screens', viewSkin));
+
+  const ro = 'ResizeObserver' in window ? new ResizeObserver(es => es.forEach(en => en.target.style.setProperty('--k', (en.contentRect.width / 1280).toFixed(4)))) : null;
+  function observeMocks() {
+    $$('.mock').forEach(m => {
+      m.style.setProperty('--k', (m.clientWidth / 1280).toFixed(4));
+      if (ro && !m.dataset.obs) { ro.observe(m); m.dataset.obs = '1'; }
+    });
+  }
+
+  function pick(key, v) {
+    st[key] = v;
+    if (key === 'eggs') { cE.value = v; calc(); }
+    renderState();
+    save();
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-pick]');
+    if (b) pick(b.dataset.pick, b.dataset.v);
+    const z = e.target.closest('[data-zoom]');
+    if (z) openLb(z.dataset.zoom, z);
+  });
+
+  function renderState() {
+    $$('[data-pick]').forEach(b => {
+      const on = st[b.dataset.pick] === b.dataset.v;
+      b.setAttribute('aria-pressed', String(on));
+      if (b.classList.contains('opt')) { $('.ob', b).textContent = on ? 'Picked ✓' : 'Pick ' + fmt(+b.dataset.v); }
+      else b.textContent = on ? 'Picked ✓' : 'Pick ' + b.dataset.v;
+    });
+    $$('.cols3').forEach(c => {
+      const key = c.id === 'colsUnits' ? 'units' : 'buildings';
+      $$('.col', c).forEach(col => col.classList.toggle('sel', st[key] === col.dataset.s));
+    });
+    $$('#mainMocks .mfig').forEach(f => f.classList.toggle('sel', st.main === f.dataset.s));
+    $$('#otherMocks .mfig').forEach(f => f.classList.toggle('sel', st.screens === viewSkin));
+    const pb = $('#pickSkin'), on = st.screens === viewSkin;
+    pb.textContent = on ? 'Picked ✓' : 'Pick style ' + viewSkin;
+    pb.setAttribute('aria-pressed', String(on));
+    KEYS.forEach(([k]) => {
+      const c = $(`[data-cur="${k}"]`);
+      c.textContent = st[k] ? 'Picked: ' + label(k, st[k]) : 'Not picked';
+      c.classList.toggle('on', !!st[k]);
+      $(`#navpick b[data-k="${k}"]`).classList.toggle('on', !!st[k]);
+    });
+    const anchors = { eggs: 'eggs', units: 'units-pick', buildings: 'buildings-pick', main: 'main-pick', screens: 'screens-pick' };
+    $('#sumt').innerHTML = KEYS.map(([k, l]) => `<div><span>${l}</span><a href="#${anchors[k]}" class="${st[k] ? 'on' : ''}">${st[k] ? label(k, st[k]) : 'pick →'}</a></div>`).join('');
+    const nt = $('#note');
+    if (document.activeElement !== nt && nt.value !== st.notes) nt.value = st.notes;
+  }
+
+  /* ---------- persistence ---------- */
+  const LSK = 'feather-iron-picks';
+  let docRef = null, saving = false, again = false, mode = 'loading';
+  const statusEl = $('#status');
+  function setStatus(kind) {
+    const t = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    const M = {
+      empty: ['', 'Nothing saved yet. Every pick saves as soon as you click it.'],
+      loaded: ['ok', 'Your saved picks are loaded.'],
+      saving: ['', 'Saving…'],
+      saved: ['ok', 'Saved at ' + t + '. Claude can read these picks.'],
+      slow: ['warn', 'Saved picks are not loading yet. New picks will save once the connection is back.'],
+      local: ['warn', 'Saving with the page is not available in this view. Picks stay in this browser, so copy them as text and paste them into the chat.'],
+      readonly: ['warn', 'This view can\'t change the saved picks. Copy them as text and paste them into the chat.'],
+      err: ['warn', 'Saving failed. Try again, or copy the picks as text.']
+    };
+    const m = M[kind] || M.err;
+    statusEl.className = 'status ' + m[0];
+    statusEl.textContent = m[1];
+  }
+  const valid = (k, v) => k === 'eggs' ? (['500', '1000', '2000'].includes(v) ? v : null) : (STYLES.includes(v) ? v : null);
+  function apply(d) {
+    if (!d) return;
+    KEYS.forEach(([k]) => { st[k] = valid(k, d[k]); });
+    if (typeof d.notes === 'string') st.notes = d.notes;
+    if (st.eggs) { cE.value = st.eggs; calc(); }
+    renderState();
+  }
+  function saveLocal() { try { localStorage.setItem(LSK, JSON.stringify(st)); } catch (e) { /* storage unavailable */ } }
+  function loadLocal() { try { const v = localStorage.getItem(LSK); if (v) apply(JSON.parse(v)); } catch (e) { /* storage unavailable */ } }
+  async function save() {
+    saveLocal();
+    if (!docRef) { if (mode !== 'loading') setStatus(mode === 'readonly' ? 'readonly' : 'local'); return; }
+    if (saving) { again = true; return; }
+    saving = true; setStatus('saving');
+    try {
+      await docRef.set({ eggs: st.eggs, units: st.units, buildings: st.buildings, main: st.main, screens: st.screens, notes: st.notes.slice(0, 4000), updatedAt: new Date().toISOString() });
+      setStatus('saved');
+    } catch (e) {
+      if (e && e.code === 'invalid_argument') { docRef = null; mode = 'readonly'; setStatus('readonly'); }
+      else setStatus('err');
+    }
+    saving = false;
+    if (again) { again = false; save(); }
+  }
+  let noteTimer = null;
+  $('#note').addEventListener('input', (e) => { st.notes = e.target.value; clearTimeout(noteTimer); noteTimer = setTimeout(save, 900); });
+  $('#saveBtn').addEventListener('click', () => { clearTimeout(noteTimer); save(); });
+  const asText = () => ['Feather & Iron · design picks'].concat(KEYS.map(([k, l]) => `${l}: ${st[k] ? label(k, st[k]) : 'not picked'}`)).concat(st.notes ? ['Notes: ' + st.notes] : []).join('\n');
+  $('#copyBtn').addEventListener('click', () => {
+    const txt = asText(), ta = $('#copyTxt');
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); statusEl.className = 'status'; statusEl.textContent = 'The text is selected. Copy it and paste it into the chat.'; };
+    try { navigator.clipboard.writeText(txt).then(() => { statusEl.className = 'status ok'; statusEl.textContent = 'Picks copied.'; }, fallback); } catch (e) { fallback(); }
+  });
+  async function initDb() {
+    loadLocal();
+    const c = window.claude;
+    if (!c || typeof c.use !== 'function') { mode = 'local'; setStatus('local'); return; }
+    let db = null;
+    try { db = await c.use('db'); } catch (e) { db = null; }
+    if (!db) { mode = 'local'; setStatus('local'); return; }
+    try { docRef = db.doc('choices/current'); } catch (e) { docRef = null; mode = 'local'; setStatus('local'); return; }
+    mode = 'db';
+    let confirmed = false;
+    const timer = setTimeout(() => { if (!confirmed) setStatus('slow'); }, 10000);
+    docRef.onSnapshot((snap) => {
+      if (!snap.metadata.fromCache && !confirmed) { confirmed = true; clearTimeout(timer); setStatus(snap.exists ? 'loaded' : 'empty'); }
+      if (snap.exists && !snap.metadata.hasPendingWrites) apply(snap.data());
+    }, () => { clearTimeout(timer); docRef = null; mode = 'local'; setStatus('err'); });
+  }
+
+  /* ---------- lightbox ---------- */
+  const lb = $('#lb'), lbCanvas = $('#lbCanvas'), lbBody = $('#lbBody');
+  let lbFull = false, lbH = 800, lastFocus = null;
+  function lbScale() {
+    const avail = lbBody.clientWidth - 32;
+    let k = lbFull ? 1 : Math.min(1, avail / 1280);
+    if (!lbFull && window.innerWidth < 700) k = Math.max(k, .55);
+    lbCanvas.style.width = (1280 * k) + 'px';
+    lbCanvas.style.height = (lbH * k) + 'px';
+    const cv = lbCanvas.firstElementChild; if (cv) cv.style.transform = `scale(${k})`;
+    $('#lbZoom').textContent = lbFull ? 'Fit' : '100%';
+  }
+  function openLb(id, from) {
+    lastFocus = from;
+    let html = '', title = '';
+    if (id.startsWith('main')) { const s = id.slice(4); const m = MAINS.find(x => x[0] === s); html = m[3](); title = 'Main screen ' + s + ' · ' + m[1]; lbH = 800; }
+    else { const o = SCREENS.OTHER.find(x => x.id === id.slice(2)); html = o.fn(viewSkin); title = o.name + ' · style ' + viewSkin; lbH = 760; }
+    lbCanvas.innerHTML = html;
+    $('#lbTitle').textContent = title;
+    lb.hidden = false; lbFull = false; lbScale();
+    document.body.style.overflow = 'hidden';
+    $('#lbClose').focus();
+  }
+  function closeLb() { lb.hidden = true; lbCanvas.innerHTML = ''; document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+  $('#lbClose').addEventListener('click', closeLb);
+  $('#lbZoom').addEventListener('click', () => { lbFull = !lbFull; lbScale(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+  window.addEventListener('resize', () => { if (!lb.hidden) lbScale(); });
+
+  renderOther();
+  observeMocks();
+  renderState();
+  initDb();
+})();
+
+</script>
+</body>
+</html>

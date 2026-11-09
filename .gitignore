@@ -1,0 +1,7 @@
+__pycache__/
+node_modules/
+tests/shots/
+*.log
+prototype/artifact.html
+design/artifact.html
+.DS_Store

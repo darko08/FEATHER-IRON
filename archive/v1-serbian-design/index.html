@@ -1,0 +1,2277 @@
+<!doctype html><html lang="sr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Perje i gvožđe</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Koncept strategije u pregledaču za Chikn NFT: priča, svet kokošinjaca, ekonomija jaja i izbor dizajna.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@400;500;600;700&family=Saira+Stencil+One&family=Courier+Prime:wght@400;700&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Chakra+Petch:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a long game dossier. Sticky chapter nav; each chapter is a band with a 1180px column;
+   the design chapter is a three-column gallery (one column per art direction). Single dark look: night on the farm. */
+:root{
+  --night:#0f141a;--iron:#161d25;--iron2:#1e2731;--iron3:#2a3541;
+  --ash:#ece5d6;--ash2:#b3ad9f;--ash3:#857f74;
+  --yolk:#f0b43c;--yolk2:#c98f22;--barn:#cf5a40;--moss:#9cbc78;
+  --line:rgba(236,229,214,.12);--line2:rgba(236,229,214,.22);
+  --f-disp:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
+  --f-body:'Literata',Georgia,'Times New Roman',serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth;scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--night);color:var(--ash);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--night)}
+a{color:var(--yolk)}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--yolk);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--yolk)}
+.h2{font-family:var(--f-disp);font-weight:800;font-size:clamp(38px,5.4vw,62px);line-height:.98;letter-spacing:.005em;text-transform:uppercase}
+.h3{font-family:var(--f-disp);font-weight:700;font-size:28px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
+.h4{font-family:var(--f-disp);font-weight:700;font-size:21px;letter-spacing:.02em;text-transform:uppercase}
+.lede{font-size:19px;line-height:1.55;color:var(--ash2);max-width:62ch}
+.muted{color:var(--ash2)}
+.small{font-size:14px;line-height:1.5}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+/* nav */
+.topnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(15,20,26,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;align-items:center;gap:18px;height:58px}
+.brand{font-family:var(--f-disp);font-weight:800;font-size:20px;letter-spacing:.04em;text-transform:uppercase;color:var(--ash);text-decoration:none;white-space:nowrap}
+.brand span{color:var(--yolk)}
+.navlinks{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash2);text-decoration:none;padding:7px 10px;border-radius:4px;white-space:nowrap}
+.navlinks a:hover{color:var(--ash);background:var(--iron2)}
+.navpick{display:flex;gap:4px;align-items:center;text-decoration:none;font-family:var(--f-mono);font-size:12px;color:var(--ash2);white-space:nowrap}
+.navpick b{display:inline-grid;place-items:center;width:22px;height:22px;border:1px solid var(--line2);border-radius:3px;color:var(--ash3);font-weight:600}
+.navpick b.on{background:var(--yolk);border-color:var(--yolk);color:#1d1404}
+@media (max-width:720px){.navpick{display:none}.brand{font-size:17px}}
+
+/* hero */
+.hero{position:relative;background:#101824;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-art{position:absolute;inset:0}
+.hero-art svg{width:100%;height:100%;display:block}
+.hero .wrap{position:relative;padding-top:clamp(40px,7vw,84px);padding-bottom:clamp(220px,30vw,330px)}
+.hero h1{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;font-size:clamp(64px,12vw,148px);line-height:.86;letter-spacing:-.005em;margin:14px 0 18px;color:#f6eedb;text-shadow:0 2px 30px rgba(0,0,0,.45)}
+.hero h1 em{font-style:normal;color:var(--yolk)}
+.hero .tagline{font-family:var(--f-disp);font-weight:600;font-size:clamp(22px,3vw,30px);letter-spacing:.02em;color:#f1e3c4;margin-bottom:12px}
+.hero .lede{color:#d9d1c0;max-width:56ch;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.pbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;border-radius:4px;border:1px solid var(--line2);background:var(--iron2);color:var(--ash);text-decoration:none;cursor:pointer;line-height:1.1}
+.pbtn:hover{border-color:var(--ash3)}
+.pbtn.pri{background:var(--yolk);border-color:var(--yolk);color:#1d1404;font-weight:600}
+.pbtn.pri:hover{background:#ffc552}
+.pbtn.sm{padding:7px 11px;font-size:12px}
+.pbtn[aria-pressed="true"]{background:var(--yolk);border-color:var(--yolk);color:#1d1404;font-weight:600}
+.facts{position:relative;background:rgba(10,8,11,.86);border-top:1px solid var(--line)}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.fact{padding:18px 18px 18px 0;border-right:1px solid var(--line);margin-right:18px}
+.fact:last-child{border-right:0}
+.fact b{display:block;font-family:var(--f-disp);font-weight:800;font-size:36px;line-height:1;color:var(--yolk)}
+.fact span{display:block;font-size:14px;color:var(--ash2);margin-top:6px;line-height:1.4}
+@media (max-width:860px){.facts .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}.fact:nth-child(2){border-right:0}.fact{border-bottom:1px solid var(--line)}}
+
+/* chapters */
+.ch{padding-block:clamp(56px,8vw,92px);border-bottom:1px solid var(--line)}
+.ch.alt{background:var(--iron)}
+.ch-head{display:flex;flex-direction:column;gap:14px;margin-bottom:38px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,4vw,56px)}
+@media (max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}}
+
+/* lore */
+.tline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tline li{position:relative;padding:0 0 26px 54px}
+.tline li::before{content:attr(data-n);position:absolute;left:0;top:2px;width:34px;height:34px;display:grid;place-items:center;font-family:var(--f-mono);font-size:13px;border:1px solid var(--line2);border-radius:50%;color:var(--yolk);background:var(--night)}
+.tline li::after{content:"";position:absolute;left:17px;top:40px;bottom:6px;width:1px;background:var(--line2)}
+.tline li:last-child::after{display:none}
+.tline h3{font-family:var(--f-disp);font-weight:700;font-size:23px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:6px}
+.tline p{color:var(--ash2);max-width:60ch}
+.quote{margin-top:10px;padding:22px 24px;border-left:3px solid var(--barn);background:var(--iron2);font-family:var(--f-disp);font-size:26px;font-weight:600;line-height:1.2;letter-spacing:.01em}
+.quote small{display:block;font-family:var(--f-body);font-size:14px;font-weight:400;color:var(--ash2);margin-top:8px;letter-spacing:0}
+.why{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.why div{padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--iron2)}
+.why b{display:block;font-family:var(--f-disp);font-size:21px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+.why p{font-size:15px;color:var(--ash2);line-height:1.5}
+@media (max-width:520px){.why{grid-template-columns:minmax(0,1fr)}}
+.oath{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+.oath div{padding:18px;border-radius:6px;border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.oath svg{width:36px;height:36px}
+.oath b{font-family:var(--f-disp);font-size:24px;text-transform:uppercase}
+.oath q{font-style:italic;color:var(--ash)}
+.oath span{font-family:var(--f-mono);font-size:12.5px;color:var(--yolk)}
+.oath p{font-size:14.5px;color:var(--ash2);line-height:1.5}
+@media (max-width:760px){.oath{grid-template-columns:minmax(0,1fr)}}
+
+/* world */
+.chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.chain div{padding:14px 16px;background:var(--iron2);border:1px solid var(--line);border-radius:6px;position:relative}
+.chain div:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:50%;transform:translate(50%,-50%);color:var(--yolk);font-family:var(--f-mono);z-index:1}
+.chain b{display:block;font-family:var(--f-disp);font-size:24px;text-transform:uppercase;line-height:1.05}
+.chain span{font-size:14px;color:var(--ash2);line-height:1.4;display:block;margin-top:4px}
+@media (max-width:760px){.chain{grid-template-columns:repeat(2,minmax(0,1fr))}.chain div:nth-child(2)::after{display:none}}
+.paddr{font-size:16px;color:var(--ash2);margin-bottom:34px}
+.paddr b{font-family:var(--f-mono);color:var(--ash);background:var(--iron3);padding:2px 8px;border-radius:3px;font-weight:600}
+.explore{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.explore{grid-template-columns:minmax(0,1fr)}}
+.chartbox{background:var(--iron2);border:1px solid var(--line);border-radius:8px;padding:18px 16px 10px;position:relative}
+.chartbox h3{margin-bottom:2px}
+.chart-scroll{overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:560px;height:auto}
+.chart .bar{cursor:pointer}
+.chart .bar rect.mk{fill:#5d6a78;transition:fill .15s}
+.chart .bar:hover rect.mk,.chart .bar:focus rect.mk{fill:#8a98a7}
+.chart .bar.sel rect.mk{fill:var(--yolk)}
+.chart .bar rect.hit{fill:transparent}
+.chart .bar:focus{outline:none}
+.chart .bar:focus-visible rect.hit{stroke:var(--yolk);stroke-width:1.5}
+.chart text{font-family:var(--f-mono);font-size:11px;fill:var(--ash2)}
+.chart text.zl{fill:var(--ash);font-size:11.5px;letter-spacing:.06em}
+.chart text.vl{fill:var(--ash);font-weight:600;font-size:12px}
+.chart line.g{stroke:rgba(236,229,214,.09)}
+.chart line.zb{stroke:var(--line2)}
+.tip{position:absolute;pointer-events:none;background:#0b0f14;border:1px solid var(--line2);border-radius:5px;padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;color:var(--ash);white-space:nowrap;transform:translate(-50%,-100%);z-index:3}
+.plot{background:var(--iron2);border:1px solid var(--line);border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.plot .z{font-family:var(--f-disp);font-size:34px;font-weight:800;text-transform:uppercase;line-height:1}
+.plot .r{font-family:var(--f-mono);font-size:15px;color:var(--yolk)}
+.plot dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:6px 0 0;font-size:15px}
+.plot dt{color:var(--ash3);font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding-top:3px}
+.plot dd{margin:0}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;margin-top:20px}
+table.t{border-collapse:collapse;width:100%;font-size:15px;min-width:560px}
+table.t th{text-align:left;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ash3);font-weight:500;padding:10px 12px;border-bottom:1px solid var(--line2);background:var(--iron2)}
+table.t td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:last-child td{border-bottom:0}
+table.t td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.t td b{font-weight:600}
+.hoods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:20px}
+.hoods div{padding:12px 14px;border:1px solid var(--line);border-radius:6px}
+.hoods i{font-style:normal;font-family:var(--f-mono);font-size:12px;color:var(--ash3)}
+.hoods b{display:block;font-family:var(--f-disp);font-size:20px;text-transform:uppercase;line-height:1.1}
+.hoods span{font-family:var(--f-mono);font-size:12.5px;color:var(--yolk)}
+@media (max-width:760px){.hoods{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* eggs */
+.flow{list-style:none;margin:0 0 34px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:f}
+.flow li{padding:18px;border:1px solid var(--line);border-radius:6px;background:var(--iron2);counter-increment:f;position:relative}
+.flow li::before{content:counter(f);font-family:var(--f-disp);font-weight:800;font-size:44px;line-height:1;color:var(--yolk);display:block;margin-bottom:8px}
+.flow b{display:block;font-family:var(--f-disp);font-size:21px;text-transform:uppercase;margin-bottom:4px}
+.flow p{font-size:15px;color:var(--ash2);line-height:1.5}
+@media (max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.flow{grid-template-columns:minmax(0,1fr)}}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:22px;border:1px solid var(--line2);border-radius:8px;background:linear-gradient(160deg,#1f2833,#161d25)}
+@media (max-width:900px){.calc{grid-template-columns:minmax(0,1fr)}}
+.ctl{display:flex;flex-direction:column;gap:16px}
+.ctl label{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ash2);margin-bottom:6px}
+.ctl label output{color:var(--ash);font-weight:600;letter-spacing:0;font-size:15px}
+input[type=range]{width:100%;accent-color:var(--yolk);height:22px}
+.outs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.out{padding:12px 14px;border-radius:6px;background:rgba(0,0,0,.22);border:1px solid var(--line)}
+.out b{display:block;font-family:var(--f-disp);font-weight:800;font-size:32px;line-height:1.05;color:var(--ash)}
+.out span{display:block;font-size:13.5px;color:var(--ash2);line-height:1.35}
+.out small{display:block;font-family:var(--f-mono);font-size:11.5px;color:var(--ash3);margin-top:4px}
+@media (max-width:520px){.outs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ptime{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;padding-top:12px;border-top:1px solid var(--line)}
+.ptime b{font-family:var(--f-disp);font-size:26px;color:var(--yolk)}
+.prar{display:inline-block;padding:1px 8px;border-radius:3px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.prar.o{background:#5c5a52;color:#f4efe2}.prar.r{background:#2f6aa8;color:#fff}.prar.e{background:#6b4aa0;color:#fff}.prar.l{background:#d39b2e;color:#1f1400}
+
+/* rules */
+.res5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:28px}
+.res5 div{padding:14px;border:1px solid var(--line);border-radius:6px;background:var(--iron2)}
+.res5 svg{width:26px;height:26px;color:var(--yolk)}
+.res5 b{display:block;font-family:var(--f-disp);font-size:22px;text-transform:uppercase;margin:6px 0 2px}
+.res5 p{font-size:14px;color:var(--ash2);line-height:1.45}
+@media (max-width:900px){.res5{grid-template-columns:repeat(2,minmax(0,1fr))}.res5 div:last-child{grid-column:1/-1}}
+.pips{display:inline-grid;grid-template-columns:repeat(10,6px);gap:2px;vertical-align:middle}
+.pips i{height:10px;background:var(--iron3);border-radius:1px}
+.pips i.on{background:var(--yolk)}
+.cols4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:28px}
+.cols4 h4{font-family:var(--f-disp);font-size:20px;text-transform:uppercase;letter-spacing:.03em;padding-bottom:6px;border-bottom:1px solid var(--line2);margin-bottom:8px}
+.cols4 ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.cols4 li{font-size:14.5px;color:var(--ash2);line-height:1.45}
+.cols4 li b{color:var(--ash);font-weight:600}
+@media (max-width:900px){.cols4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.cols4{grid-template-columns:minmax(0,1fr)}}
+.miss9{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.miss9 div{padding:12px 14px;border:1px solid var(--line);border-radius:6px;font-size:14.5px;color:var(--ash2);line-height:1.45}
+.miss9 b{display:block;color:var(--ash);font-family:var(--f-disp);font-size:19px;text-transform:uppercase;letter-spacing:.02em}
+@media (max-width:760px){.miss9{grid-template-columns:minmax(0,1fr)}}
+.spec{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:14px}
+.spec div{padding:14px;border-radius:6px;background:var(--iron2);border:1px solid var(--line)}
+.spec b{display:block;font-family:var(--f-disp);font-size:20px;text-transform:uppercase;color:var(--yolk);margin-bottom:4px}
+.spec p{font-size:14px;color:var(--ash2);line-height:1.45}
+@media (max-width:900px){.spec{grid-template-columns:repeat(2,minmax(0,1fr))}.spec div:last-child{grid-column:1/-1}}
+.psub{margin-top:44px}
+
+/* design picker */
+.dirs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:46px}
+.dir{border-radius:8px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.dir .sw{display:grid;grid-template-columns:repeat(5,1fr);height:44px}
+.dir .bd{padding:16px 18px;display:flex;flex-direction:column;gap:8px;background:var(--iron2);flex:1}
+.dir .nm{font-size:28px;line-height:1}
+.dir p{font-size:15px;color:var(--ash2);line-height:1.5}
+.dir .fn{font-family:var(--f-mono);font-size:12px;color:var(--ash3);margin-top:auto}
+.dir.A .nm{font-family:'Saira Stencil One',var(--f-disp);color:#e5d7ae}
+.dir.B .nm{font-family:'Cinzel',Georgia,serif;font-weight:700;color:#f0d38a;font-size:25px}
+.dir.C .nm{font-family:'Chakra Petch',var(--f-disp);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5ff0ff;font-size:24px}
+@media (max-width:860px){.dirs{grid-template-columns:minmax(0,1fr)}}
+.pick{margin-top:56px;scroll-margin-top:80px}
+.pick-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
+.pick-h .h3{font-size:34px}
+.pick-h p{color:var(--ash2);font-size:15.5px;max-width:64ch;margin-top:6px}
+.cur{font-family:var(--f-mono);font-size:12.5px;color:var(--ash2);padding:6px 10px;border:1px dashed var(--line2);border-radius:4px;white-space:nowrap}
+.cur.on{border-style:solid;border-color:var(--yolk);color:var(--yolk)}
+.seg{display:none;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+#skinBtns{flex-wrap:wrap}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.col{border-radius:8px;border:2px solid transparent;display:flex;flex-direction:column;overflow:hidden;transition:border-color .15s}
+.col.sel{border-color:var(--yolk);box-shadow:0 0 0 4px rgba(240,180,60,.12)}
+.col-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;background:var(--iron2)}
+.col-h b{font-family:var(--f-disp);font-size:20px;text-transform:uppercase;letter-spacing:.02em}
+.col-h b i{font-style:normal;color:var(--yolk);margin-right:6px}
+.sheet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:8px;flex:1}
+.card{border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.card.wide{grid-column:1/-1}
+.card svg{display:block;width:100%;height:auto}
+.card figcaption{padding:6px 10px 9px;display:flex;flex-direction:column;gap:1px}
+.card figcaption b{font-size:15px;line-height:1.2}
+.card figcaption span{font-size:12px;opacity:.8}
+.card{margin:0}
+.sA{background:#2b2c23}.sB{background:#3b1517}.sC{background:#050c17}
+.sA .card{background:#d9ccaa;color:#1f1c15;box-shadow:inset 0 0 0 2px #1f1c15}
+.sA .card figcaption b{font-family:'Saira Stencil One',var(--f-disp);font-weight:400;letter-spacing:.03em;text-transform:uppercase;font-size:14px}
+.sA .card figcaption span{font-family:'Courier Prime',monospace}
+.sB .card{background:#efe3c4;color:#2a1a12;box-shadow:inset 0 0 0 1.5px #d4a338}
+.sB .card figcaption b{font-family:'Cinzel',Georgia,serif;font-weight:700;font-size:13.5px;color:#a51d27}
+.sB .card figcaption span{font-family:'Cormorant Garamond',Georgia,serif;font-size:14px;font-style:italic}
+.sC .card{background:#071426;color:#d9fbff;box-shadow:inset 0 0 0 1px rgba(95,240,255,.3)}
+.sC .card figcaption b{font-family:'Chakra Petch',var(--f-disp);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;color:#5ff0ff}
+.sC .card figcaption span{font-family:'JetBrains Mono',monospace;font-size:11px;color:#7fb3c2}
+@media (max-width:860px){
+  .seg{display:flex}
+  .cols3{grid-template-columns:minmax(0,1fr)}
+  .cols3[data-show="A"] .col:not([data-s="A"]),.cols3[data-show="B"] .col:not([data-s="B"]),.cols3[data-show="C"] .col:not([data-s="C"]){display:none}
+}
+.mocks{display:flex;flex-direction:column;gap:26px}
+.mfig{margin:0;border-radius:8px;border:2px solid var(--line);overflow:hidden;background:var(--iron2);transition:border-color .15s}
+.mfig.sel{border-color:var(--yolk);box-shadow:0 0 0 4px rgba(240,180,60,.12)}
+.mfig-h{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px}
+.mfig-h b{font-family:var(--f-disp);font-size:22px;text-transform:uppercase;letter-spacing:.02em}
+.mfig-h b i{font-style:normal;color:var(--yolk);margin-right:6px}
+.mfig-h p{font-size:14.5px;color:var(--ash2);max-width:70ch;margin-top:2px}
+.mfig-h .acts{display:flex;gap:8px}
+.mfig .mock{border-radius:0}
+.skinbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:14px;padding:10px 12px;border-radius:6px;background:var(--iron2);border:1px solid var(--line)}
+.skinbar span{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash2);margin-right:4px}
+.skinbar .grow{flex:1}
+.ogrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ogrid .mfig:first-child{grid-column:1/-1}
+@media (max-width:860px){.ogrid{grid-template-columns:minmax(0,1fr)}}
+.ogrid .mfig-h b{font-size:19px}
+
+/* summary */
+.sum{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.sum{grid-template-columns:minmax(0,1fr)}}
+.sumt{border:1px solid var(--line2);border-radius:8px;overflow:hidden}
+.sumt div{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.sumt div:last-child{border-bottom:0}
+.sumt span{font-family:var(--f-disp);font-size:21px;text-transform:uppercase;letter-spacing:.02em}
+.sumt a{font-family:var(--f-mono);font-size:13px;text-decoration:none;color:var(--ash3)}
+.sumt a.on{color:var(--yolk);font-weight:600}
+.notes label{display:block;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash2);margin-bottom:8px}
+.notes textarea{width:100%;min-height:132px;resize:vertical;background:var(--iron2);color:var(--ash);border:1px solid var(--line2);border-radius:6px;padding:12px;font:inherit;font-size:15.5px;line-height:1.5;box-sizing:border-box}
+.saveline{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px}
+.status{font-family:var(--f-mono);font-size:12.5px;color:var(--ash2)}
+.status.ok{color:var(--moss)}
+.status.warn{color:var(--yolk)}
+.copytxt{width:100%;margin-top:10px;font-family:var(--f-mono);font-size:12.5px;background:var(--night);color:var(--ash2);border:1px solid var(--line);border-radius:6px;padding:10px;box-sizing:border-box;min-height:96px}
+
+footer.foot{padding-block:36px 46px;color:var(--ash3);font-size:14px}
+footer.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(5,7,10,.94);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.lb-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+.lb-bar b{font-family:var(--f-disp);font-size:22px;text-transform:uppercase}
+.lb-body{flex:1;overflow:auto;padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.lb-canvas{margin:0 auto;position:relative;overflow:hidden;border-radius:6px}
+.lb-canvas>.cv{position:absolute;left:0;top:0;transform-origin:0 0}
+
+/* ===== game screen mockups (fixed 1280px canvas, scaled by JS) ===== */
+.mock{position:relative;width:100%;aspect-ratio:1280/800;overflow:hidden;border-radius:6px;background:#111;max-width:100%}
+.mock.tall{aspect-ratio:1280/760}
+.mock>.cv{position:absolute;left:0;top:0;width:1280px;height:800px;transform-origin:0 0;transform:scale(var(--k,.5))}
+.mock.tall>.cv{height:760px}
+.cv,.cv *{box-sizing:border-box}
+.cv .ico{width:18px;height:18px;flex:none}
+.cv table{border-collapse:collapse;width:100%}
+.cv .num{font-family:var(--nm);font-variant-numeric:tabular-nums}
+
+/* ---------- skins ---------- */
+.cv{--paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .26 0 0 0 0 .16 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.skA{--bg:#2b2c23;--bg2:#3a3b2f;--panel:#d9cca8;--panel2:#cbbd96;--ink:#1f1c15;--ink2:#5a5442;--line:rgba(31,28,21,.32);--acc:#a3442a;--acc2:#8a6d2f;--ok:#4f6b3a;--bad:#a3442a;--frame:#4a504d;--glow:#f2b544;
+  --hd:'Saira Stencil One','Big Shoulders Display',Impact,sans-serif;--bd:'Courier Prime','Courier New',monospace;--nm:'Courier Prime','Courier New',monospace;--lb:'Big Shoulders Display','Arial Narrow',sans-serif;
+  background:var(--bg);color:var(--ink);font-family:var(--bd);font-size:14px}
+.skB{--bg:#3b1517;--bg2:#4d1d21;--panel:#f2e6c8;--panel2:#e8d6aa;--ink:#2a1a12;--ink2:#6e4e35;--line:rgba(122,90,46,.4);--acc:#a51d27;--acc2:#c9962a;--gold:#d4a338;--ok:#3f6d34;--bad:#a51d27;--glow:#f6c94f;
+  --hd:'Cinzel',Georgia,serif;--bd:'Cormorant Garamond',Georgia,serif;--nm:'Cormorant Garamond',Georgia,serif;--lb:'Cinzel',Georgia,serif;
+  background:var(--bg);color:var(--ink);font-family:var(--bd);font-size:17px}
+.skC{--bg:#050c17;--bg2:#0a1626;--panel:rgba(10,28,48,.78);--panel2:rgba(20,48,74,.55);--ink:#d9fbff;--ink2:#7fb3c2;--line:rgba(95,240,255,.26);--acc:#5ff0ff;--acc2:#ffc35a;--ok:#5fe3a1;--bad:#ff7a5c;--glow:#ffc35a;
+  --hd:'Chakra Petch','Arial Narrow',sans-serif;--bd:'Chakra Petch','Arial Narrow',sans-serif;--nm:'JetBrains Mono',ui-monospace,monospace;--lb:'Chakra Petch',sans-serif;
+  background:var(--bg);color:var(--ink);font-family:var(--bd);font-size:14px}
+
+.cv .pnl{position:relative;background:var(--panel)}
+.skA .pnl{background:var(--panel) var(--paper);border:5px solid var(--frame);box-shadow:inset 0 0 0 1px rgba(0,0,0,.22),0 3px 0 rgba(0,0,0,.45)}
+.skA .pnl::after{content:"";position:absolute;inset:-5px;pointer-events:none;
+  background:radial-gradient(circle,#a9b0ab 0 1.5px,#1b1e1d 2.1px,transparent 2.7px) top left/10px 10px no-repeat,
+  radial-gradient(circle,#a9b0ab 0 1.5px,#1b1e1d 2.1px,transparent 2.7px) top right/10px 10px no-repeat,
+  radial-gradient(circle,#a9b0ab 0 1.5px,#1b1e1d 2.1px,transparent 2.7px) bottom left/10px 10px no-repeat,
+  radial-gradient(circle,#a9b0ab 0 1.5px,#1b1e1d 2.1px,transparent 2.7px) bottom right/10px 10px no-repeat}
+.skB .pnl{background:var(--panel) var(--paper);border:1.5px solid var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.skB .pnl::before{content:"";position:absolute;inset:5px;border:1px solid rgba(201,150,42,.55);pointer-events:none}
+.skC .pnl{background:var(--panel);border:1px solid var(--line);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));backdrop-filter:blur(4px)}
+.skC .pnl::before{content:"";position:absolute;left:0;top:0;width:18px;height:18px;border-left:2px solid var(--acc);border-top:2px solid var(--acc);pointer-events:none}
+.skC .pnl::after{content:"";position:absolute;right:0;bottom:0;width:18px;height:18px;border-right:2px solid var(--acc);border-bottom:2px solid var(--acc);pointer-events:none}
+
+.cv h3{margin:0 0 10px;font-weight:400}
+.skA h3{font-family:var(--hd);font-size:16px;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:4px}
+.skB h3{font-family:var(--hd);font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:700;text-align:center;padding-bottom:6px;border-bottom:1px solid var(--gold)}
+.skC h3{font-family:var(--hd);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);font-weight:600}
+
+.cv .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:7px 14px;cursor:default;white-space:nowrap;line-height:1}
+.skA .btn{font-family:var(--hd);text-transform:uppercase;letter-spacing:.05em;border:2px solid var(--acc);color:var(--acc);font-size:13px}
+.skA .btn.pri{background:var(--acc);color:#f3e9d2;box-shadow:2px 2px 0 var(--ink)}
+.skB .btn{font-family:var(--hd);font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--gold);color:var(--acc);background:rgba(255,255,255,.35);font-weight:700}
+.skB .btn.pri{background:var(--acc);color:#f8ecc9;box-shadow:inset 0 0 0 2px rgba(255,220,140,.35)}
+.skC .btn{font-family:var(--hd);font-size:12px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--acc);color:var(--acc);background:rgba(95,240,255,.08);font-weight:600}
+.skC .btn.pri{background:var(--acc2);border-color:var(--acc2);color:#1c1200;box-shadow:0 0 18px rgba(255,195,90,.35)}
+
+.cv .bar{display:block;height:8px;background:rgba(0,0,0,.18);position:relative;overflow:hidden}
+.cv .bar>u{position:absolute;left:0;top:0;bottom:0;background:var(--acc)}
+.skA .bar{border:1.5px solid var(--ink);height:10px}.skA .bar>u{background:var(--ink2)}
+.skB .bar{border:1px solid var(--gold);border-radius:5px;height:9px}.skB .bar>u{background:var(--acc)}
+.skC .bar{height:4px;background:rgba(95,240,255,.14)}.skC .bar>u{background:var(--acc);box-shadow:0 0 8px var(--acc)}
+
+.cv .chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:2px 7px;white-space:nowrap}
+.skA .chip{border:1.5px solid var(--ink);font-family:var(--lb);text-transform:uppercase;letter-spacing:.05em}
+.skB .chip{border:1px solid var(--gold);border-radius:10px;font-family:var(--hd);font-size:11px}
+.skC .chip{border:1px solid var(--line);font-family:var(--nm);font-size:11px;color:var(--ink2)}
+.cv .chip.bad{color:var(--bad);border-color:var(--bad)}
+.cv .chip.ok{color:var(--ok);border-color:var(--ok)}
+.cv .chip.gold{color:var(--acc2);border-color:var(--acc2)}
+
+/* ---------- main A: Štab ---------- */
+.mA{display:grid;grid-template-columns:196px minmax(0,1fr) 336px;grid-template-rows:78px 1fr 30px;gap:12px;padding:12px;height:800px;
+  background:linear-gradient(180deg,#30312a,#25261f)}
+.mA-top{grid-column:1/-1;display:flex;align-items:stretch;gap:12px}
+.mA-logo{width:196px;flex:none;display:flex;flex-direction:column;justify-content:center;padding:0 12px;background:#1d1e18;border:3px solid #4a504d;color:#e8dcbc}
+.mA-logo b{font-family:var(--hd);font-size:19px;letter-spacing:.04em;font-weight:400}
+.mA-logo small{font-family:var(--lb);font-size:12px;letter-spacing:.14em;color:#b9ab84}
+.mA-res{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.cv .plate{display:flex;align-items:center;gap:9px;padding:0 10px;background:linear-gradient(#5b625f,#40464400 160%),#454c4a;border:2px solid #23272600;box-shadow:inset 0 1px 0 #7f8783,inset 0 -2px 0 #2a2e2d;color:#efe6cc;position:relative}
+.cv .plate .ico{width:24px;height:24px;color:#f2c76b}
+.cv .plate b{display:block;font-family:var(--nm);font-size:19px;letter-spacing:-.01em}
+.cv .plate small{display:block;font-family:var(--lb);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#c9c0a6}
+.cv .plate::before,.cv .plate::after{content:"";position:absolute;top:5px;width:4px;height:4px;border-radius:50%;background:#1a1d1c;box-shadow:0 49px 0 #1a1d1c}
+.cv .plate::before{left:4px}.cv .plate::after{right:4px}
+.mA-user{width:220px;flex:none;display:flex;flex-direction:column;justify-content:center;padding:0 14px;background:var(--panel) var(--paper);border:3px solid #4a504d}
+.mA-user b{font-family:var(--hd);font-size:17px;font-weight:400;letter-spacing:.03em}
+.mA-user small{font-size:12px;color:var(--ink2)}
+.mA-nav{display:flex;flex-direction:column;gap:5px}
+.mA-nav .tab{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#b9ab84;border:2px solid #1f1c15;border-left-width:6px;font-family:var(--lb);font-size:16px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#1f1c15;position:relative}
+.mA-nav .tab:nth-child(even){margin-left:8px}
+.mA-nav .tab.on{background:var(--panel) var(--paper);border-left-color:var(--acc);margin-right:-14px;z-index:2}
+.mA-nav .tab em{margin-left:auto;font-style:normal;background:var(--acc);color:#f3e9d2;font-family:var(--nm);font-size:12px;padding:0 6px}
+.mA-center{display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:12px;min-height:0}
+.mA-center>*,.mA-right>*{min-height:0}
+.mA-photo{padding:10px 10px 34px;background:#efe6cf;transform:rotate(-.4deg);border-color:#3f4442}
+.mA-ph{height:100%;min-height:0;filter:sepia(.35) contrast(1.05);border:1px solid #1f1c15;overflow:hidden}
+.mA-ph svg{width:100%;height:100%;display:block}
+.mA-cap{position:absolute;left:14px;bottom:8px;font-size:14px;letter-spacing:.04em}
+.mA-cap b{font-family:var(--hd);font-weight:400;font-size:16px}
+.mA-stamp{position:absolute;right:26px;top:22px;border:3px solid var(--acc);color:var(--acc);font-family:var(--hd);font-size:22px;padding:4px 12px;transform:rotate(8deg);text-align:center;line-height:1;opacity:.85;background:rgba(239,230,207,.5)}
+.mA-stamp small{font-size:11px;letter-spacing:.2em}
+.mA-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mA-stats .st{padding:8px 10px;display:flex;flex-direction:column;gap:3px;border-width:4px}
+.mA-stats small{font-family:var(--lb);font-size:12px;letter-spacing:.12em;color:var(--ink2);font-weight:600}
+.mA-stats b{font-family:var(--hd);font-size:22px;font-weight:400;line-height:1}
+.mA-stats span{font-size:12px;color:var(--ink2)}
+.mA-queue{padding:10px 14px}
+.mA-queue td{padding:6px 4px;border-bottom:1px dotted var(--line);font-size:14px}
+.mA-queue td .ico{color:var(--ink2)}
+.mA-queue td:nth-child(3){font-family:var(--nm);font-weight:700;font-size:16px;text-align:right;width:90px}
+.mA-queue td:last-child{text-align:right;width:150px}
+.mA-queue .sub{display:block;font-size:12px;color:var(--ink2)}
+.mA-right{display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:12px;min-height:0}
+.cv .tele{padding:10px 12px}
+.cv .tele .ev{display:grid;grid-template-columns:1fr auto;gap:1px 8px;padding:4px 8px;margin-bottom:5px;background:#ece2c4;border:1px solid #1f1c15;border-left:6px solid var(--ink2);font-size:12.5px}
+.cv .tele .ev b{font-family:var(--lb);font-size:13.5px;letter-spacing:.08em}
+.cv .tele .ev .t{font-family:var(--nm);font-weight:700;font-size:15px;grid-row:1/3;grid-column:2;align-self:center}
+.cv .tele .ev.bad{border-left-color:var(--acc);background:#e9c9b4}
+.cv .tele .ev.bad b{color:var(--acc)}
+.cv .tele .ev.in{border-left-color:var(--ok)}
+.cv .tags{padding:10px 12px}
+.cv .tag{display:grid;grid-template-columns:1fr auto;padding:3px 10px 3px 22px;margin-bottom:4px;background:linear-gradient(#b8bdb9,#8f9592);border:1.5px solid #2c302f;border-radius:4px 14px 14px 4px;position:relative;font-size:12.5px}
+.cv .tag::before{content:"";position:absolute;left:8px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#2c302f}
+.cv .tag b{font-family:var(--lb);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.cv .tag i{font-style:normal;font-family:var(--nm);grid-row:1/3;grid-column:2;align-self:center}
+.cv .tag.on{background:linear-gradient(#e7d9ad,#c7b583);border-color:var(--acc)}
+.cv .wal{padding:10px 12px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-content:start}
+.cv .wal h3{grid-column:1/-1}
+.cv .wal .btn{grid-column:1/-1}
+.cv .wal .big{font-family:var(--hd);font-size:36px;line-height:1}
+.cv .wal p{margin:0;font-size:12.5px;color:var(--ink2)}
+.mA-foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding:0 14px;background:#1d1e18;color:#c9bd98;font-family:var(--lb);letter-spacing:.14em;font-size:12.5px;border:2px solid #4a504d}
+
+/* ---------- main B: Dvor ---------- */
+.mB{position:relative;height:800px;padding:14px 18px;display:grid;grid-template-columns:268px minmax(0,1fr) 292px;grid-template-rows:112px 50px 1fr 84px;gap:12px;
+  background:radial-gradient(ellipse at 50% 0%,#5a2227,transparent 60%),linear-gradient(#3b1517,#2a0f11)}
+.mB::before{content:"";position:absolute;inset:6px;border:2px solid #b88a2e;pointer-events:none;box-shadow:inset 0 0 0 4px #3b1517,inset 0 0 0 5px #8a6420}
+.mB-top{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.mB-res{display:flex;gap:12px}
+.mB-res.r{justify-content:flex-end}
+.cv .seal{display:flex;align-items:center;gap:8px;color:#f3e2b6}
+.cv .seal i{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#c23a40,#7d1218 70%);box-shadow:0 0 0 2px #d4a338,0 0 0 4px #3b1517,0 0 0 5px #8a6420;color:#f8e3a6}
+.cv .seal i .ico{width:22px;height:22px}
+.cv .seal b{display:block;font-family:var(--nm);font-size:21px;font-weight:700;line-height:1;color:#f8e9c4}
+.cv .seal small{display:block;font-family:var(--hd);font-size:10.5px;letter-spacing:.14em;color:#d8b46a;text-transform:uppercase}
+.mB-crest{display:flex;align-items:center;gap:14px;color:#f6e7c1;text-align:center}
+.mB-crest svg{width:62px;height:74px}
+.mB-crest h1{margin:0;font-family:var(--hd);font-size:24px;letter-spacing:.06em;font-weight:700;color:#f7e4b0}
+.mB-crest p{margin:2px 0 0;font-size:16px;font-style:italic;color:#d8b46a}
+.mB-nav{grid-column:1/-1;display:flex;justify-content:center;gap:6px;min-width:0;overflow:hidden}
+.mB-nav .sh{display:flex;align-items:center;gap:6px;padding:0 10px;height:42px;background:linear-gradient(#f3e5c0,#dcc58e);border:1.5px solid #d4a338;color:#4a2a17;font-family:var(--hd);font-size:11.5px;letter-spacing:.05em;font-weight:700;clip-path:polygon(0 0,100% 0,100% 70%,50% 100%,0 70%)}
+.mB-nav .sh.on{background:linear-gradient(#c22e36,#8d1820);color:#f8e7b8}
+.mB-nav .sh .ico{width:16px;height:16px}
+.mB-left{padding:16px 16px;display:flex;flex-direction:column;gap:10px}
+.mB-left dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:16px}
+.mB-left dt{font-family:var(--hd);font-size:11px;letter-spacing:.1em;color:var(--ink2);text-transform:uppercase;align-self:center}
+.mB-left dd{margin:0;text-align:right;font-weight:600}
+.mB-left .por{display:flex;gap:10px;align-items:center;border-top:1px solid var(--gold);padding-top:10px}
+.mB-left .por svg{width:64px;height:64px;border:1.5px solid var(--gold);border-radius:50%;background:#efe1bd}
+.mB-left .por b{font-family:var(--hd);font-size:13px;display:block}
+.mB-left .por span{font-size:15px;font-style:italic;color:var(--ink2)}
+.mB-center{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:10px;min-height:0;min-width:0}
+.mB-map{padding:12px;min-height:0;display:flex}
+.mB-map .fr{flex:1;border:3px double var(--gold);overflow:hidden;min-height:0}
+.mB-map svg{width:100%;height:100%;display:block}
+.mB-rib{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);background:var(--acc);color:#f8e7b8;font-family:var(--hd);font-size:14px;letter-spacing:.1em;padding:7px 30px;clip-path:polygon(0 0,100% 0,96% 50%,100% 100%,0 100%,4% 50%);white-space:nowrap}
+.mB-work{padding:12px 16px}
+.mB-work .row{display:grid;grid-template-columns:22px 1fr auto auto;gap:10px;align-items:center;padding:4px 0;border-bottom:1px solid var(--line);font-size:16px}
+.mB-work .row:last-child{border:0}
+.mB-work .t{font-family:var(--nm);font-weight:700;font-size:17px}
+.mB-right{padding:16px 14px;display:flex;flex-direction:column;gap:8px}
+.cv .news{padding:8px 4px 8px 34px;position:relative;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.25}
+.cv .news::before{content:"";position:absolute;left:4px;top:10px;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c23a40,#7d1218 70%);box-shadow:0 0 0 1.5px #d4a338}
+.cv .news.in::before{background:radial-gradient(circle at 35% 30%,#5d8a4d,#2f5426 70%)}
+.cv .news.out::before{background:radial-gradient(circle at 35% 30%,#3d6aa6,#1b3b6b 70%)}
+.cv .news b{font-family:var(--hd);font-size:12px;letter-spacing:.08em;display:block;text-transform:uppercase}
+.cv .news.bad b{color:var(--acc)}
+.cv .news .t{float:right;font-family:var(--nm);font-weight:700;font-size:17px}
+.mB-foot{grid-column:1/-1;display:flex;justify-content:center;gap:14px;align-items:flex-start}
+.cv .pen{width:190px;height:78px;padding:8px 10px 0;text-align:center;background:linear-gradient(#f2e6c8,#e2cf9f);border:1.5px solid #d4a338;clip-path:polygon(0 0,100% 0,100% 72%,50% 100%,0 72%);color:#3a2414}
+.cv .pen b{display:block;font-family:var(--hd);font-size:12px;letter-spacing:.06em}
+.cv .pen span{font-size:14.5px;font-style:italic}
+.cv .pen.on{background:linear-gradient(#c22e36,#8d1820);color:#f8e7b8}
+
+/* ---------- main C: HUD ---------- */
+.mC{position:relative;height:800px;overflow:hidden;background:radial-gradient(ellipse at 50% 60%,#0d2a44 0%,#050c17 65%)}
+.mC::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(95,240,255,.035) 0 1px,transparent 1px 3px)}
+.mC-scene{position:absolute;left:150px;right:300px;top:96px;bottom:150px}
+.mC-scene svg{width:100%;height:100%;display:block}
+.mC .gl{position:absolute;background:rgba(9,26,44,.72);border:1px solid rgba(95,240,255,.28);backdrop-filter:blur(6px)}
+.mC .gl::before{content:"";position:absolute;left:-1px;top:-1px;width:14px;height:14px;border-left:2px solid var(--acc);border-top:2px solid var(--acc)}
+.mC .gl::after{content:"";position:absolute;right:-1px;bottom:-1px;width:14px;height:14px;border-right:2px solid var(--acc);border-bottom:2px solid var(--acc)}
+.mC-top{left:16px;right:16px;top:14px;height:66px;display:flex;align-items:center;gap:14px;padding:0 16px}
+.mC-logo{display:flex;align-items:center;gap:10px;padding-right:14px;border-right:1px solid var(--line)}
+.mC-logo i{width:38px;height:38px;display:grid;place-items:center;border:1.5px solid var(--acc);color:var(--acc);font-family:var(--hd);font-weight:700;font-style:normal;font-size:15px;transform:rotate(45deg)}
+.mC-logo i span{transform:rotate(-45deg)}
+.mC-logo b{font-family:var(--hd);letter-spacing:.24em;font-size:13px;color:var(--ink)}
+.mC-res{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cv .rs{display:grid;grid-template-columns:auto 1fr;gap:0 8px;align-items:center}
+.cv .rs .ico{grid-row:1/3;width:22px;height:22px;color:var(--acc)}
+.cv .rs b{font-family:var(--nm);font-size:17px;font-weight:600;color:var(--ink)}
+.cv .rs small{font-family:var(--nm);font-size:10.5px;color:var(--ink2);display:flex;justify-content:space-between;gap:6px}
+.cv .rs .bar{grid-column:2;margin-top:3px}
+.mC-wal{display:flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--acc2);color:var(--acc2);box-shadow:0 0 18px rgba(255,195,90,.15) inset}
+.mC-wal .ico{width:22px;height:22px}
+.mC-wal b{font-family:var(--nm);font-size:20px}
+.mC-wal small{display:block;font-family:var(--nm);font-size:10.5px;color:#d9b773}
+.mC-wal .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.mC-rail{left:16px;top:96px;bottom:150px;width:118px;padding:10px 0;display:flex;flex-direction:column;gap:2px}
+.mC-rail .it{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 0;color:var(--ink2);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;position:relative}
+.mC-rail .it .ico{width:21px;height:21px}
+.mC-rail .it.on{color:var(--acc);background:linear-gradient(90deg,rgba(95,240,255,.16),transparent)}
+.mC-rail .it.on::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--acc);box-shadow:0 0 10px var(--acc)}
+.mC-rail .it em{position:absolute;right:26px;top:4px;font-style:normal;font-family:var(--nm);font-size:10px;background:var(--bad);color:#1a0500;padding:0 4px}
+.mC-time{right:16px;top:96px;width:300px;bottom:150px;padding:14px 14px}
+.cv .tl{padding:9px 0 9px 14px;border-bottom:1px solid var(--line);position:relative}
+.cv .tl::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;background:var(--acc);transform:rotate(45deg)}
+.cv .tl.bad::before{background:var(--bad);box-shadow:0 0 10px var(--bad)}
+.cv .tl.in::before{background:var(--ok)}
+.cv .tl .h{display:flex;justify-content:space-between;align-items:baseline}
+.cv .tl b{font-family:var(--hd);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.cv .tl.bad b,.cv .tl.bad .t{color:var(--bad)}
+.cv .tl .t{font-family:var(--nm);font-size:15px;font-weight:600;color:var(--ink)}
+.cv .tl p{margin:3px 0 6px;font-size:12px;color:var(--ink2)}
+.cv .tl.bad .bar>u{background:var(--bad);box-shadow:0 0 8px var(--bad)}
+.mC-queue{left:16px;bottom:16px;width:470px;height:122px;padding:12px 14px;display:flex;gap:10px}
+.cv .qi{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.cv .qi svg.ring{width:54px;height:54px}
+.cv .qi b{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.cv .qi span{font-family:var(--nm);font-size:12.5px;color:var(--acc2)}
+.mC-dock{position:absolute;left:502px;right:332px;bottom:16px;height:122px;display:flex;gap:10px}
+.cv .dk{flex:1;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;position:relative;background:rgba(9,26,44,.6);border:1px solid var(--line)}
+.cv .dk.on{border-color:var(--acc);box-shadow:0 0 20px rgba(95,240,255,.2) inset}
+.cv .dk b{font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.cv .dk span{font-family:var(--nm);font-size:11px;color:var(--ink2)}
+.cv .dk i{position:absolute;top:8px;right:10px;font-style:normal;font-family:var(--nm);font-size:11px;color:var(--acc2)}
+.cv .dk svg{position:absolute;left:8px;top:6px;width:64px;height:auto}
+.mC-mini{right:16px;bottom:16px;width:300px;height:122px;padding:10px 14px}
+.cv .mini{display:grid;grid-template-columns:repeat(15,1fr);gap:3px;margin-top:6px}
+.cv .mini i{height:30px;border:1px solid var(--line);background:rgba(95,240,255,.05);position:relative}
+.cv .mini i.o{background:rgba(95,240,255,.18)}
+.cv .mini i.me{background:var(--acc2);border-color:var(--acc2);box-shadow:0 0 10px rgba(255,195,90,.6)}
+.cv .mini i.al{background:rgba(95,240,255,.45)}
+.cv .mini i.en{background:rgba(255,122,92,.55);border-color:var(--bad)}
+.cv .mini-z{display:grid;grid-template-columns:3fr 3fr 3fr 3fr 3fr;margin-top:4px;font-family:var(--nm);font-size:9.5px;color:var(--ink2);letter-spacing:.04em}
+.mC-coord{position:absolute;left:50%;top:104px;transform:translateX(-50%);font-family:var(--nm);font-size:13px;letter-spacing:.14em;color:var(--acc);padding:6px 14px;border:1px solid var(--line);background:rgba(5,12,23,.6);white-space:nowrap}
+
+/* ---------- other screens (shared layout) ---------- */
+.cv.scr{height:760px;display:flex;flex-direction:column;padding:16px 18px;gap:14px}
+.skA.scr{background:linear-gradient(180deg,#30312a,#25261f)}
+.skB.scr{background:radial-gradient(ellipse at 50% 0%,#5a2227,transparent 60%),linear-gradient(#3b1517,#2a0f11)}
+.skC.scr{background:radial-gradient(ellipse at 50% 30%,#0d2a44 0%,#050c17 70%)}
+.cv .scr-h{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 16px}
+.cv .scr-h .tt{display:flex;align-items:center;gap:12px}
+.cv .scr-h .tt .ico{width:30px;height:30px}
+.cv .scr-h h2{margin:0;font-weight:400;line-height:1}
+.cv .scr-h p{margin:3px 0 0;font-size:13px;color:var(--ink2)}
+.skA .scr-h h2{font-family:var(--hd);font-size:28px;text-transform:uppercase;letter-spacing:.04em}
+.skB .scr-h h2{font-family:var(--hd);font-size:26px;font-weight:700;color:var(--acc);letter-spacing:.06em}
+.skB .scr-h p{font-size:16px;font-style:italic}
+.skC .scr-h h2{font-family:var(--hd);font-size:24px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+.skC .scr-h .tt .ico{color:var(--acc)}
+.cv .mres{display:flex;gap:14px}
+.cv .mres span{display:flex;align-items:center;gap:5px;font-family:var(--nm);font-size:14px;font-weight:700}
+.cv .mres .ico{width:16px;height:16px;color:var(--acc2)}
+.skC .mres .ico{color:var(--acc)}
+.cv .scr-b{flex:1;min-height:0;display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.cv .scr-b>*{min-width:0}
+.cv .cell-p{padding:14px 16px;min-height:0;display:flex;flex-direction:column}
+
+.cv .tbl th{text-align:left;font-weight:400;padding:6px 8px;white-space:nowrap}
+.cv .tbl td{padding:2px 8px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+.skA .tbl th{font-family:var(--lb);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;border-bottom:2px solid var(--ink)}
+.skA .tbl td{border-bottom-style:dotted;font-size:13.5px}
+.skB .tbl th{font-family:var(--hd);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:700;border-bottom:1.5px solid var(--gold)}
+.skB .tbl td{font-size:16px}
+.skC .tbl th{font-family:var(--hd);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink2);border-bottom:1px solid var(--line)}
+.skC .tbl td{font-size:13px}
+.cv .tbl tr.me td{background:rgba(163,68,42,.14)}
+.skB .tbl tr.me td{background:rgba(212,163,56,.22)}
+.skC .tbl tr.me td{background:rgba(255,195,90,.12);color:var(--acc2)}
+.cv .tbl tr.free td{color:var(--ink2);font-style:italic}
+.cv .tbl .mini-c{width:38px;height:28px;display:block}
+.cv .tbl .acts{display:flex;gap:6px;color:var(--ink2)}
+.cv .tbl .acts .ico{width:17px;height:17px}
+.cv .st-n{color:var(--ink2)}.cv .st-m{color:var(--acc2)}.cv .st-s{color:var(--ok)}
+.cv .zone{display:flex;flex-direction:column;gap:6px}
+.cv .zone div{display:grid;grid-template-columns:60px 1fr;gap:8px;align-items:center;font-size:13px}
+.cv .zone div i{height:26px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-style:normal;font-family:var(--nm);font-size:12px}
+.cv .zone div.me i{background:var(--acc);color:#fff;border-color:var(--acc)}
+.skC .zone div.me i{background:var(--acc2);color:#1c1200}
+.cv .legend{display:grid;gap:5px;font-size:13px;margin-top:auto}
+
+.cv .ugrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.cv .ucard{display:flex;flex-direction:column;gap:6px;padding:8px;position:relative;background:var(--panel2)}
+.skA .ucard{border:2px solid var(--ink)}
+.skB .ucard{border:1px solid var(--gold);border-radius:4px}
+.skC .ucard{border:1px solid var(--line);background:rgba(95,240,255,.04)}
+.cv .ucard.sel{outline:3px solid var(--acc2);outline-offset:-1px}
+.skA .ucard.sel{outline-color:var(--acc)}
+.cv .ucard svg{width:100%;height:auto;display:block}
+.cv .ucard b{font-size:14px}
+.skA .ucard b{font-family:var(--lb);font-size:16px;text-transform:uppercase;letter-spacing:.06em}
+.skB .ucard b{font-family:var(--hd);font-size:13px}
+.skC .ucard b{font-family:var(--hd);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+.cv .ucard .cost{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2)}
+.cv .ucard .cost strong{font-family:var(--nm);color:var(--ink)}
+.cv .step{display:grid;grid-template-columns:28px 1fr 28px;border:1px solid var(--line);text-align:center;font-family:var(--nm);font-weight:700;align-items:center;height:28px}
+.cv .step span{display:grid;place-items:center;height:100%;color:var(--ink2)}
+.cv .step span .ico{width:14px;height:14px}
+.cv .tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.cv .tabs .tb{padding:6px 12px;font-size:13px;border:1px solid var(--line);color:var(--ink2)}
+.cv .tabs .tb.on{color:var(--ink);border-color:var(--ink);font-weight:700}
+.skA .tabs .tb{font-family:var(--lb);text-transform:uppercase;letter-spacing:.08em;font-size:14px}
+.skA .tabs .tb.on{background:var(--ink);color:var(--panel)}
+.skB .tabs .tb{font-family:var(--hd);font-size:12px;letter-spacing:.06em;border-color:var(--gold);border-radius:12px}
+.skB .tabs .tb.on{background:var(--acc);color:#f8e7b8;border-color:var(--acc)}
+.skC .tabs .tb{font-family:var(--hd);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase}
+.skC .tabs .tb.on{color:var(--acc);border-color:var(--acc);background:rgba(95,240,255,.1)}
+.cv .kv{display:grid;grid-template-columns:1fr auto;gap:7px 12px;font-size:14px;align-items:baseline}
+.cv .kv dt{color:var(--ink2)}
+.cv .kv dd{margin:0;text-align:right;font-family:var(--nm);font-weight:700}
+.skB .kv{font-size:16.5px}
+.cv .bigegg{font-family:var(--hd);font-size:50px;line-height:1;margin:4px 0}
+.skC .bigegg{font-family:var(--nm);font-weight:600;font-size:44px;color:var(--acc2)}
+.skB .bigegg{color:var(--acc)}
+.cv .mchikn{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}
+.cv .mchikn svg{width:44px;height:44px;border-radius:50%;background:var(--panel2)}
+.cv .mchikn small{display:block;color:var(--ink2);font-size:11.5px}
+.cv .note{font-size:12.5px;color:var(--ink2);line-height:1.35}
+.skB .note{font-size:15px;font-style:italic}
+
+.cv .utbl td .uimg{width:58px;height:48px;display:block}
+.cv .inp{display:inline-block;min-width:74px;padding:5px 8px;border:1px solid var(--ink2);font-family:var(--nm);font-weight:700;text-align:right;background:rgba(255,255,255,.35)}
+.skC .inp{background:rgba(95,240,255,.06);border-color:var(--line);color:var(--acc2)}
+.cv .miss{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cv .miss div{display:flex;align-items:center;gap:8px;padding:9px 10px;border:1px solid var(--line);font-size:13.5px}
+.cv .miss div.on{border:2px solid var(--acc);color:var(--acc);font-weight:700}
+.skA .miss div{font-family:var(--lb);text-transform:uppercase;letter-spacing:.06em;font-size:14px;border-color:var(--ink2)}
+.skB .miss div{font-family:var(--hd);font-size:12px;border-color:var(--gold)}
+.skC .miss div{font-family:var(--hd);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase}
+.cv .addr{display:flex;gap:8px;align-items:center;margin:4px 0 12px;font-size:14px}
+.cv .speed{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:4px 0 2px}
+.cv .speed i{height:14px;background:var(--acc);opacity:.9}
+.skA .speed i{background:var(--ink2)}
+
+.cv .rep-h{display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
+.cv .rep-h .res{font-family:var(--hd);font-size:20px;color:var(--ok)}
+.skA .rep-h .res{text-transform:uppercase}
+.skC .rep-h .res{letter-spacing:.14em;text-transform:uppercase;font-size:16px}
+.cv .rep-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.cv .rep-g .tbl td:nth-child(n+2),.cv .rep-g .tbl th:nth-child(n+2){text-align:right}
+.cv .rep-g .tbl td.l{color:var(--bad);font-family:var(--nm);font-weight:700}
+.cv .side-t{font-size:13px;color:var(--ink2);margin-bottom:8px}
+.cv .rounds{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cv .rd{display:flex;flex-direction:column;gap:5px;font-size:12.5px}
+.cv .rd .bar{height:12px}
+.cv .rd .bar.d>u{background:var(--bad)}
+.skC .rd .bar{height:6px}
+.cv .loot{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cv .loot div{padding:10px 12px;border:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.cv .loot small{font-size:12px;color:var(--ink2)}
+.cv .loot b{font-family:var(--nm);font-size:22px}
+.skB .loot div{border-color:var(--gold)}
+
+.cv .cgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cv .ccard{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:10px;align-items:start;background:var(--panel)}
+.skA .ccard{border:3px solid var(--frame);background:var(--panel) var(--paper)}
+.skB .ccard{border:1.5px solid var(--gold);background:var(--panel) var(--paper)}
+.skC .ccard{border:1px solid var(--line);background:rgba(10,28,48,.78)}
+.cv .ccard svg{width:96px;height:96px;display:block;background:var(--panel2);border-radius:50%}
+.skA .ccard svg{border-radius:0;border:2px solid var(--ink);filter:sepia(.25)}
+.skC .ccard svg{background:rgba(95,240,255,.05);border:1px solid var(--line)}
+.cv .ccard .id{font-family:var(--nm);font-size:12px;color:var(--ink2)}
+.cv .ccard b{display:block;font-size:15px;line-height:1.15}
+.skA .ccard b{font-family:var(--lb);font-size:17px;text-transform:uppercase;letter-spacing:.04em}
+.skB .ccard b{font-family:var(--hd);font-size:13.5px}
+.skC .ccard b{font-family:var(--hd);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.cv .ccard .tr{font-size:12.5px;margin:4px 0;line-height:1.3}
+.skB .ccard .tr{font-size:15px}
+.cv .ccard .as{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:7px;font-size:12.5px}
+.cv .ccard.empty{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;border-style:dashed;color:var(--ink2)}
+.cv .rar{font-size:11px;padding:1px 6px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.cv .rar.l{background:#c8932b;color:#1f1400}.cv .rar.e{background:#6b4aa0;color:#fff}.cv .rar.r{background:#2f6aa8;color:#fff}.cv .rar.o{background:#7a7566;color:#fff}
+.skC .rar.l{background:transparent;color:var(--acc2);border:1px solid var(--acc2)}
+.skC .rar.e{background:transparent;color:#c9a6ff;border:1px solid #c9a6ff}
+.skC .rar.r{background:transparent;color:var(--acc);border:1px solid var(--acc)}
+.skC .rar.o{background:transparent;color:var(--ink2);border:1px solid var(--ink2)}
+
+</style>
+<nav class="topnav" aria-label="Poglavlja">
+  <div class="wrap">
+    <a class="brand" href="#vrh">Perje <span>i</span> gvožđe</a>
+    <div class="navlinks">
+      <a href="#prica">Priča</a><a href="#imanje">Imanje</a><a href="#jaja">Jaja i NFT</a><a href="#pravila">Pravila</a><a href="#dizajn">Izaberi dizajn</a><a href="#izbor">Tvoj izbor</a>
+    </div>
+    <a class="navpick" href="#izbor" id="navpick" aria-label="Stanje izbora"><span>Izbor</span><b data-k="jedinice">J</b><b data-k="zgrade">Z</b><b data-k="glavni">G</b><b data-k="ekrani">E</b></a>
+  </div>
+</nav>
+
+<header class="hero" id="vrh">
+  <div class="hero-art" id="heroArt"></div>
+  <div class="wrap">
+    <p class="eyebrow">Koncept igre · Chikn NFT kolekcija · v0.1</p>
+    <h1>Perje <em>i</em><br>gvožđe</h1>
+    <p class="tagline">32.000 Chikna. Jedno Imanje. Nijedan Farmer.</p>
+    <p class="lede">Strategija u pregledaču za vlasnike Chikn NFT-ova. Gradiš kokošinjce na placevima koji rade kao planete, pretvaraš jaja iz novčanika u vojsku, transport i odbranu, i boriš se za mesto u Redu kljucanja.</p>
+    <div class="cta"><a class="pbtn pri" href="#dizajn">Izaberi dizajn</a><a class="pbtn" href="#prica">Pročitaj priču</a></div>
+  </div>
+  <div class="facts">
+    <div class="wrap">
+      <div class="fact"><b>32.000</b><span>Chikn NFT-ova nosi jaja svakog dana</span></div>
+      <div class="fact"><b>36.000</b><span>placeva u 8 komšiluka jednog sveta</span></div>
+      <div class="fact"><b>44–238</b><span>polja za gradnju, zavisno od placa u sokaku</span></div>
+      <div class="fact"><b>1 jaje</b><span>postaje vojnik, kola, zid ili hiljadu zrna</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="ch" id="prica">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Priča</p><h2 class="h2">Proleće kada Farmer nije došao</h2>
+      <p class="lede">Svet igre je Imanje, ogromna farma na kojoj je Farmer držao 32.000 Chikna. Rat počinje onog dana kada on nestane.</p></div>
+    <div class="grid2">
+      <ol class="tline">
+        <li data-n="I"><h3>Doba reda</h3><p>Generacijama je Farmer u zoru otvarao kapiju, sipao zrno, skupljao jaja i uveče zatvarao ogradu pred lisicama. Svaki kokošinjac imao je adresu, a svaki Chikn svoje mesto u Redu kljucanja.</p></li>
+        <li data-n="II"><h3>Tišina</h3><p>Jednog proleća kapija se nije otvorila. Farmer nije došao ni tog dana ni sledećeg. Veliki silos je ostao pun, ali zaključan, a hranilice su se praznile.</p></li>
+        <li data-n="III"><h3>Knjiga inkubacije</h3><p>Najhrabriji su preleteli ogradu Farmerovog dvorišta. U kuhinji su našli njegovu svesku o temperaturi, vlazi i okretanju jaja. Iz nje su naučili da se iz jajeta može izleći ono što jatu treba, bilo da je to radnik, ratnik, kola ili zid.</p></li>
+        <li data-n="IV"><h3>Noć prevrnute hranilice</h3><p>Unutrašnji krug, stari kokošinjci oko Farmerove kuće, proglasio je da Knjiga i Veliki silos pripadaju njima jer su najstariji u Redu. Spoljni prsten, kokošinjci uz šumu do kojih zrno stiže poslednje a lisice prve, to nije prihvatio. Kod zajedničke hranilice u Vodenici glasnik Prstena zatražio je pravednu podelu. Petao iz Stare Ekonomije odgovorio je kljunom. Do jutra je hranilica bila prevrnuta, zrno razvučeno po blatu, a prvo perje palo.</p></li>
+        <li data-n="V"><h3>Rat za Red kljucanja</h3><p>Od te noći svaka sezona počinje isto. Kokošinjci se utvrđuju, jaja se pretvaraju u odrede, a jata se bore za vrh Reda. Sezona traje 90 dana i završava se Žetvom. Jato koje je tada prvo određuje pravila sledeće sezone.</p></li>
+      </ol>
+      <div class="stack">
+        <h3 class="h3">Oko čega se svađaju</h3>
+        <div class="why">
+          <div><b>Zrno</b><p>Veliki silos je pun, ali ga drži Unutrašnji krug. Svaka zgrada i svaki odred troše zrno.</p></div>
+          <div><b>Jaja</b><p>Jaje je jedini resurs koji može postati bilo šta. Ko ima jaja, ima i vojsku.</p></div>
+          <div><b>Livada</b><p>Placevi 4, 5 i 6 imaju najviše polja za gradnju. Svaki sokak ima samo tri takva placa.</p></div>
+          <div><b>Red kljucanja</b><p>Mesto na rang listi donosi jaja na Žetvi i glas u Savetu jata. Hijerarhija koja je nekad bila prirodna sada se osvaja.</p></div>
+        </div>
+        <p class="quote">Niko ne zna zašto je Farmer otišao. Lisice znaju.<small>Ova misterija je kuka za priču kroz sezone: lisice iz Divljine znaju više nego što pokazuju.</small></p>
+      </div>
+    </div>
+    <div class="psub">
+      <h3 class="h3">Zakletva: tri strane rata</h3>
+      <p class="muted" style="margin-top:6px;max-width:66ch">Na početku sezone biraš stranu. Bonus je mali, ali određuje ko ti je prirodni saveznik u sezonskom ratu strana.</p>
+      <div class="oath">
+        <div style="border-color:rgba(240,180,60,.45)"><svg viewBox="0 0 36 36" aria-hidden="true"><ellipse cx="18" cy="19" rx="11" ry="14" fill="#f0b43c"/></svg><b>Unutrašnji krug</b><q>Red mora postojati.</q><span>+5% odbrana · +5% zrno</span><p>Stari kokošinjci oko Farmerove kuće. Čuvaju Knjigu i Veliki silos.</p></div>
+        <div style="border-color:rgba(207,90,64,.5)"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M7,19 C7,10 12,5 18,5 C24,5 29,10 29,19 L24,16 L21,21 L17,16 L13,21 L10,16 Z" fill="#cf5a40"/><path d="M8,23 L11,20 L14,25 L18,20 L22,25 L25,20 L28,23 C27,29 23,33 18,33 C13,33 9,29 8,23 Z" fill="#cf5a40"/></svg><b>Spoljni prsten</b><q>Zrno pripada svima.</q><span>+5% napad · +5% brzina odreda</span><p>Kokošinjci uz ogradu i šumu. Gladni, brojni i spremni na prepad.</p></div>
+        <div style="border-color:rgba(156,188,120,.5)"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M30,5 C17,6 8,15 7,30 C19,29 28,20 30,5 Z" fill="#9cbc78"/><path d="M7,30 L22,14" stroke="#161d25" stroke-width="2"/></svg><b>Divlji</b><q>Ograda je laž.</q><span>+10% nalaza u Divljini</span><p>Odbegli Chikn koji žive van ograde. Nemaju zaštitu strane, ali najbolje poznaju Divljinu.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch alt" id="imanje">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Svet</p><h2 class="h2">Kokošinjci umesto planeta</h2>
+      <p class="lede">Svaki igrač počinje sa jednim kokošinjcem na jednom placu. Plac radi kao planeta: od njegovog položaja u sokaku zavise broj polja za gradnju, klima i proizvodnja.</p></div>
+    <div class="chain">
+      <div><b>Imanje</b><span>jedan svet, odnosno server</span></div>
+      <div><b>8 komšiluka</b><span>poređanih u krug oko Farmerove kuće</span></div>
+      <div><b>300 sokaka</b><span>po komšiluku; manji broj je bliže Farmerovoj kući</span></div>
+      <div><b>15 placeva</b><span>po sokaku, od druma do šume</span></div>
+    </div>
+    <p class="paddr">Adresa se piše kao na seoskoj kući: <b>Suncokreti 117/6</b> je komšiluk Suncokreti, sokak 117, plac 6. Putovanje u istom sokaku traje minute, u istom komšiluku sate, a do drugog komšiluka pola dana.</p>
+    <div class="explore">
+      <div class="chartbox">
+        <h3 class="h4">Polja za gradnju po placu</h3>
+        <p class="small muted">Raspon polja koji plac dobije kada se naseli. Izaberi stubac da vidiš plac.</p>
+        <div class="chart-scroll"><div class="chart" id="chart"></div></div>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+      <div class="plot" id="plot" aria-live="polite"></div>
+    </div>
+    <div class="tblwrap"><table class="t" id="zoneTable"><thead><tr><th>Predeo</th><th>Placevi</th><th>Polja</th><th>Temperatura</th><th>Efekat</th></tr></thead><tbody></tbody></table></div>
+    <div class="psub"><h3 class="h3">Osam komšiluka</h3><p class="muted" style="margin-top:6px">Svaki komšiluk daje mali bonus svim kokošinjcima u njemu. Pčelinjak je sused Staroj Ekonomiji, jer se krug zatvara.</p>
+      <div class="hoods" id="hoods"></div></div>
+  </div>
+</section>
+
+<section class="ch" id="jaja">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">NFT i jaja</p><h2 class="h2">Jaje postaje bilo šta</h2>
+      <p class="lede">Chikn NFT nosi jaja. Jaja stižu u tvoj novčanik, a u igri biraš šta će postati: vojska, transport, odbrana, resursi ili ubrzanje.</p></div>
+    <ol class="flow">
+      <li><b>Chikn nosi jaja</b><p>Svaki od 32.000 Chikna nosi od 1 do 5 jaja dnevno, zavisno od retkosti.</p></li>
+      <li><b>Jaja su u novčaniku</b><p>Jaja su token. Čuvaš ih, prodaješ ili unosiš u igru. Napadač ih ne može opljačkati.</p></li>
+      <li><b>Inkubator ih pretvara</b><p>Biraš šta jaje postaje. Pretvoreno jaje se trajno troši na lancu, pa ponuda ne raste bez kraja.</p></li>
+      <li><b>Kapacitet određuje tempo</b><p>Inkubator nivoa 8 izleže 110 jaja na sat. Bez razvijenog kokošinjca ni 10.000 jaja ne postaje vojska preko noći.</p></li>
+    </ol>
+    <h3 class="h3" style="margin-bottom:14px">Koliko vredi tvoj novčanik</h3>
+    <div class="calc">
+      <div class="ctl">
+        <div><label for="cE">Jaja u novčaniku <output id="oE">1.284</output></label><input type="range" id="cE" min="0" max="5000" step="1" value="1284"></div>
+        <div><label for="cL">Nivo Inkubatora <output id="oL">8</output></label><input type="range" id="cL" min="1" max="20" step="1" value="8"></div>
+        <div><label for="cG">Genetika jajeta <output id="oG">3</output></label><input type="range" id="cG" min="0" max="10" step="1" value="3"></div>
+        <p class="small muted">Genetika jajeta daje 3% više jedinica i odbrane po nivou. Sve kartice su alternative: jedan nalog pretvara jaja u jednu stvar.</p>
+      </div>
+      <div class="outs" id="outs"></div>
+    </div>
+    <div class="grid2 psub">
+      <div>
+        <h3 class="h3">Retkost i jaja</h3>
+        <div class="tblwrap"><table class="t" style="min-width:420px"><thead><tr><th>Retkost</th><th>Broj Chikna</th><th>Udeo</th><th>Jaja dnevno</th></tr></thead><tbody>
+          <tr><td><span class="prar o">Obična</span></td><td class="n">19.200</td><td class="n">60%</td><td class="n">1</td></tr>
+          <tr><td><span class="prar r">Retka</span></td><td class="n">8.000</td><td class="n">25%</td><td class="n">2</td></tr>
+          <tr><td><span class="prar e">Epska</span></td><td class="n">3.840</td><td class="n">12%</td><td class="n">3</td></tr>
+          <tr><td><span class="prar l">Legendarna</span></td><td class="n">960</td><td class="n">3%</td><td class="n">5</td></tr>
+        </tbody></table></div>
+        <p class="small muted" style="margin-top:14px"><b style="color:var(--ash)">Igrači bez NFT-a</b> mogu da igraju. Sve se gradi i od zrna, kreča i ulja. Jaja daju brzinu i izbor, ali kokošinjac i dalje mora da raste.</p>
+      </div>
+      <div>
+        <h3 class="h3">Rasa određuje starešinu</h3>
+        <p class="small muted" style="margin:6px 0 0">Chikn postavljaš za starešinu jednog kokošinjca. Rasa daje bonus tom kokošinjcu.</p>
+        <div class="tblwrap"><table class="t" style="min-width:440px" id="breeds"><thead><tr><th>Rasa</th><th>Uloga</th><th>Bonus kokošinjcu</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch alt" id="pravila">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Sistem igre</p><h2 class="h2">Sve što pokreće rat</h2>
+      <p class="lede">Osnovna petlja je ona iz klasičnih strategija u pregledaču: proizvodiš, gradiš, istražuješ, šalješ odrede i braniš se. Sve je preneseno na imanje, a jaja su novi sloj iznad toga.</p></div>
+    <div class="res5" id="res5"></div>
+    <h3 class="h3" style="margin-bottom:12px">Jedinice</h3>
+    <div class="tblwrap"><table class="t" id="units" style="min-width:760px"><thead><tr><th>Jedinica</th><th>Uloga</th><th>Cena</th><th>Napad</th><th>Oklop</th><th>Brzina</th><th>Nosivost</th></tr></thead><tbody></tbody></table></div>
+    <div class="cols4">
+      <div><h4>Proizvodnja</h4><ul><li><b>Žitnica</b> · zrno</li><li><b>Krečana</b> · kreč</li><li><b>Uljara</b> · ulje od suncokreta</li><li><b>Vetrenjača</b> · snaga</li><li><b>Kompostna peć</b> · snaga od ulja</li></ul></div>
+      <div><h4>Skladišta</h4><ul><li><b>Ambar</b> · čuva zrno</li><li><b>Krečni silos</b> · čuva kreč</li><li><b>Cisterna</b> · čuva ulje</li><li><b>Skrivnica</b> · deo resursa koji se ne može opljačkati</li></ul></div>
+      <div><h4>Razvoj</h4><ul><li><b>Kokošinjac</b> · glavna zgrada, brža gradnja</li><li><b>Radionica</b> · brža gradnja i jedinice</li><li><b>Inkubator</b> · jedinice i pretvaranje jaja</li><li><b>Akademija</b> · istraživanja</li><li><b>Proširenje ograde</b> · +4 polja po nivou</li><li><b>Osmatračnica</b> · ranije vidi dolazeće odrede</li><li><b>Golubarnik</b> · poruke i domet uhođenja</li><li><b>Zajednička hranilica</b> · hrani savezničke odrede</li></ul></div>
+      <div><h4>Odbrana</h4><ul><li><b>Ograda od pruća</b> · 1 jaje</li><li><b>Bodljikava žica</b> · 2 jaja</li><li><b>Praćkaš</b> · 4 jaja</li><li><b>Kukuruzni top</b> · 12 jaja</li><li><b>Strašilo</b> · 40 jaja, teška kula</li><li><b>Ljuskasta kupola</b> · mala 60, velika 300, po jedna</li></ul></div>
+    </div>
+    <div class="grid2 psub">
+      <div><h3 class="h3">Istraživanja u Akademiji</h3>
+        <div class="cols4" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-top:14px">
+          <ul><li><b>Oštrenje kljuna</b> · +10% napad po nivou</li><li><b>Ljuskasti oklop</b> · +10% oklop</li><li><b>Paperje</b> · +10% štit</li><li><b>Točak, Opruga, Parni pogon</b> · brži odredi</li><li><b>Uhođenje</b> · detaljniji izveštaji</li><li><b>Kartografija Imanja</b> · +1 kokošinjac na 2 nivoa</li></ul>
+          <ul><li><b>Agronomija</b> · +2% proizvodnja po nivou</li><li><b>Genetika jajeta</b> · +3% jedinica po jajetu</li><li><b>Kooperativa</b> · Akademije više kokošinjaca rade zajedno</li><li><b>Meteorologija</b> · vreme vidiš 12 h unapred</li><li><b>Lisičja lukavost</b> · bolji ishodi Pohoda</li></ul>
+        </div></div>
+      <div><h3 class="h3">Borba</h3>
+        <p class="muted" style="margin-top:12px">Borba traje najviše 6 rundi. U svakoj rundi svaka jedinica gađa nasumičnu metu. Neke jedinice imaju Nalet i posle pogotka u određenu metu pucaju ponovo, na primer Jajobacač protiv Praćkaša i Probijač protiv kupola.</p>
+        <p class="muted" style="margin-top:10px">Posle bitke 30% cene uništenih jedinica pada kao polje perja iznad placa, a Skupljači perja ga pretvaraju u resurse. Uništena odbrana se 70% popravi sama. Prepad odnosi do polovine nezaštićenih resursa. Jaja iz novčanika se nikad ne mogu opljačkati.</p></div>
+    </div>
+    <div class="psub"><h3 class="h3">Misije odreda</h3>
+      <div class="miss9">
+        <div><b>Prepad</b>Napad i pljačka zrna, kreča i ulja.</div>
+        <div><b>Udruženi juriš</b>Do pet igrača iz jata napada zajedno.</div>
+        <div><b>Transport</b>Prevoz resursa do bilo kog kokošinjca.</div>
+        <div><b>Premeštanje</b>Odred trajno prelazi u drugi tvoj kokošinjac.</div>
+        <div><b>Čuvanje</b>Odred brani saveznika dok ga ne povučeš.</div>
+        <div><b>Uhođenje</b>Uhode donose izveštaj o resursima, odbrani i odredima.</div>
+        <div><b>Naseljavanje</b>Seobna kola zauzimaju slobodan plac.</div>
+        <div><b>Sakupljanje perja</b>Skupljači pretvaraju polje perja u resurse.</div>
+        <div><b>Pohod u Divljinu</b>Van ograde: resursi, jaja, izgubljeni pilići ili lisice.</div>
+      </div></div>
+    <div class="psub"><h3 class="h3">Posebna pravila</h3>
+      <div class="spec">
+        <div><b>Mitarenje</b><p>Odmor do 30 dana. Proizvodnja staje, a tebe niko ne može napasti. Traje najmanje 48 sati.</p></div>
+        <div><b>Zaštita pilića</b><p>Nov igrač je zaštićen 7 dana ili do 50.000 poena.</p></div>
+        <div><b>Lisičja noć</b><p>Svake druge nedelje lisice napadaju neaktivne i slabe kokošinjce. Jata se brane zajedno za nagradu u jajima.</p></div>
+        <div><b>Vreme</b><p>Kiša usporava odrede 15%, suša smanjuje zrno 10%, oluja gasi vetrenjače na 2 sata.</p></div>
+        <div><b>Žetva</b><p>Kraj sezone posle 90 dana. Nagrade u jajima i trofej Zlatno jaje za prvo jato.</p></div>
+      </div></div>
+  </div>
+</section>
+
+<section class="ch" id="dizajn">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Izaberi dizajn</p><h2 class="h2">Tri pravca, četiri odluke</h2>
+      <p class="lede">Za jedinice, zgrade, glavni ekran i ostale ekrane biraš po jedan od tri vizuelna pravca. Pravci se mogu mešati, a izbor se čuva čim klikneš.</p></div>
+    <div class="dirs">
+      <div class="dir A"><div class="sw"><i style="background:#2b2c23"></i><i style="background:#5e6240"></i><i style="background:#d9cca8"></i><i style="background:#a3442a"></i><i style="background:#7b8380"></i></div>
+        <div class="bd"><b class="nm">A · Rovovski</b><p>Dizelpank iz rovova. Šlemovi, gas-maske, valoviti lim i džakovi s peskom. Ekran izgleda kao terenski dosije sa kucanim slovima, pečatima i zakivcima.</p><span class="fn">Saira Stencil · Courier Prime</span></div></div>
+      <div class="dir B"><div class="sw"><i style="background:#3b1517"></i><i style="background:#a51d27"></i><i style="background:#d4a338"></i><i style="background:#1f4f8c"></i><i style="background:#f2e6c8"></i></div>
+        <div class="bd"><b class="nm">B · Heraldički</b><p>Viteški red na imanju. Kacige s kljunom, štitovi s grbovima, kule i zastave. Ekran je iluminirani rukopis od pergamenta, zlata i voštanih pečata.</p><span class="fn">Cinzel · Cormorant Garamond</span></div></div>
+      <div class="dir C"><div class="sw"><i style="background:#050c17"></i><i style="background:#0d2a44"></i><i style="background:#5ff0ff"></i><i style="background:#ffc35a"></i><i style="background:#ff7a5c"></i></div>
+        <div class="bd"><b class="nm">C · Agro-tech</b><p>Visoka tehnologija na farmi. Egzoskeleti, viziri, kupole i turbine. Ekran je taktički holo-prikaz sa staklom, tankim linijama i brojačima uživo.</p><span class="fn">Chakra Petch · JetBrains Mono</span></div></div>
+    </div>
+
+    <div class="pick" id="jedinice">
+      <div class="pick-h"><div><h3 class="h3">1 · Jedinice</h3><p>Pet jedinica u svakom pravcu. Isti kostur kokoške, različita oprema i način crtanja.</p></div><span class="cur" data-cur="jedinice">Nije izabrano</span></div>
+      <div class="seg" data-seg="jedinice"></div>
+      <div class="cols3" id="colsJedinice" data-show="A"></div>
+    </div>
+
+    <div class="pick" id="zgrade">
+      <div class="pick-h"><div><h3 class="h3">2 · Zgrade</h3><p>Pet zgrada koje igrač vidi prvog dana: kokošinjac, vetrenjača, žitnica, inkubator i strašilo.</p></div><span class="cur" data-cur="zgrade">Nije izabrano</span></div>
+      <div class="seg" data-seg="zgrade"></div>
+      <div class="cols3" id="colsZgrade" data-show="A"></div>
+    </div>
+
+    <div class="pick" id="glavni">
+      <div class="pick-h"><div><h3 class="h3">3 · Glavni ekran</h3><p>Pregled kokošinjca sa resursima, menijem, scenom dvorišta, gradnjom u toku i kretanjem odreda. Podaci su isti na sva tri ekrana, a raspored i stil se razlikuju.</p></div><span class="cur" data-cur="glavni">Nije izabrano</span></div>
+      <div class="mocks" id="mainMocks"></div>
+    </div>
+
+    <div class="pick" id="ekrani">
+      <div class="pick-h"><div><h3 class="h3">4 · Ostali ekrani</h3><p>Pet ekrana u izabranom stilu: komšiluk, inkubator, slanje odreda, izveštaj o borbi i Chikn kolekcija. Raspored je isti, menja se stil.</p></div><span class="cur" data-cur="ekrani">Nije izabrano</span></div>
+      <div class="skinbar"><span>Prikaži u stilu</span><span id="skinBtns" style="display:flex;gap:6px;margin:0"></span><span class="grow"></span><button class="pbtn pri sm" id="pickSkin" type="button">Izaberi ovaj stil</button></div>
+      <div class="ogrid" id="otherMocks"></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch alt" id="izbor">
+  <div class="wrap">
+    <div class="ch-head"><p class="eyebrow">Tvoj izbor</p><h2 class="h2">Šta ide u prototip</h2>
+      <p class="lede">Izbor se čuva uz ovu stranicu. Kada se vratiš u razgovor, napiši da je izbor gotov i nastaviću od njega.</p></div>
+    <div class="sum">
+      <div class="sumt" id="sumt"></div>
+      <div class="notes">
+        <label for="note">Napomene za sledeći krug</label>
+        <textarea id="note" placeholder="Na primer: jedinice iz B, ali sa bojama iz C. Strašilo neka bude strašnije."></textarea>
+        <div class="saveline"><button class="pbtn pri" id="saveBtn" type="button">Sačuvaj izbor</button><button class="pbtn" id="copyBtn" type="button">Kopiraj kao tekst</button><span class="status" id="status" role="status">Učitavam sačuvan izbor…</span></div>
+        <textarea class="copytxt" id="copyTxt" readonly hidden aria-label="Izbor kao tekst"></textarea>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap"><span>Perje i gvožđe · koncept v0.1 · 9. novembar 2026</span><span>Brojevi su početni predlog za balans. Podaci na ekranima su primeri.</span></div></footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+  <div class="lb-bar"><b id="lbTitle">Ekran</b><span style="display:flex;gap:8px"><button class="pbtn sm" id="lbZoom" type="button">100%</button><button class="pbtn sm" id="lbClose" type="button">Zatvori</button></span></div>
+  <div class="lb-body" id="lbBody"><div class="lb-canvas" id="lbCanvas"></div></div>
+</div>
+
+<script>
+/* Perje i Gvožđe — SVG art: units and buildings in three art directions
+   A = Rovovski (dieselpunk), B = Heraldički, C = Agro-tech holo, S = silhouette (key art) */
+(function (global) {
+  'use strict';
+
+  const PAL = {
+    A: { ink: '#1c1912', sw: 2.1,
+      plum: '#a88c5c', plumD: '#6c5434', plumL: '#d6c194', comb: '#8f2f20', beak: '#c9a248', leg: '#bf973c', legD: '#8f7030', eye: '#120f0a', white: '#ece2c8',
+      metal: '#7b8380', metalD: '#454c4a', metalL: '#a7aea8', blue: '#73899a', blueD: '#506474',
+      cloth: '#5e6240', clothD: '#43472d', clothG: '#4f5a3a', cloth2: '#7d3a28', leather: '#6b4a2c', wood: '#8b6a42', woodD: '#5a4128', canvas: '#a99d75',
+      brick: 'url(#aBrick)', stone: '#8e897b', stoneD: '#6c675b', roof: '#6b716d', roofD: '#4e5451',
+      glass: '#93aba0', glassL: '#b7c7bb', glow: '#f2b544', egg: '#e9ddbf', paint: '#e7dcc0', accent: '#a3442a', gold: '#b28c3c', straw: '#c4a457',
+      ground: '#6b5e44', grass: '#6c6f45', sand: '#a8986c', dark: '#24211a', beam: 'rgba(255,214,120,.24)', smoke: 'rgba(70,66,56,.42)', shadow: 'rgba(28,22,12,.30)' },
+    B: { ink: '#15100c', sw: 2.6,
+      plum: '#efe4c6', plumD: '#d5c39a', plumL: '#fff8e6', comb: '#b3202a', beak: '#e2ad33', leg: '#e2ad33', legD: '#c08e22', eye: '#15100c', white: '#fbf4e2',
+      metal: '#c9cdc8', metalD: '#8e9591', metalL: '#e7ebe6', blue: '#c9cdc8', blueD: '#8e9591',
+      cloth: '#1f4f8c', clothD: '#2b2e33', clothG: '#2f6b3a', cloth2: '#a51d27', leather: '#7a4a24', wood: '#a06c39', woodD: '#6c4523', canvas: '#efe2c4',
+      brick: '#b9603f', stone: '#d0c5ab', stoneD: '#a99c7f', roof: '#a8322a', roofD: '#7d221c',
+      glass: '#3c6fae', glassL: '#a9c6e8', glow: '#f6c94f', egg: '#fbf1d6', paint: '#f4ead2', accent: '#a51d27', gold: '#dba631', straw: '#d9b356',
+      ground: '#4d7b3a', grass: '#4d7b3a', sand: '#cdb98a', dark: '#2a2420', beam: 'rgba(246,201,79,.28)', smoke: 'rgba(120,110,95,.38)', shadow: 'rgba(21,16,12,.22)' }
+  };
+
+  const CC = { cy: '#5ff0ff', cyD: '#2fb7cc', am: '#ffc35a', co: '#ff7a5c', wh: '#d9fbff' };
+  // C materials: [stroke, fillOpacity, fillColor?]
+  const CMAT = {
+    plum: [CC.cy, .07], plumD: [CC.cyD, .14], plumL: [CC.cy, .03], comb: [CC.co, .2], beak: [CC.am, .16], leg: [CC.cy, 0], legD: [CC.cyD, 0], eye: ['none', 1, CC.am], white: [CC.cy, .05],
+    metal: [CC.cy, .1], metalD: [CC.cyD, .18], metalL: [CC.wh, .08], blue: [CC.cy, .1], blueD: [CC.cyD, .18],
+    cloth: [CC.cy, .05], clothD: [CC.cyD, .12], clothG: [CC.cyD, .12], cloth2: [CC.co, .14], leather: [CC.cyD, .1], wood: [CC.cy, .06], woodD: [CC.cyD, .12], canvas: [CC.cy, .05],
+    brick: [CC.cy, .06], stone: [CC.cy, .06], stoneD: [CC.cyD, .12], roof: [CC.cy, .08], roofD: [CC.cyD, .14],
+    glass: [CC.am, .28], glassL: [CC.cy, .05], glow: ['none', 1, CC.am], egg: [CC.am, .22], paint: [CC.cy, .05], accent: [CC.co, .2], gold: [CC.am, .16], straw: [CC.am, .08],
+    ground: [CC.cyD, .04], grass: [CC.cyD, .04], sand: [CC.cyD, .06], dark: [CC.cyD, .3], beam: ['none', .16, CC.am], smoke: ['none', 0, CC.cy], shadow: ['none', 0, CC.cy]
+  };
+
+  function attrs(s, m, o, opt) {
+    if (s === 'S') {
+      const sil = opt.sil || '#0c0f12';
+      if (m === 'glow' || m === 'glass') return `fill="${opt.lit || '#ffcc66'}"`;
+      if (m === 'beam') return `fill="${opt.lit || '#ffcc66'}" fill-opacity=".14"`;
+      if (m === 'shadow') return 'fill="none"';
+      if (m === 'smoke') return `fill="${sil}" fill-opacity=".35"`;
+      return `fill="${sil}"`;
+    }
+    if (s === 'C') {
+      const c = CMAT[m] || [CC.cy, .06];
+      const fill = c[2] || c[0];
+      const sw = o.sw ? o.sw * .6 : 1.3;
+      return `fill="${fill}" fill-opacity="${c[1]}" stroke="${c[0]}" stroke-width="${sw}" stroke-linejoin="round" stroke-linecap="round"${o.op ? ` opacity="${o.op}"` : ''}`;
+    }
+    const P = PAL[s];
+    const fill = P[m] || m;
+    const ns = o.ns || m === 'shadow' || m === 'smoke' || m === 'beam';
+    return `fill="${fill}"${ns ? '' : ` stroke="${P.ink}" stroke-width="${o.sw || P.sw}" stroke-linejoin="round" stroke-linecap="round"`}${o.op ? ` opacity="${o.op}"` : ''}`;
+  }
+
+  function detail(s, d, o) {
+    if (s === 'S') return '';
+    let col, w, op;
+    if (s === 'A') { col = PAL.A.ink; w = o.w || 1.15; op = o.op || .6; }
+    else if (s === 'B') { col = PAL.B.ink; w = o.w || 1.5; op = o.op || .9; }
+    else { col = o.c === 'am' ? CC.am : (o.c === 'co' ? CC.co : CC.cy); w = (o.w || 1.2) * .75; op = o.op || .75; }
+    if (o.col && s !== 'C') col = PAL[s][o.col] || o.col;
+    return `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"${o.dash ? ` stroke-dasharray="${o.dash}"` : ''}/>`;
+  }
+
+  function strap(s, d, m, w, o, opt) {
+    if (s === 'S') return `<path d="${d}" fill="none" stroke="${opt.sil || '#0c0f12'}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    if (s === 'C') {
+      const c = (CMAT[m] || CMAT.metal)[0] === 'none' ? CC.am : (CMAT[m] || CMAT.metal)[0];
+      return `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-opacity=".16" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
+    const P = PAL[s];
+    const col = P[m] || m;
+    return `<path d="${d}" fill="none" stroke="${P.ink}" stroke-width="${w + P.sw * 1.6}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+
+  const FONTS = {
+    A: "'Saira Stencil One','Big Shoulders Display',Impact,sans-serif",
+    B: "Cinzel,'Cormorant Garamond',Georgia,serif",
+    C: "'JetBrains Mono',ui-monospace,monospace"
+  };
+
+  function text(s, x, y, str, o) {
+    if (s === 'S') return '';
+    const fill = s === 'C' ? (o.c === 'am' ? CC.am : CC.cy) : (PAL[s][o.m || 'paint'] || o.m);
+    return `<text x="${x}" y="${y}" font-family="${FONTS[s]}" font-size="${o.size || 10}" fill="${fill}"${o.anchor ? ` text-anchor="${o.anchor}"` : ''}${o.ls ? ` letter-spacing="${o.ls}"` : ''}${o.tr ? ` transform="${o.tr}"` : ''}${o.op ? ` opacity="${o.op}"` : ''}${o.w ? ` font-weight="${o.w}"` : ''}>${str}</text>`;
+  }
+
+  function ctx(s, opt) {
+    opt = opt || {};
+    const k = { s, opt };
+    k.at = (m, o) => attrs(s, m, o || {}, opt);
+    k.p = (d, m, o) => `<path d="${d}" ${k.at(m, o)}${o && o.tr ? ` transform="${o.tr}"` : ''}/>`;
+    k.c = (x, y, r, m, o) => `<circle cx="${x}" cy="${y}" r="${r}" ${k.at(m, o)}/>`;
+    k.e = (x, y, rx, ry, m, o) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" ${k.at(m, o)}${o && o.tr ? ` transform="${o.tr}"` : ''}/>`;
+    k.r = (x, y, w, h, m, o) => `<rect x="${x}" y="${y}" width="${w}" height="${h}"${o && o.rx ? ` rx="${o.rx}"` : ''} ${k.at(m, o)}/>`;
+    k.d = (d, o) => detail(s, d, o || {});
+    k.sl = (d, m, w, o) => strap(s, d, m, w, o || {}, opt);
+    k.shade = (d) => s === 'A' ? `<path d="${d}" fill="url(#aShade)"/>` : '';
+    k.t = (x, y, str, o) => text(s, x, y, str, o || {});
+    k.g = (inner, tr) => `<g transform="${tr}">${inner}</g>`;
+    k.ring = (x, y, r, m, w) => k.sl(`M${x - r},${y} a${r},${r} 0 1,0 ${2 * r},0 a${r},${r} 0 1,0 ${-2 * r},0`, m, w);
+    return k;
+  }
+
+  const rect = (x, y, w, h) => `M${x},${y} H${x + w} V${y + h} H${x} Z`;
+  const range = (a, b, st) => { const r = []; for (let v = a; st > 0 ? v <= b : v >= b; v += st) r.push(v); return r; };
+
+  /* ---------------- chicken rig ---------------- */
+  const G = {
+    tail: 'M88,104 C76,96 62,80 56,58 C66,62 73,66 78,72 C77,60 80,50 86,42 C90,54 93,62 95,70 C98,60 103,54 110,50 C110,66 108,84 106,98 Z',
+    rtail: ['M92,102 C80,74 64,48 40,40 C48,54 60,76 82,106 Z', 'M88,106 C70,88 50,72 28,72 C38,82 56,96 84,112 Z', 'M98,98 C94,72 88,48 72,30 C72,48 78,72 90,102 Z'],
+    body: 'M80,98 C96,88 128,86 152,92 C170,98 180,114 174,132 C168,150 148,162 122,163 C100,163 82,153 75,137 C71,123 72,107 80,98 Z',
+    fluffy: 'M82,100 q6,-10 16,-8 q6,-8 16,-4 q8,-6 16,0 q10,-4 16,4 q10,2 12,12 q8,6 4,16 q4,10 -4,16 q0,10 -12,12 q-6,8 -16,6 q-8,6 -18,2 q-10,4 -18,-4 q-10,0 -12,-10 q-8,-6 -4,-16 q-6,-14 4,-26 z',
+    wing: 'M158,106 C164,120 156,134 140,140 C124,146 104,144 88,136 L97,131 L86,126 L97,122 L88,116 C102,106 132,100 158,106 Z',
+    wingL: 'M100,118 C118,112 138,112 156,116 M98,127 C112,124 126,124 140,127',
+    neck: 'M140,96 C140,78 148,62 158,52 L184,58 C182,74 178,90 170,104 C160,106 148,103 140,96 Z',
+    neckL: 'M152,72 L147,90 M162,68 L157,93 M172,68 L168,96',
+    beak: 'M183,42 Q197,45 202,51 Q195,55 183,57 Z',
+    comb: 'M156,37 C155,29 159,25 163,29 C163,21 169,19 171,27 C173,20 179,21 179,29 C183,27 188,31 185,37 Z',
+    rcomb: 'M152,38 C148,27 154,19 160,24 C158,13 168,9 170,20 C172,9 182,9 182,20 C186,12 196,16 190,28 C196,28 196,36 188,40 Z',
+    wattle: 'M180,58 C186,62 186,72 181,74 C176,72 176,64 178,58 Z',
+    rwattle: 'M178,58 C189,62 191,80 182,85 C173,83 172,68 176,58 Z',
+    crest: 'M152,38 q-4,-8 4,-12 q0,-8 8,-8 q4,-6 10,-2 q8,-2 10,6 q8,2 6,10 q2,6 -6,8 l-32,0 z',
+    legN: 'M110,158 L106,183', toesN: 'M97,185 L106,183 L120,185 M106,183 L116,189',
+    legF: 'M130,158 L134,182', toesF: 'M126,185 L134,182 L148,184 M134,182 L144,188'
+  };
+
+  function legs(k, o) {
+    const s = k.s;
+    if (o.noLegs) return '';
+    if (s === 'C') return k.d(G.legF + ' ' + G.toesF, { w: 2 }) + k.d(G.legN + ' ' + G.toesN, { w: 2.3 });
+    if (s === 'S') return `<path d="${G.legF} ${G.toesF} ${G.legN} ${G.toesN}" fill="none" stroke="${k.opt.sil || '#0c0f12'}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const P = PAL[s];
+    const U = (d, w) => `<path d="${d}" fill="none" stroke="${P.ink}" stroke-width="${w + P.sw * 1.5}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const Cc = (d, c, w) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    return U(G.legF, 4.2) + U(G.toesF, 2.4) + Cc(G.legF, P.legD, 4.2) + Cc(G.toesF, P.legD, 2.4) +
+      U(G.legN, 4.6) + U(G.toesN, 2.6) + Cc(G.legN, P.leg, 4.6) + Cc(G.toesN, P.leg, 2.6);
+  }
+
+  function chicken(k, o) {
+    o = o || {};
+    const g = o.gear || {}, roo = !!o.roo, M = o.mat || {};
+    const pm = M.plum || 'plum', pd = M.plumD || 'plumD', nm = M.neck || pm, cm = M.comb || 'comb';
+    let s = legs(k, o);
+    if (roo) s += k.p(G.rtail[1], pd) + k.p(G.rtail[0], pm) + k.p(G.rtail[2], pd) + k.d('M50,52 L80,96 M44,78 L80,104');
+    else s += k.p(G.tail, pd) + k.d('M74,70 L90,98 M92,58 L98,94');
+    s += g.back || '';
+    const body = o.fluffy ? G.fluffy : G.body;
+    s += k.p(body, pm) + k.shade(body);
+    s += g.torso || '';
+    const tr = o.headTr ? ` transform="${o.headTr}"` : '';
+    s += `<g${tr}>` + k.p(G.neck, nm) + k.shade(G.neck) + k.d(G.neckL) + (g.neck || '') + '</g>';
+    if (!o.noWing) s += k.p(G.wing, pd) + k.d(G.wingL);
+    s += g.wing || '';
+    let h = k.c(170, 48, 15, pm);
+    if (!o.noEar) h += k.e(163, 55, 3.6, 2.8, roo ? 'comb' : 'white');
+    if (!o.noBeak) h += k.p(G.beak, 'beak') + k.d('M188,47 L191,47');
+    if (!o.noWattle) h += k.p(roo ? G.rwattle : G.wattle, cm);
+    if (o.crest) h += k.p(G.crest, M.crest || pm) + k.d('M160,30 q4,-4 8,0 M170,24 q4,-4 8,0');
+    else if (!o.noComb) h += k.p(roo ? G.rcomb : G.comb, cm);
+    if (!o.noEye) h += k.c(175, 45, 3.1, 'eye') + (k.s === 'A' || k.s === 'B' ? k.c(176.2, 43.8, 1, 'white', { ns: 1 }) : '');
+    h += (g.head || '') + (g.face || '');
+    s += `<g${tr}>${h}</g>`;
+    s += g.front || '';
+    return s;
+  }
+
+  /* ---------------- helpers ---------------- */
+  function rivets(k, x1, y1, x2, y2, n, r) {
+    let o = '';
+    for (let i = 0; i < n; i++) {
+      const t = n === 1 ? 0 : i / (n - 1);
+      const x = x1 + (x2 - x1) * t, y = y1 + (y2 - y1) * t;
+      if (k.s === 'C') o += `<circle cx="${x}" cy="${y}" r="${r * .7}" fill="${CC.cy}" opacity=".7"/>`;
+      else if (k.s === 'S') o += '';
+      else o += `<circle cx="${x}" cy="${y}" r="${r}" fill="${k.s === 'B' ? PAL.B.gold : PAL.A.metalD}" stroke="${PAL[k.s].ink}" stroke-width=".6"/>`;
+    }
+    return o;
+  }
+
+  function wheel(k, cx, cy, r) {
+    const s = k.s;
+    if (s === 'S') return k.c(cx, cy, r, 'x');
+    if (s === 'A') {
+      let o = k.c(cx, cy, r, 'dark') + k.c(cx, cy, r - 5, 'metal') + k.shade(`M${cx - r + 5},${cy} a${r - 5},${r - 5} 0 1,0 ${2 * (r - 5)},0 a${r - 5},${r - 5} 0 1,0 ${-2 * (r - 5)},0`) + k.c(cx, cy, r - 13, 'metalD') + k.c(cx, cy, 4, 'metalL');
+      for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4; o += rivets(k, cx + Math.cos(a) * (r - 9), cy + Math.sin(a) * (r - 9), 0, 0, 1, 1.4); }
+      return o;
+    }
+    if (s === 'B') {
+      let sp = '';
+      for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5; sp += `M${cx},${cy} L${(cx + Math.cos(a) * (r - 3)).toFixed(1)},${(cy + Math.sin(a) * (r - 3)).toFixed(1)} `; }
+      return k.sl(sp, 'wood', 2.6) + k.ring(cx, cy, r - 2, 'wood', 4.5) + k.c(cx, cy, 5.5, 'woodD') + k.c(cx, cy, 2, 'gold', { ns: 1 });
+    }
+    let sp = '';
+    for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3; sp += `M${cx},${cy} L${(cx + Math.cos(a) * (r - 3)).toFixed(1)},${(cy + Math.sin(a) * (r - 3)).toFixed(1)} `; }
+    return k.c(cx, cy, r, 'metalD') + k.d(sp) + k.c(cx, cy, r - 6, 'metal') + k.c(cx, cy, 3, 'glow');
+  }
+
+  function sandbags(k, x0, y, n, step) {
+    let o = '';
+    for (let i = 0; i < n; i++) o += k.e(x0 + i * (step || 17), y, 9.5, 5.2, 'sand') + k.d(`M${x0 + i * (step || 17) - 3},${y - 1} L${x0 + i * (step || 17) + 3},${y - 1}`, { w: .9 });
+    return o;
+  }
+
+  function wire(k, x1, y, x2) {
+    let d = '';
+    for (let x = x1; x <= x2; x += 8) d += `M${x - 7},${y} a7,9 0 1,0 14,0 a7,9 0 1,0 -14,0 `;
+    return k.d(d, { w: 1.1, op: .85 }) + k.d(`M${x1 - 8},${y} L${x2 + 8},${y}`, { w: 1.2 });
+  }
+
+  function smoke(k, pts) { return pts.map(([x, y, r]) => k.c(x, y, r, 'smoke')).join(''); }
+
+  /* ---------------- units ---------------- */
+  const UNITS = {
+    uhoda: {
+      name: 'Uhoda', tr: 'translate(26,37) scale(.8)',
+      draw(k) {
+        const s = k.s, g = {}, HT = 'translate(-8,10)';
+        if (s === 'B') {
+          g.torso = k.p('M142,90 C122,94 90,100 80,128 C86,150 118,162 150,158 C166,150 172,130 168,110 Z', 'leather') +
+            k.d('M100,112 C104,130 112,146 122,156 M126,100 C128,120 132,140 140,156', { w: 1.2 }) +
+            k.p('M144,140 L180,152 L144,147 Z', 'metal') + k.r(141, 135, 4, 16, 'gold');
+          g.head = k.p('M150,58 C145,36 158,22 176,24 C190,26 196,38 192,52 L186,50 C182,40 172,36 164,42 C158,48 158,56 161,64 Z', 'leather') + k.c(156, 66, 3, 'gold');
+          return chicken(k, { fluffy: true, gear: g, noComb: true, noWing: true, headTr: HT });
+        }
+        if (s === 'C') {
+          g.torso = k.p('M92,80 C84,66 96,52 110,58 Z', 'metalL') + k.d('M100,64 L108,88') +
+            k.p('M146,100 L162,108 L166,124 L154,138 L142,120 Z', 'metal') + k.c(155, 118, 2.2, 'glow');
+          g.head = k.p('M152,54 C150,35 162,27 176,28 C189,30 195,40 193,51 L186,59 L160,61 Z', 'metal') + k.c(179, 44, 6.5, 'glass') + k.c(179, 44, 2.6, 'glow');
+          g.front = k.r(40, 24, 30, 8, 'metal', { rx: 3 }) + k.e(38, 21, 11, 2.4, 'metalL') + k.e(72, 21, 11, 2.4, 'metalL') +
+            k.d('M44,24 L40,21 M66,24 L70,21') + k.c(55, 35, 2, 'glow') + k.d('M55,38 L140,76', { c: 'am', dash: '3 4', op: .8 });
+          return chicken(k, { fluffy: true, gear: g, noComb: true, noEye: true, headTr: HT });
+        }
+        g.torso = k.r(84, 78, 30, 24, 'clothD', { rx: 3 }) + k.c(93, 88, 3.2, 'metalL') + k.r(100, 84, 10, 4, 'dark') + k.d('M108,78 L86,20', { w: 1.6, op: .9 }) + k.c(86, 20, 1.8, 'metalD') +
+          k.sl('M146,84 L144,106', 'leather', 1.6) + k.r(136, 104, 9, 15, 'metalD', { rx: 2 }) + k.r(146, 104, 9, 15, 'metalD', { rx: 2 }) + k.c(140.5, 118, 2.6, 'glass') + k.c(150.5, 118, 2.6, 'glass');
+        g.head = k.p('M155,40 C156,29 182,27 189,36 L200,41 L187,43 L156,44 Z', 'cloth') + k.c(171, 30, 1.5, 'clothD', { ns: 1 });
+        return chicken(k, { fluffy: true, gear: g, noComb: true, headTr: HT });
+      }
+    },
+
+    kljucac: {
+      name: 'Kljucač', tr: '',
+      draw(k) {
+        const s = k.s, g = {};
+        if (s === 'B') {
+          g.torso = k.p('M142,95 C156,100 170,110 175,124 C172,140 160,152 142,158 L124,161 C116,140 120,112 142,95 Z', 'cloth') + k.e(151, 128, 6.5, 8.5, 'gold');
+          g.wing = k.c(114, 126, 17, 'metal') + k.c(114, 126, 12, 'cloth2') + k.d('M114,115 L114,137 M103,126 L125,126', { col: 'gold', w: 3, op: 1 }) + k.c(114, 126, 4, 'gold');
+          g.head = k.p('M155,38 C155,22 185,22 185,38 Z', 'metal') + k.p('M144,41 C150,33 190,33 196,41 C190,47 150,47 144,41 Z', 'metal') + [158, 166, 174, 182].map(x => k.c(x, 37, 1.3, 'gold', { ns: 1 })).join('');
+          g.front = k.p('M107,171 L97,173 L107,175 Z', 'gold') + k.p('M132,170 L123,172 L132,174 Z', 'gold');
+          return chicken(k, { gear: g, noComb: true });
+        }
+        if (s === 'C') {
+          g.torso = k.r(94, 78, 30, 17, 'metalD', { rx: 3 }) + k.c(102, 86.5, 2, 'glow') + k.c(109, 86.5, 2, 'glow') + k.d('M116,82 L121,82 M116,86 L121,86 M116,90 L121,90') +
+            k.p('M150,99 L171,106 L179,123 L172,141 L155,150 L146,124 Z', 'metal') + k.d('M150,112 L176,118 M151,135 L173,129') + k.c(163, 124, 3, 'glow');
+          g.wing = k.p('M92,122 L166,111 L174,115 L96,130 Z', 'metalL') + k.d('M96,126 L170,113', { c: 'am' });
+          g.head = k.p('M150,46 L153,31 L168,25 L185,29 L191,39 L188,47 L178,50 L156,50 Z', 'metal') + k.p('M174,37 L191,40 L189,45 L175,45 Z', 'glass') + k.d('M157,30 L148,10') + k.c(148, 10, 2, 'glow');
+          g.front = k.c(108, 168, 3, 'metalD') + k.c(132, 168, 3, 'metalD');
+          return chicken(k, { gear: g, noComb: true, noEye: true });
+        }
+        g.torso = k.p('M92,96 L94,82 C95,77 99,75 104,75 L124,75 C129,75 132,78 132,83 L132,97 Z', 'clothD') +
+          k.p('M96,75 C96,68 130,68 130,75 C130,81 96,81 96,75 Z', 'canvas') +
+          k.sl('M146,98 L110,150', 'cloth', 5) + k.sl('M84,134 Q126,154 170,134', 'cloth', 6) +
+          k.e(113, 146, 4.4, 5.6, 'egg') + k.e(128, 149, 4.4, 5.6, 'egg') + k.e(143, 146, 4.4, 5.6, 'egg');
+        g.head = k.p('M143,41 Q170,47 197,41 Q170,35 143,41 Z', 'metalD') + k.p('M154,40 C154,25 186,25 186,40 Z', 'metal') + k.shade('M154,40 C154,25 186,25 186,40 Z') + k.d('M157,43 Q159,62 175,63', { col: 'leather', w: 1.8, op: 1 });
+        g.face = k.sl('M171,46 L157,47', 'leather', 2) + k.c(176, 46, 5.4, 'metalD') + k.c(176, 46, 3.4, 'glass');
+        g.front = k.p('M184,43 L216,50.5 L184,58 Z', 'metal') + k.d('M186,50.5 L210,50.5');
+        return chicken(k, { gear: g, noComb: true, noEye: true });
+      }
+    },
+
+    jurisnik: {
+      name: 'Jurišnik', tr: 'translate(-6,-4) scale(1.03)',
+      draw(k) {
+        const s = k.s, g = {};
+        if (s === 'B') {
+          g.torso = k.p('M142,95 C158,100 172,110 176,126 C172,142 160,154 142,160 L118,162 C110,140 116,110 142,95 Z', 'cloth2') + k.p('M126,142 L150,120 L172,136 L170,144 L150,130 L130,150 Z', 'gold');
+          g.wing = k.p('M96,102 L146,102 C146,124 140,142 121,162 C102,142 96,124 96,102 Z', 'cloth') + k.e(121, 124, 7, 9, 'gold') + [[106, 110], [136, 110], [121, 148]].map(([x, y]) => k.c(x, y, 2.6, 'gold')).join('');
+          g.neck = k.d('M146,80 q4,3 8,0 q4,3 8,0 q4,3 8,0 M144,90 q4,3 8,0 q4,3 8,0 q4,3 8,0', { w: 1 });
+          g.head = k.p('M164,26 C158,8 172,0 186,8 C178,10 172,16 172,25 Z', 'cloth2') + k.p('M168,26 C166,12 176,6 188,12 C180,14 176,18 176,25 Z', 'gold') +
+            k.p('M152,54 C150,32 160,23 173,24 C184,25 191,33 191,42 L214,51 L191,58 C189,65 181,68 169,67 C158,66 152,62 152,54 Z', 'metal') +
+            k.d('M174,41 L190,43', { w: 2.6, op: 1 }) + [[196, 50], [201, 51], [196, 54]].map(([x, y]) => k.c(x, y, 1.1, 'dark', { ns: 1 })).join('') + k.c(160, 46, 2.2, 'gold');
+          g.front = k.c(103, 177, 3.2, 'gold') + k.c(130, 177, 3, 'gold');
+          return chicken(k, { roo: true, gear: g, noComb: true, noBeak: true, noEye: true, noWattle: true, noEar: true, mat: { neck: 'metal' } });
+        }
+        if (s === 'C') {
+          g.torso = k.p('M148,97 L172,104 L181,122 L174,142 L156,152 L144,124 Z', 'metal') + k.c(162, 124, 4, 'glow') + k.d('M150,110 L177,116 M150,138 L174,132');
+          g.wing = k.p('M134,100 L168,102 L172,118 L150,128 L128,116 Z', 'metalL') + k.d('M138,108 L166,110');
+          g.head = k.p('M156,30 L176,14 L182,24 L166,32 Z', 'metalD') + k.p('M148,54 L151,31 L169,22 L189,27 L196,39 L212,50 L196,56 L188,63 L160,64 Z', 'metal') + k.p('M171,35 L196,40 L198,46 L173,46 Z', 'glass');
+          g.front = k.p('M96,84 L180,66 L182,75 L99,94 Z', 'metalD') + k.p('M178,61 L189,59 L191,77 L181,79 Z', 'metal') + k.c(124, 82, 2.2, 'glow') + k.c(138, 79, 2.2, 'glow') + k.c(152, 76, 2.2, 'glow') +
+            k.p('M103,160 L113,160 L110,177 L101,177 Z', 'metal') + k.p('M127,160 L136,160 L136,176 L128,176 Z', 'metalD');
+          return chicken(k, { roo: true, gear: g, noComb: true, noBeak: true, noEye: true, noWattle: true, noEar: true });
+        }
+        g.torso = k.p('M150,97 C164,99 176,106 181,116 L172,120 C166,111 158,106 147,104 Z', 'metal') +
+          k.p('M147,106 C160,108 172,116 176,128 L167,132 C161,122 153,116 144,114 Z', 'metal') +
+          k.p('M144,116 C156,119 166,128 169,140 L160,143 C155,133 148,127 141,125 Z', 'metal') +
+          k.sl('M150,96 L102,152', 'leather', 7) +
+          [[140, 108], [130, 120], [120, 132], [110, 144]].map(([x, y]) => k.e(x, y, 4, 5.2, 'egg', { tr: `rotate(-40 ${x} ${y})` })).join('');
+        g.head = k.p('M145,42 Q170,47 199,43 Q170,37 145,42 Z', 'blueD') + k.p('M155,40 C155,26 187,26 187,40 Z', 'blue') + k.shade('M155,40 C155,26 187,26 187,40 Z') +
+          k.p('M158,33 C164,20 178,20 184,33 L181,34 C176,26 166,26 161,34 Z', 'blue') + k.d('M158,44 Q160,60 176,62', { col: 'leather', w: 1.8, op: 1 });
+        g.front = k.p('M106,172 L89,175 L106,178 Z', 'metal') + k.p('M131,171 L116,174 L131,177 Z', 'metalD');
+        return chicken(k, { roo: true, gear: g, noComb: true });
+      }
+    },
+
+    zaprega: {
+      name: 'Zaprega', tr: '',
+      draw(k) {
+        const s = k.s;
+        let o = '';
+        if (s === 'C') {
+          o += [52, 112, 172].map(x => k.p(`M${x - 11},134 L${x + 11},134 L${x + 6},170 L${x - 6},170 Z`, 'beam')).join('');
+          o += k.p('M18,96 C18,74 36,64 64,64 L176,64 C204,64 220,80 220,98 C220,116 204,126 176,126 L64,126 C36,126 18,116 18,96 Z', 'metal');
+          o += k.d('M40,78 L160,78 M40,112 L160,112 M70,64 L70,126 M110,64 L110,126 M150,64 L150,126');
+          o += k.p('M168,68 C190,68 208,80 212,94 L168,94 Z', 'glass') + k.c(186, 82, 5.5, 'metalL') + k.p('M190.5,80 L198,82 L190.5,84.5 Z', 'beak');
+          o += k.t(78, 100, 'NOSIVOST 25.000', { size: 7.5, ls: .8 }) + k.t(78, 92, 'Z-2', { size: 7, c: 'am' });
+          o += [52, 112, 172].map(x => k.e(x, 131, 13, 4, 'metalD') + k.e(x, 131, 6, 2, 'glow')).join('');
+          return o;
+        }
+        const hen = (tr) => `<g transform="${tr}">${chicken(k, { gear: { torso: k.sl('M150,100 C160,110 170,122 172,132', 'leather', 3) } })}</g>`;
+        let w = '';
+        if (s === 'B') {
+          w += k.p('M14,92 L140,92 L136,134 L20,134 Z', 'wood') + k.d('M16,106 L139,106 M18,120 L137,120 M50,92 L50,134 M90,92 L90,134');
+          w += k.p('M18,94 C18,44 136,44 136,94 Z', 'canvas') + k.d('M42,94 C42,62 52,52 60,50 M77,94 L77,48 M112,94 C112,62 102,52 94,50', { w: 1.2 });
+          w += k.sl('M26,94 L26,24', 'woodD', 2.6) + k.p('M27,26 L60,33 L27,42 Z', 'cloth2') + k.p('M27,30 L46,33 L27,37 Z', 'gold');
+          w += k.p('M68,98 L86,98 L86,110 C86,117 77,121 77,121 C77,121 68,117 68,110 Z', 'cloth') + k.e(77, 108, 3, 4, 'gold');
+        } else {
+          w += k.p('M14,90 L140,90 L136,134 L20,134 Z', 'wood') + k.shade('M14,90 L140,90 L136,134 L20,134 Z') + k.d('M16,104 L139,104 M18,119 L137,119');
+          w += k.r(28, 95, 40, 34, 'metal') + k.r(82, 95, 44, 34, 'metal') + rivets(k, 31, 98, 65, 98, 5, 1.2) + rivets(k, 85, 98, 123, 98, 5, 1.2) + rivets(k, 31, 126, 65, 126, 5, 1.2) + rivets(k, 85, 126, 123, 126, 5, 1.2);
+          w += k.t(104, 117, '117/6', { size: 11, anchor: 'middle' });
+          w += k.p('M20,90 C24,62 58,54 80,56 C104,54 128,62 134,90 Z', 'canvas') + k.shade('M20,90 C24,62 58,54 80,56 C104,54 128,62 134,90 Z') +
+            k.d('M40,90 C44,70 52,62 60,58 M80,90 L80,56 M118,90 C114,72 106,62 98,58', { w: 1.4 });
+          w += k.r(118, 66, 16, 22, 'clothD', { rx: 2 }) + k.d('M122,66 L130,66');
+        }
+        w += wheel(k, 44, 150, 22) + wheel(k, 112, 150, 22);
+        o += k.sl('M114,140 L180,152', 'woodD', 3) + k.sl('M114,146 L168,162', 'woodD', 3);
+        o += `<g transform="translate(-2,31) scale(.9)">${w}</g>`;
+        o += hen('translate(112,104.2) scale(.44)') + hen('translate(136,100.4) scale(.46)');
+        return o;
+      }
+    },
+
+    tvrdjava: {
+      name: 'Tvrđava na kokošjim nogama', tr: '',
+      draw(k) {
+        const s = k.s;
+        const leg = (far) => {
+          const T = far ? 'translate(50,-4) rotate(-14 118 96)' : '';
+          let o = '';
+          const thigh = 'M98,96 C92,114 100,136 118,144 C130,147 138,138 136,126 C132,110 124,100 114,94 Z';
+          const shank = 'M117,138 L131,143 L112,182 L101,179 Z';
+          const toes = 'M106,180 L142,186 M106,180 L134,193 M106,180 L121,196 M106,180 L86,184';
+          if (s === 'A') {
+            o += k.sl(toes, far ? 'metalD' : 'metal', 5) + k.p(shank, 'metalD') + k.sl('M124,142 L108,180', 'metalL', 3) +
+              k.p(thigh, far ? 'metalD' : 'metal') + k.shade(thigh) + rivets(k, 102, 104, 126, 140, 5, 1.6) + k.c(124, 140, 5, 'metalD');
+          } else if (s === 'B') {
+            o += k.sl(toes, far ? 'legD' : 'leg', 6) + k.p(shank, far ? 'legD' : 'leg') + k.d('M112,152 l12,4 M109,160 l12,4 M106,168 l12,4') +
+              k.p(thigh, far ? '#b8a47a' : 'plumD') + k.d('M104,112 q6,5 12,0 q6,5 12,0 M104,124 q6,5 12,0 q6,5 12,0 M110,136 q6,4 12,0');
+            o += [[142, 186], [134, 193], [121, 196], [86, 184]].map(([x, y]) => k.c(x, y, 2.4, 'dark', { ns: 1 })).join('');
+          } else if (s === 'C') {
+            o += k.sl(toes, 'metal', 3) + k.d('M118,140 L104,180 M126,142 L112,181', { w: 1.6 }) + k.p('M100,98 L120,92 L138,126 L122,146 Z', 'metal') +
+              k.c(124, 140, 4.5, 'metalD') + k.c(124, 140, 1.8, 'glow') + k.c(106, 180, 3, 'glow');
+          } else {
+            o += k.sl(toes, 'x', 5) + k.p(shank, 'x') + k.p(thigh, 'x');
+          }
+          return T ? `<g transform="${T}">${o}</g>` : o;
+        };
+        let top = '';
+        if (s === 'B') {
+          top += k.p('M62,50 L186,50 L182,104 L66,104 Z', 'wood') + k.d('M64,61 L185,61 M65,72 L184,72 M65,83 L183,83 M66,94 L182,94');
+          top += [56, 67, 78, 89, 100].map(y => k.c(64, y, 4, 'woodD') + k.c(184, y, 4, 'woodD')).join('');
+          top += k.p('M56,52 L192,52 L192,34 L180,34 L180,41 L168,41 L168,34 L156,34 L156,41 L144,41 L144,34 L132,34 L132,41 L120,41 L120,34 L108,34 L108,41 L96,41 L96,34 L84,34 L84,41 L72,41 L72,34 L56,34 Z', 'stone') + k.d('M56,46 L192,46 M90,46 L90,52 M124,46 L124,52 M158,46 L158,52');
+          top += k.r(150, 18, 26, 16, 'stone') + k.p('M146,20 L163,2 L180,20 Z', 'roof');
+          top += k.sl('M62,34 L62,6', 'woodD', 2) + k.p('M63,7 L92,12 L63,19 Z', 'cloth2') + k.p('M63,10 L80,12 L63,15 Z', 'gold');
+          top += k.p('M84,82 L84,70 C84,63 97,63 97,70 L97,82 Z', 'glow') + k.p('M151,82 L151,70 C151,63 164,63 164,70 L164,82 Z', 'glow');
+          top += k.p('M113,62 L135,62 L135,77 C135,86 124,90 124,90 C124,90 113,86 113,77 Z', 'cloth2') + k.e(124, 74, 4, 5.5, 'gold');
+        } else if (s === 'C') {
+          top += k.p('M50,88 C50,44 90,22 124,22 C158,22 198,44 198,88 L188,104 L60,104 Z', 'metal');
+          top += k.p('M66,64 C90,56 158,56 182,64 L180,72 C156,66 92,66 68,72 Z', 'glass');
+          top += k.c(186, 82, 6, 'glow') + k.d('M110,24 L104,4 M124,22 L124,2 M138,24 L146,6') + k.c(104, 4, 1.6, 'glow') + k.c(124, 2, 1.6, 'glow') + k.c(146, 6, 1.6, 'glow');
+          top += k.d('M60,90 L188,90 M80,104 L84,90 M168,104 L164,90') + k.t(96, 84, 'T-01', { size: 8, ls: 1.5, c: 'am' });
+        } else {
+          top += k.p('M46,32 L124,6 L202,32 Z', 'roof') + k.d('M70,24 L70,32 M90,17 L90,32 M110,10 L110,32 M130,8 L130,32 M150,13 L150,32 M170,20 L170,32 M190,27 L190,32');
+          top += k.r(160, 8, 12, 18, 'metalD') + smoke(k, [[160, 6, 5], [150, 4, 4]]);
+          top += k.p('M54,30 L194,30 L200,100 L48,100 Z', 'metal') + k.shade('M54,30 L194,30 L200,100 L48,100 Z');
+          top += rivets(k, 60, 36, 188, 36, 12, 1.5) + rivets(k, 56, 94, 192, 94, 13, 1.5);
+          top += k.r(70, 52, 20, 11, 'dark') + k.r(150, 52, 20, 11, 'dark') + k.p('M198,57 L229,53 L229,62 L199,66 Z', 'metalD');
+          top += k.r(98, 41, 52, 6, 'glow') + k.r(112, 66, 24, 34, 'metalD') + k.c(131, 84, 1.6, 'metalL');
+          top += k.t(80, 88, 'Nº1', { size: 12 }) + k.t(160, 88, '117/6', { size: 10 });
+          top += k.sl('M48,70 L40,70 L40,76', 'metalD', 1.6) + k.c(40, 80, 4, 'glow');
+        }
+        return leg(true) + top + leg(false);
+      }
+    }
+  };
+
+  /* ---------------- buildings ---------------- */
+  const BUILD = {
+    kokosinjac: {
+      name: 'Kokošinjac',
+      draw(k) {
+        const s = k.s;
+        let o = '';
+        if (s === 'C') {
+          o += k.p('M196,118 L232,104 L236,116 L200,130 Z', 'glass') + k.d('M208,113 L212,126 M220,108 L224,121 M198,124 L234,110') + k.d('M216,123 L216,152');
+          o += k.p('M40,150 C40,92 78,58 120,58 C162,58 200,92 200,150 Z', 'metal');
+          o += k.d('M120,58 L120,150 M120,58 C100,74 88,108 86,150 M120,58 C140,74 152,108 154,150 M120,58 C84,68 62,104 60,150 M120,58 C156,68 178,104 180,150 M47,118 Q120,104 193,118 M60,90 Q120,78 180,90');
+          o += k.p('M107,150 L107,128 C107,116 133,116 133,128 L133,150 Z', 'glass');
+          o += k.d('M150,64 L164,22') + k.c(164, 22, 2.6, 'glow') + k.r(62, 124, 22, 10, 'glass', { rx: 2 }) + k.r(156, 124, 22, 10, 'glass', { rx: 2 });
+          o += k.t(120, 104, '117/6', { size: 9, anchor: 'middle', ls: 1 });
+          return o;
+        }
+        if (s === 'B') {
+          o += k.r(26, 58, 32, 86, 'stone') + k.d('M26,74 L58,74 M26,90 L58,90 M26,106 L58,106 M26,122 L58,122 M42,58 L42,74 M34,74 L34,90 M50,90 L50,106 M38,106 L38,122') + k.p('M36,92 L36,84 C36,79 48,79 48,84 L48,92 Z', 'glow');
+          o += k.p('M20,60 L42,16 L64,60 Z', 'roofD') + k.sl('M42,16 L42,4', 'woodD', 1.6) + k.p('M43,4 L62,8 L43,12 Z', 'cloth2');
+          o += k.r(58, 126, 140, 18, 'stone') + k.d('M58,135 L198,135 M78,126 L78,135 M108,126 L108,135 M138,126 L138,135 M168,126 L168,135 M93,135 L93,144 M123,135 L123,144 M153,135 L153,144 M183,135 L183,144');
+          o += k.r(60, 80, 136, 46, 'paint');
+          o += k.sl('M62,82 L62,124 M100,82 L100,124 M150,82 L150,124 M194,82 L194,124 M62,103 L194,103', 'woodD', 3.4) + k.sl('M64,122 L98,84 M152,122 L192,84', 'woodD', 2.6);
+          o += k.p('M50,84 L72,42 L180,42 L206,84 Z', 'roof') + k.d('M58,72 L198,72 M64,60 L192,60 M68,50 L186,50');
+          o += k.p('M112,126 L112,108 C112,97 136,97 136,108 L136,126 Z', 'woodD') + k.c(131, 115, 1.6, 'gold');
+          o += k.c(172, 94, 9, 'glass') + k.d('M163,94 L181,94 M172,85 L172,103');
+          o += k.r(72, 88, 20, 13, 'glass') + k.d('M82,88 L82,101');
+          o += k.p('M115,82 L133,82 L133,90 C133,95 124,98 124,98 C124,98 115,95 115,90 Z', 'cloth') + k.e(124, 89, 2.4, 3, 'gold');
+          return o;
+        }
+        o += [56, 112, 178].map(x => k.r(x, 138, 6, 22, 'woodD')).join('');
+        o += k.r(46, 74, 148, 66, 'wood') + k.shade(rect(46, 74, 148, 66)) + k.d(range(83, 131, 9).map(y => `M46,${y} L194,${y}`).join(' '));
+        o += k.r(162, 26, 8, 22, 'metalD') + k.r(159, 23, 14, 4, 'metalD') + smoke(k, [[170, 16, 5], [178, 9, 6], [190, 4, 6]]);
+        o += k.p('M36,80 L58,44 L182,44 L204,80 Z', 'roof') + k.d(range(66, 176, 9).map(x => `M${x},46 L${x},79`).join(' '), { w: 1 });
+        o += k.r(62, 96, 26, 44, 'woodD') + k.d('M66,101 L84,101 M66,135 L84,135') + k.c(83, 118, 1.4, 'metalL');
+        o += k.r(130, 88, 8, 26, 'woodD') + k.r(170, 88, 8, 26, 'woodD') + k.r(138, 90, 32, 22, 'glow') + k.d('M154,90 L154,112 M138,101 L170,101', { w: 2, op: .9 });
+        o += k.t(98, 130, '117/6', { size: 13 });
+        o += k.p('M150,140 L200,160 L192,162 L144,142 Z', 'wood') + k.d('M158,144 L156,148 M168,148 L166,152 M178,152 L176,156 M188,156 L186,160');
+        o += sandbags(k, 18, 154, 6) + sandbags(k, 26, 145, 5);
+        o += wire(k, 206, 150, 232);
+        return o;
+      }
+    },
+
+    vetrenjaca: {
+      name: 'Vetrenjača',
+      draw(k) {
+        const s = k.s;
+        let o = '';
+        if (s === 'C') {
+          o += k.p('M114,160 L117.5,76 L122.5,76 L126,160 Z', 'metal');
+          o += k.r(136, 136, 48, 24, 'metalD', { rx: 3 }) + [0, 1, 2, 3].map(i => k.r(142 + i * 10, 142, 6, 12, i < 3 ? 'glow' : 'metal')).join('');
+          o += k.p('M106,70 L140,70 C145,70 147,74 147,76 C147,78 145,82 140,82 L106,82 Z', 'metalD');
+          o += [-90, 30, 150].map(a => `<g transform="translate(106,76) rotate(${a})">${k.p('M0,-2.6 C18,-5 42,-3 62,0 C42,2.6 18,3.6 0,2.6 Z', 'metal')}</g>`).join('');
+          o += k.c(106, 76, 5, 'metal') + k.c(106, 76, 2, 'glow') + k.d('M70,76 a36,36 0 1,0 72,0 a36,36 0 1,0 -72,0', { dash: '2 6', op: .5 });
+          o += k.t(154, 130, 'SNAGA +142', { size: 7.5, ls: .6, c: 'am' });
+          return o;
+        }
+        if (s === 'B') {
+          o += k.p('M88,160 L100,66 L140,66 L152,160 Z', 'stone') + k.d('M97,90 L143,90 M94,114 L146,114 M91,138 L149,138 M112,66 L110,90 M128,90 L130,114 M108,114 L106,138 M134,138 L136,160');
+          o += k.p('M110,160 L110,142 C110,134 130,134 130,142 L130,160 Z', 'woodD') + k.p('M114,104 L114,96 C114,92 126,92 126,96 L126,104 Z', 'glow');
+          o += k.p('M94,68 L120,42 L146,68 Z', 'roof');
+          const sail = a => `<g transform="rotate(${a} 120 62)">${k.r(118, 8, 4, 54, 'woodD')}${k.r(122, 12, 14, 44, 'canvas')}${k.d('M122,23 L136,23 M122,34 L136,34 M122,45 L136,45 M129,12 L129,56', { w: 1 })}</g>`;
+          o += [20, 110, 200, 290].map(sail).join('') + k.c(120, 62, 5, 'gold');
+          return o;
+        }
+        o += k.r(156, 128, 44, 32, 'wood') + k.d('M167,128 L167,160 M178,128 L178,160 M189,128 L189,160') + k.p('M150,130 L178,114 L206,130 Z', 'roof') + k.r(164, 138, 12, 10, 'glow');
+        o += k.sl('M224,160 L224,104', 'woodD', 3) + k.sl('M216,108 L232,108', 'woodD', 2) + k.d('M200,122 Q212,118 222,108', { w: 1 });
+        o += k.sl('M90,160 L114,56', 'metalD', 3.2) + k.sl('M150,160 L126,56', 'metalD', 3.2);
+        o += k.d('M97,130 L143,130 M102,106 L138,106 M108,80 L132,80 M97,130 L138,106 M143,130 L102,106 M102,106 L132,80 M138,106 L108,80', { w: 1.4, op: .9 });
+        o += k.r(108, 52, 24, 5, 'metalD');
+        o += k.sl('M120,44 L66,40', 'metalD', 2.4) + k.p('M38,26 L70,32 L70,50 L38,54 Z', 'paint') + k.t(54, 46, 'Š-3', { size: 10, anchor: 'middle', m: 'accent' });
+        let bl = '';
+        for (let i = 0; i < 18; i++) {
+          const a = i * 20 * Math.PI / 180, d1 = 4 * Math.PI / 180, d2 = 7 * Math.PI / 180;
+          const P = (r, t) => `${(120 + Math.cos(t) * r).toFixed(1)},${(44 + Math.sin(t) * r).toFixed(1)}`;
+          bl += k.p(`M${P(8, a - d1)} L${P(31, a - d2)} L${P(31, a + d2)} L${P(8, a + d1)} Z`, 'metal', { sw: 1.2 });
+        }
+        o += bl + k.d('M89,44 a31,31 0 1,0 62,0 a31,31 0 1,0 -62,0', { w: 1.6, op: .9 }) + k.c(120, 44, 6, 'metal') + k.c(120, 44, 2, 'dark');
+        return o;
+      }
+    },
+
+    zitnica: {
+      name: 'Žitnica',
+      draw(k) {
+        const s = k.s;
+        let o = '';
+        if (s === 'C') {
+          o += k.r(70, 152, 100, 8, 'metalD') + k.d('M70,156 L30,156 L30,136 M170,156 L210,156 L210,140');
+          o += k.d('M80,30 L80,152 M160,30 L160,152');
+          for (let i = 0; i < 4; i++) {
+            const y = 36 + i * 29;
+            o += k.r(84, y, 72, 25, 'glassL', { rx: 7 }) + k.d(`M92,${y + 8} L148,${y + 8} M92,${y + 16} L148,${y + 16}`, { c: 'am', op: .9 });
+          }
+          o += k.p('M84,36 C84,20 156,20 156,36 Z', 'metal') + k.d('M120,22 L120,8') + k.c(120, 8, 2, 'glow');
+          o += k.r(176, 52, 16, 5, 'metal', { rx: 2 }) + k.e(174, 50, 6, 1.6, 'metalL') + k.e(194, 50, 6, 1.6, 'metalL') + k.c(184, 60, 1.6, 'glow');
+          o += k.t(34, 130, 'ZRNO +4.812/h', { size: 7.5, ls: .5, c: 'am' });
+          return o;
+        }
+        if (s === 'B') {
+          o += [66, 102, 138, 174].map(x => k.r(x - 4, 140, 8, 20, 'stone') + k.e(x, 140, 11, 4.5, 'stone')).join('');
+          o += k.r(52, 92, 136, 46, 'wood') + k.d(range(62, 182, 12).map(x => `M${x},92 L${x},138`).join(' '), { w: 1 }) + k.r(108, 102, 24, 36, 'woodD') + k.c(127, 120, 1.6, 'gold');
+          let th = '';
+          for (let r = 0; r < 5; r++) {
+            const y = 86 - r * 10;
+            for (let x = 46 + r * 10; x < 194 - r * 10; x += 9) th += `M${x},${y} l4,-9 `;
+          }
+          o += k.p('M38,96 C58,56 90,40 120,38 C150,40 182,56 202,96 Z', 'straw') + k.d(th, { w: 1 });
+          o += k.r(112, 138, 16, 6, 'woodD') + k.r(114, 144, 12, 6, 'woodD');
+          o += k.p('M206,160 L212,124 L218,160 Z', 'straw') + k.p('M216,160 L222,128 L228,160 Z', 'straw') + k.sl('M206,146 L228,146', 'cloth2', 2);
+          return o;
+        }
+        o += [24, 40].map(x => k.p(`M${x - 10},160 C${x - 14},146 ${x - 8},136 ${x},136 C${x + 8},136 ${x + 12},146 ${x + 10},160 Z`, 'canvas') + k.d(`M${x - 4},140 L${x + 4},140`)).join('');
+        o += k.r(58, 58, 58, 102, 'metal') + k.shade(rect(58, 58, 58, 102)) + k.d(range(70, 150, 13).map(y => `M58,${y} L116,${y}`).join(' ')) + k.d('M64,60 L64,158 M71,60 L71,158 ' + range(66, 154, 8).map(y => `M64,${y} L71,${y}`).join(' '), { w: .9 });
+        o += k.p('M54,60 L87,28 L120,60 Z', 'roof');
+        o += k.r(124, 88, 36, 72, 'metal') + k.shade(rect(124, 88, 36, 72)) + k.d(range(100, 152, 13).map(y => `M124,${y} L160,${y}`).join(' ')) + k.p('M120,90 L142,68 L164,90 Z', 'roof');
+        o += k.r(170, 24, 10, 136, 'metalD') + k.r(164, 14, 22, 14, 'metalD') + k.sl('M166,24 L102,40', 'metalD', 4);
+        o += k.t(87, 116, 'ZRNO', { size: 13, anchor: 'middle' });
+        return o;
+      }
+    },
+
+    inkubator: {
+      name: 'Inkubator',
+      draw(k) {
+        const s = k.s;
+        let o = '';
+        if (s === 'C') {
+          o += k.r(36, 146, 168, 14, 'metalD', { rx: 3 }) + k.d('M48,153 L66,153 M174,153 L192,153');
+          o += k.e(120, 112, 34, 40, 'glow', { op: .12 });
+          o += k.p('M100,146 L106,136 L134,136 L140,146 Z', 'metal');
+          o += k.e(120, 108, 20, 27, 'egg') + k.d('M120,108 m-34,0 a34,7 0 1,0 68,0 a34,7 0 1,0 -68,0', { c: 'am', op: .8 }) + k.d('M120,96 m-28,0 a28,5 0 1,0 56,0 a28,5 0 1,0 -56,0', { c: 'am', op: .5 });
+          o += k.p('M48,146 C48,94 82,64 120,64 C158,64 192,94 192,146 Z', 'glassL');
+          o += k.d('M120,64 L120,146 M84,76 C76,96 72,120 72,146 M156,76 C164,96 168,120 168,146 M54,118 Q120,104 186,118', { op: .45 });
+          o += k.d('M48,140 C30,140 24,150 20,160 M192,140 C210,140 216,150 220,160');
+          o += k.t(120, 58, 'INKUBATOR · 110 JAJA/H', { size: 7, anchor: 'middle', ls: .6, c: 'am' });
+          return o;
+        }
+        if (s === 'B') {
+          o += k.p('M48,160 L48,98 L60,92 L60,160 Z', 'stoneD') + k.p('M192,160 L192,98 L180,92 L180,160 Z', 'stoneD');
+          o += k.r(58, 84, 124, 76, 'stone') + k.d('M58,102 L182,102 M58,120 L182,120 M58,138 L182,138 M80,84 L80,102 M150,84 L150,102 M70,102 L70,120 M166,102 L166,120 M84,120 L84,138 M156,120 L156,138');
+          o += k.p('M76,86 C76,48 164,48 164,86 Z', 'gold') + k.d('M120,49 L120,86 M98,55 C94,64 92,76 92,86 M142,55 C146,64 148,76 148,86');
+          o += k.e(120, 42, 6, 8, 'gold');
+          o += k.p('M106,160 L106,132 Q120,110 134,132 L134,160 Z', 'woodD') + [[110, 140], [130, 140], [110, 152], [130, 152]].map(([x, y]) => k.c(x, y, 1.4, 'gold', { ns: 1 })).join('');
+          o += k.e(120, 106, 10, 13, 'glass') + k.d('M120,93 L120,119 M110,106 L130,106');
+          o += k.p('M66,92 L80,92 L80,128 L73,122 L66,128 Z', 'cloth2') + k.p('M160,92 L174,92 L174,128 L167,122 L160,128 Z', 'cloth2') + k.e(73, 104, 2.6, 3.4, 'gold') + k.e(167, 104, 2.6, 3.4, 'gold');
+          return o;
+        }
+        o += k.r(150, 30, 8, 30, 'metalD') + k.r(170, 38, 8, 24, 'metalD') + smoke(k, [[154, 24, 5], [160, 14, 6], [174, 30, 4], [182, 22, 5]]);
+        o += k.p('M30,76 L120,40 L210,76 Z', 'roof') + k.d('M54,67 L186,67 M78,57 L162,57 M102,48 L138,48');
+        o += k.r(40, 74, 160, 86, 'brick');
+        o += [60, 108, 156].map(x => k.p(`M${x},126 L${x},100 C${x},90 ${x + 24},90 ${x + 24},100 L${x + 24},126 Z`, 'glow') + k.d(`M${x + 12},91 L${x + 12},126 M${x},108 L${x + 24},108`, { w: 1.6, op: .9 })).join('');
+        o += k.r(84, 136, 72, 14, 'paint') + k.t(120, 147, 'INKUBATOR', { size: 10, anchor: 'middle', m: 'dark' });
+        o += k.c(188, 140, 7, 'paint') + k.d('M188,140 L192,135', { w: 1.4, op: 1 });
+        o += k.r(204, 134, 30, 26, 'wood') + [[211, 141], [219, 141], [227, 141], [211, 152], [219, 152], [227, 152]].map(([x, y]) => k.e(x, y, 3.2, 4, 'egg', { sw: 1 })).join('');
+        return o;
+      }
+    },
+
+    strasilo: {
+      name: 'Strašilo',
+      draw(k) {
+        const s = k.s;
+        let o = '';
+        if (s === 'C') {
+          o += k.e(120, 154, 64, 6, 'metalD') + k.p('M100,154 L106,144 L134,144 L140,154 Z', 'metal') + k.c(120, 142, 3, 'glow');
+          o += k.p('M108,142 L36,28 L204,28 L132,142 Z', 'beam');
+          const holo = 'M120,40 L120,140 M66,74 L174,74 M98,76 L142,76 L150,126 L90,126 Z M120,56 m-13,0 a13,13 0 1,0 26,0 a13,13 0 1,0 -26,0';
+          o += k.d(holo, { c: 'am', dash: '4 3', op: .9 }) + k.d('M96,92 L144,92 M94,108 L146,108', { c: 'am', op: .4 });
+          o += k.r(182, 108, 12, 46, 'metal') + k.r(172, 96, 30, 14, 'metalD', { rx: 3 }) + k.r(200, 100, 24, 4, 'metalL') + k.c(180, 103, 2, 'glow');
+          o += k.t(150, 24, 'PROJEKCIJA 87%', { size: 7, ls: .6, c: 'am' });
+          return o;
+        }
+        if (s === 'B') {
+          o += k.p('M84,160 L92,146 L148,146 L156,160 Z', 'stone') + k.d('M92,153 L148,153 M112,146 L112,153 M128,153 L128,160');
+          o += k.r(116, 36, 8, 112, 'woodD') + k.r(62, 70, 116, 7, 'woodD');
+          o += k.sl('M176,88 L176,16', 'woodD', 2.6) + k.p('M177,18 L210,25 L177,38 Z', 'cloth2') + k.p('M177,23 L196,25 L177,30 Z', 'gold');
+          o += k.p('M66,70 L100,70 L100,84 L68,84 Z', 'cloth2') + k.p('M140,70 L174,70 L172,84 L140,84 Z', 'cloth2');
+          o += k.p('M66,72 L54,66 L58,76 L50,80 L66,82 Z', 'straw') + k.p('M174,72 L186,66 L182,76 L190,80 L174,82 Z', 'straw');
+          o += k.p('M100,72 L140,72 L146,128 L94,128 Z', 'cloth') + k.e(120, 98, 7, 9, 'gold') + k.p('M100,128 L96,138 L104,132 L110,140 L114,130 L122,140 L126,130 L134,140 L138,132 L146,138 L142,128 Z', 'straw');
+          o += k.p('M106,40 C104,30 136,30 134,40 L134,64 C130,70 110,70 106,64 Z', 'canvas') + k.d('M112,50 l5,0 M123,50 l5,0 M112,58 q8,5 16,0 M114,56 l0,4 M120,57 l0,4 M126,56 l0,4');
+          o += k.p('M104,40 L136,40 L131,24 L109,24 Z', 'metal') + k.d('M110,32 L130,32');
+          return o;
+        }
+        o += sandbags(k, 84, 154, 5) + sandbags(k, 92, 145, 4);
+        o += k.p('M128,52 L238,30 L238,84 L128,58 Z', 'beam');
+        o += k.r(116, 40, 8, 106, 'woodD') + k.r(62, 70, 116, 7, 'woodD');
+        o += k.p('M66,70 L102,70 L102,86 L72,88 Z', 'cloth') + k.p('M138,70 L174,70 L168,88 L138,86 Z', 'cloth');
+        o += k.p('M98,72 L142,72 L152,130 L140,126 L134,134 L126,124 L118,134 L110,124 L100,132 L88,128 Z', 'cloth') + k.shade('M98,72 L142,72 L152,130 L140,126 L134,134 L126,124 L118,134 L110,124 L100,132 L88,128 Z') + k.sl('M100,100 L140,100', 'leather', 4);
+        o += k.d('M70,77 L70,92 M168,77 L168,92', { w: 1 }) + k.r(66, 92, 8, 10, 'metal') + k.r(164, 92, 8, 10, 'metal');
+        o += k.p('M104,38 L136,38 L132,68 L108,68 Z', 'metal') + k.shade('M104,38 L136,38 L132,68 L108,68 Z') + k.r(101, 34, 38, 5, 'metalD') + k.d('M106,36 C106,22 134,22 134,36', { w: 1.6 });
+        o += k.c(127, 54, 6.5, 'metalD') + k.c(127, 54, 4, 'glow');
+        o += k.t(112, 66, '7', { size: 8, m: 'paint' });
+        return o;
+      }
+    }
+  };
+
+  /* ---------------- backdrops & wrappers ---------------- */
+  function unitBack(k, h) {
+    const gy = h - 14;
+    if (k.s === 'A') return `<ellipse cx="120" cy="${gy}" rx="74" ry="6" fill="${PAL.A.shadow}"/>` + k.d(`M8,${gy + 1} C80,${gy - 2} 160,${gy - 2} 232,${gy + 1}`, { w: 1.3, op: .55 }) +
+      k.d(`M30,${gy} l3,-6 l2,6 M196,${gy} l3,-7 l3,7 M212,${gy} l2,-5 l2,5`, { w: 1, op: .6 });
+    if (k.s === 'B') return `<path d="M36,${h - 4} L36,74 C36,34 74,12 120,12 C166,12 204,34 204,74 L204,${h - 4}" fill="none" stroke="${PAL.B.gold}" stroke-width="1.4" opacity=".7"/>` +
+      `<path d="M42,${h - 4} L42,76 C42,40 78,19 120,19 C162,19 198,40 198,76 L198,${h - 4}" fill="none" stroke="${PAL.B.gold}" stroke-width=".7" opacity=".6"/>` +
+      `<path d="M14,${h} C60,${gy - 6} 180,${gy - 6} 226,${h} Z" fill="${PAL.B.grass}" stroke="${PAL.B.ink}" stroke-width="2"/>`;
+    if (k.s === 'C') {
+      let t = '';
+      for (let i = 0; i < 24; i++) { const a = i * Math.PI / 12; t += `M${(120 + Math.cos(a) * 88).toFixed(1)},${(gy + Math.sin(a) * 9).toFixed(1)} L${(120 + Math.cos(a) * 94).toFixed(1)},${(gy + Math.sin(a) * 9.6).toFixed(1)} `; }
+      return `<g fill="none" stroke="${CC.cy}">` +
+        `<ellipse cx="120" cy="${gy}" rx="88" ry="9" stroke-opacity=".45"/><ellipse cx="120" cy="${gy}" rx="60" ry="6" stroke-opacity=".3"/><ellipse cx="120" cy="${gy}" rx="30" ry="3" stroke-opacity=".25"/>` +
+        `<path d="${t}" stroke-opacity=".5"/><path d="M228,22 L228,${gy} M224,22 L232,22 M224,${gy} L232,${gy}" stroke-opacity=".45"/></g>`;
+    }
+    return '';
+  }
+
+  function unitSVG(id, s, o) {
+    o = o || {};
+    const U = UNITS[id];
+    const k = ctx(s, o);
+    const h = 200;
+    const art = U.tr ? `<g transform="${U.tr}">${U.draw(k)}</g>` : U.draw(k);
+    const cls = o.cls ? ` class="${o.cls}"` : '';
+    return `<svg viewBox="0 0 240 ${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${U.name}"${cls}>` +
+      (o.bare ? '' : unitBack(k, h)) + (s === 'C' ? `<g filter="url(#cGlow)">${art}</g>` : art) + '</svg>';
+  }
+
+  function bldBack(k) {
+    if (k.s === 'A') return `<ellipse cx="120" cy="161" rx="104" ry="5" fill="${PAL.A.shadow}"/>` + k.d('M4,161 C80,158 160,158 236,161', { w: 1.3, op: .55 });
+    if (k.s === 'B') return `<path d="M0,172 C40,154 200,154 240,172 L240,180 L0,180 Z" fill="${PAL.B.grass}" stroke="${PAL.B.ink}" stroke-width="2"/>`;
+    if (k.s === 'C') return `<g fill="none" stroke="${CC.cy}"><ellipse cx="120" cy="161" rx="108" ry="10" stroke-opacity=".4"/><ellipse cx="120" cy="161" rx="70" ry="6" stroke-opacity=".25"/><path d="M12,161 L228,161" stroke-opacity=".2"/></g>`;
+    return '';
+  }
+
+  function buildingSVG(id, s, o) {
+    o = o || {};
+    const B = BUILD[id];
+    const k = ctx(s, o);
+    const art = B.draw(k);
+    const cls = o.cls ? ` class="${o.cls}"` : '';
+    return `<svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${B.name}"${cls}>` +
+      (o.bare ? '' : bldBack(k)) + (s === 'C' ? `<g filter="url(#cGlow)">${art}</g>` : art) + '</svg>';
+  }
+
+  /* ---------------- breeds (portraits) ---------------- */
+  const BREEDS = {
+    leghorn: { A: { plum: '#ddd3bc', plumD: '#b9ad92' }, B: { plum: '#fbf4e2', plumD: '#e3d6b6' }, C: {} },
+    rodajlend: { A: { plum: '#8c4d2e', plumD: '#5e321e' }, B: { plum: '#a51d27', plumD: '#7d151c' }, C: {} },
+    brahma: { A: { plum: '#d9cfb6', plumD: '#a99e86', neck: '#3b3a34' }, B: { plum: '#fbf4e2', plumD: '#d5c39a', neck: '#2b2e33' }, C: {} },
+    australorp: { A: { plum: '#2f322c', plumD: '#22251f' }, B: { plum: '#2b2e33', plumD: '#1b1d20' }, C: {} },
+    orpington: { A: { plum: '#c39a55', plumD: '#97743c' }, B: { plum: '#dba631', plumD: '#b9861f' }, C: {} },
+    sussex: { A: { plum: '#ddd3bc', plumD: '#b9ad92', neck: '#4b4a42' }, B: { plum: '#fbf4e2', plumD: '#e3d6b6', neck: '#2b2e33' }, C: {} },
+    svilenka: { A: { plum: '#e8e0cc', plumD: '#c8bea6' }, B: { plum: '#fbf4e2', plumD: '#e3d6b6' }, C: {}, crest: true },
+    kaporka: { A: { plum: '#2c2e29', plumD: '#1f211d', crest: '#e7e0cc' }, B: { plum: '#2b2e33', plumD: '#1b1d20', crest: '#fbf4e2' }, C: {}, crest: true },
+    golosijan: { A: { plum: '#6e4a30', plumD: '#4e3322', neck: '#a84a3a' }, B: { plum: '#6c4523', plumD: '#4e3119', neck: '#b3202a' }, C: {} },
+    svrljiska: { A: { plum: '#3b3d39', plumD: '#2a2c28' }, B: { plum: '#2b2e33', plumD: '#1b1d20' }, C: {} }
+  };
+
+  function portraitSVG(breed, s, o) {
+    o = o || {};
+    const k = ctx(s, o);
+    const b = BREEDS[breed] || BREEDS.leghorn;
+    const mat = Object.assign({}, b[s] || {});
+    const roo = breed === 'rodajlend' || breed === 'golosijan';
+    let inner = chicken(k, { roo, mat, crest: !!b.crest, noLegs: true });
+    inner = s === 'C' ? `<g filter="url(#cGlow)">${inner}</g>` : inner;
+    return `<svg viewBox="112 4 104 104" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${breed}"${o.cls ? ` class="${o.cls}"` : ''}>${inner}</svg>`;
+  }
+
+  /* ---------------- scenes ---------------- */
+  function sceneSVG(s, o) {
+    o = o || {};
+    const W = 720, H = 300;
+    const k = ctx(s, o);
+    let bg = '';
+    if (s === 'A') {
+      bg = `<rect width="${W}" height="${H}" fill="url(#aSky)"/>` +
+        `<path d="M0,214 C120,190 220,204 330,196 C450,186 560,206 720,190 L720,${H} L0,${H} Z" fill="#8d8160" opacity=".55"/>` +
+        `<path d="M0,246 C140,236 300,240 420,238 C560,234 640,240 720,236 L720,${H} L0,${H} Z" fill="#6b5e44" opacity=".75"/>` +
+        `<path d="M0,262 L720,262" stroke="#1c1912" stroke-width="1.2" opacity=".4"/>`;
+    } else if (s === 'B') {
+      bg = `<rect width="${W}" height="${H}" fill="#e9dcbc"/>` +
+        `<path d="M0,200 C110,170 210,186 320,176 C440,164 560,188 720,170 L720,${H} L0,${H} Z" fill="#6e9a52" stroke="#15100c" stroke-width="2"/>` +
+        `<path d="M0,244 C150,228 310,236 430,232 C560,228 650,236 720,232 L720,${H} L0,${H} Z" fill="#4d7b3a" stroke="#15100c" stroke-width="2"/>` +
+        `<path d="M60,60 q20,-18 44,-6 q16,-14 34,0 q18,2 14,14 L56,68 Z M520,50 q20,-18 44,-6 q16,-14 34,0 q18,2 14,14 L516,58 Z" fill="#fbf4e2" stroke="#15100c" stroke-width="1.6"/>`;
+    } else {
+      let grid = '';
+      for (let i = -12; i <= 12; i++) grid += `M${360 + i * 30},250 L${360 + i * 60},300 `;
+      bg = `<rect width="${W}" height="${H}" fill="#06101d"/>` +
+        `<g fill="none" stroke="${CC.cy}"><ellipse cx="360" cy="252" rx="330" ry="34" stroke-opacity=".4"/><ellipse cx="360" cy="252" rx="250" ry="25" stroke-opacity=".25"/><ellipse cx="360" cy="252" rx="160" ry="16" stroke-opacity=".2"/>` +
+        `<path d="${grid}" stroke-opacity=".12"/><path d="M30,252 L690,252" stroke-opacity=".25"/></g>`;
+    }
+    const place = (svgInner, tr) => `<g transform="${tr}">${svgInner}</g>`;
+    const bd = id => BUILD[id].draw(k);
+    let mid = '';
+    mid += place(bd('zitnica'), 'translate(8,108) scale(.8)');
+    mid += place(bd('vetrenjaca'), 'translate(540,62) scale(1.1)');
+    mid += place(bd('inkubator'), 'translate(392,124) scale(.72)');
+    mid += place(bd('kokosinjac'), 'translate(170,58) scale(1.22)');
+    mid += place(bd('strasilo'), 'translate(470,150) scale(.62)');
+    if (s === 'C') mid = `<g filter="url(#cGlow)">${mid}</g>`;
+    let lab = '';
+    if (s === 'C') {
+      const L = (x, y, x2, y2, t1, t2) => `<g><path d="M${x},${y} L${x2},${y2} L${x2 + 70},${y2}" fill="none" stroke="${CC.cy}" stroke-opacity=".6"/><circle cx="${x}" cy="${y}" r="2.5" fill="${CC.am}"/>` +
+        `<text x="${x2 + 2}" y="${y2 - 5}" font-family="'JetBrains Mono',monospace" font-size="10" fill="${CC.cy}" letter-spacing=".8">${t1}</text><text x="${x2 + 2}" y="${y2 + 11}" font-family="'JetBrains Mono',monospace" font-size="9" fill="${CC.am}">${t2}</text></g>`;
+      lab = L(60, 150, 30, 60, 'ŽITNICA', 'NIV 24 · +4.812/h') + L(330, 110, 300, 36, 'KOKOŠINJAC', 'NIV 14 · 148/192 POLJA') + L(470, 200, 448, 120, 'INKUBATOR', 'NIV 8') + L(660, 120, 610, 40, 'VETRENJAČA', 'NIV 22');
+    }
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kokošinjac Suncokreti 117/6" preserveAspectRatio="xMidYMid ${o.fit || 'slice'}"${o.cls ? ` class="${o.cls}"` : ''}>${bg}${mid}${lab}</svg>`;
+  }
+
+  /* ---------------- hero key art ---------------- */
+  function heroSVG() {
+    const W = 1200, H = 470;
+    let o = `<defs><linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101824"/><stop offset=".45" stop-color="#2c2a3c"/><stop offset=".72" stop-color="#8a4a36"/><stop offset=".9" stop-color="#d98a43"/><stop offset="1" stop-color="#efb05a"/></linearGradient>` +
+      `<radialGradient id="hSun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd27a" stop-opacity=".95"/><stop offset=".35" stop-color="#ffb04e" stop-opacity=".55"/><stop offset="1" stop-color="#ff9a3d" stop-opacity="0"/></radialGradient></defs>`;
+    o += `<rect width="${W}" height="${H}" fill="url(#hSky)"/>`;
+    let st = '';
+    const rnd = (i) => { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+    for (let i = 0; i < 70; i++) st += `<circle cx="${(rnd(i) * W).toFixed(0)}" cy="${(rnd(i + 99) * 170).toFixed(0)}" r="${(rnd(i + 7) * 1.1 + .3).toFixed(2)}" fill="#f4e9d0" opacity="${(rnd(i + 3) * .6 + .2).toFixed(2)}"/>`;
+    o += st;
+    o += `<circle cx="820" cy="350" r="190" fill="url(#hSun)"/><circle cx="820" cy="350" r="52" fill="#ffd27a" opacity=".9"/>`;
+    o += `<path d="M0,318 C120,288 230,300 360,286 C520,268 640,300 780,284 C930,268 1060,292 1200,276 L1200,${H} L0,${H} Z" fill="#4c3540" opacity=".85"/>`;
+    const far = ctx('S', { sil: '#3a2833', lit: '#ffc766' });
+    o += `<g transform="translate(70,240) scale(.42)">${BUILD.kokosinjac.draw(far)}</g><g transform="translate(176,232) scale(.4)">${BUILD.zitnica.draw(far)}</g><g transform="translate(960,214) scale(.5)">${BUILD.vetrenjaca.draw(far)}</g><g transform="translate(1060,244) scale(.36)">${BUILD.kokosinjac.draw(far)}</g>`;
+    o += `<path d="M0,352 C160,330 300,344 470,334 C640,322 760,348 940,336 C1060,328 1130,340 1200,334 L1200,${H} L0,${H} Z" fill="#241a22"/>`;
+    const mid = ctx('S', { sil: '#1a1319', lit: '#ffcf6f' });
+    o += `<g transform="translate(560,118) scale(1.18)">${UNITS.tvrdjava.draw(mid)}</g>`;
+    o += `<g opacity=".8">${smoke(mid, [[757, 120, 9], [742, 104, 12], [722, 86, 15], [696, 70, 18]])}</g>`;
+    o += `<g transform="translate(330,250) scale(.5)">${BUILD.inkubator.draw(mid)}</g>`;
+    o += `<path d="M0,402 C200,386 380,396 560,390 C760,384 940,398 1200,388 L1200,${H} L0,${H} Z" fill="#0d0a0e"/>`;
+    let fence = '';
+    for (let x = 14; x < 1200; x += 46) fence += `M${x},${398 - Math.sin(x / 140) * 4} l0,-30 `;
+    o += `<path d="${fence}" stroke="#0d0a0e" stroke-width="5" fill="none"/><path d="M0,378 C300,372 700,376 1200,372 M0,388 C300,382 700,386 1200,382" stroke="#0d0a0e" stroke-width="2.4" fill="none"/>`;
+    const near = ctx('S', { sil: '#0d0a0e', lit: '#ffcf6f' });
+    for (let i = 0; i < 9; i++) {
+      const x = 120 + i * 56, y = 330 + Math.sin(i * .9) * 3;
+      o += `<g transform="translate(${x},${y}) scale(.36)">${UNITS.kljucac.draw(near)}</g>`;
+    }
+    o += `<g transform="translate(1000,232) scale(1.02)">${BUILD.strasilo.draw(near)}</g>`;
+    o += `<g transform="translate(560,316) scale(.5)">${UNITS.jurisnik.draw(near)}</g>`;
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Odred Kljucača maršira u sumrak pored Tvrđave na kokošjim nogama">${o}</svg>`;
+  }
+
+  const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>` +
+    `<linearGradient id="aShade" x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stop-color="#1a1209" stop-opacity="0"/><stop offset="1" stop-color="#1a1209" stop-opacity=".42"/></linearGradient>` +
+    `<linearGradient id="aSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfc2a0"/><stop offset=".7" stop-color="#e2d6b6"/><stop offset="1" stop-color="#d8cba8"/></linearGradient>` +
+    `<pattern id="aBrick" width="16" height="8" patternUnits="userSpaceOnUse"><rect width="16" height="8" fill="#8a4f37"/><path d="M0,.5 H16 M0,4.5 H16 M4,.5 V4.5 M12,4.5 V8.5" stroke="#3e2418" stroke-width=".8" opacity=".75"/></pattern>` +
+    `<filter id="cGlow" x="-15%" y="-15%" width="130%" height="130%"><feGaussianBlur stdDeviation="1.3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>` +
+    `</defs></svg>`;
+
+  const ICON = {
+    zrno: '<path d="M12 21V8"/><path d="M12 8c-2.6-.6-4-2.6-4-5 2.6 0 4 1.8 4 4 0-2.2 1.4-4 4-4 0 2.4-1.4 4.4-4 5z"/><path d="M12 14c-2.6-.6-4-2.4-4-4.6 2.6 0 4 1.6 4 3.4 0-1.8 1.4-3.4 4-3.4 0 2.2-1.4 4-4 4.6z"/>',
+    krec: '<path d="M4 9l8-5 8 5v7l-8 5-8-5z"/><path d="M4 9l8 5 8-5M12 14v7"/>',
+    ulje: '<path d="M12 3c3 5 6 8 6 12a6 6 0 0 1-12 0c0-4 3-7 6-12z"/>',
+    snaga: '<path d="M13 2L5 13h6l-1 9 8-12h-6z"/>',
+    jaja: '<path d="M12 3c4 0 7 6 7 11a7 7 0 0 1-14 0c0-5 3-11 7-11z"/>',
+    perje: '<path d="M20 4C11 4 6 10 6 18"/><path d="M6 18c7 0 13-5 14-14"/><path d="M4 20l2-2M9 14h4M11 11h4"/>',
+    pregled: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',
+    zgrade: '<path d="M14 4l6 6-3 3-6-6z"/><path d="M11 7L4 14l3 3 7-7"/><path d="M4 20h9"/>',
+    istrazivanja: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/>',
+    inkubator: '<path d="M12 6c3 0 5 4 5 7.5a5 5 0 0 1-10 0C7 10 9 6 12 6z"/><path d="M6 3l1.5 2M18 3l-1.5 2M12 2v2"/><path d="M4 21h16"/>',
+    odbrana: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',
+    odred: '<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',
+    komsiluk: '<path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/>',
+    jato: '<path d="M3 14c3-4 6-4 9 0 3-4 6-4 9 0"/><path d="M6 9c2-2.6 4-2.6 6 0 2-2.6 4-2.6 6 0"/>',
+    poruke: '<rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/>',
+    rang: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
+    novcanik: '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12h5v3h-5a1.5 1.5 0 0 1 0-3z"/><path d="M5 6l10-3 1 3"/>',
+    upozorenje: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',
+    sat: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    strelica: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    uhodi: '<circle cx="12" cy="12" r="3"/><path d="M2 12c3-5 6-7 10-7s7 2 10 7c-3 5-6 7-10 7s-7-2-10-7z"/>',
+    napad: '<path d="M14 4l6 0 0 6-9 9-3-3 9-9"/><path d="M4 20l4-4M6 14l4 4"/>',
+    transport: '<rect x="2" y="7" width="13" height="10" rx="1"/><path d="M15 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
+    poruka: '<path d="M4 5h16v11H9l-5 4z"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    minus: '<path d="M5 12h14"/>'
+  };
+  function icon(name, cls) {
+    return `<svg class="ico${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name] || ''}</svg>`;
+  }
+
+  global.ART = { unit: unitSVG, building: buildingSVG, portrait: portraitSVG, scene: sceneSVG, hero: heroSVG, icon, DEFS, UNITS, BUILD, BREEDS };
+})(window);
+
+/* Perje i Gvožđe — game screen mockups. Example data only. */
+(function (global) {
+  'use strict';
+  const I = (n) => ART.icon(n);
+
+  const RES = [
+    { ic: 'zrno', l: 'Zrno', v: '184.220', r: '+4.812/h', fill: 76, cap: '242.000' },
+    { ic: 'krec', l: 'Kreč', v: '92.415', r: '+2.106/h', fill: 58, cap: '160.000' },
+    { ic: 'ulje', l: 'Ulje', v: '31.870', r: '+894/h', fill: 40, cap: '80.000' },
+    { ic: 'snaga', l: 'Snaga', v: '+142', r: '1.420 / 1.278', fill: 90 },
+    { ic: 'jaja', l: 'Jaja', v: '1.284', r: '+14/dan' }
+  ];
+  const NAV = [
+    { ic: 'pregled', l: 'Pregled', b2: 'Dvor' }, { ic: 'zgrade', l: 'Zgrade', b2: 'Gradnja' }, { ic: 'istrazivanja', l: 'Istraživanja', b2: 'Znanje' },
+    { ic: 'inkubator', l: 'Inkubator', b2: 'Inkubator' }, { ic: 'odbrana', l: 'Odbrana', b2: 'Bedemi' }, { ic: 'odred', l: 'Odredi', b2: 'Odredi' },
+    { ic: 'komsiluk', l: 'Komšiluk', b2: 'Komšiluk' }, { ic: 'jato', l: 'Jato', b2: 'Jato' }, { ic: 'poruke', l: 'Poruke', b2: 'Glasnici', n: 3 }, { ic: 'rang', l: 'Rang lista', b2: 'Lestvica' }
+  ];
+  const EVENTS = [
+    { k: 'bad', t: '00:47:10', a: 'Neprijateljski odred', b: 'Žuta Kuna [OGRD] → Suncokreti 117/6', c: 'oko 340 jedinica · Osmatračnica 9', p: 64 },
+    { k: 'out', t: '00:12:41', a: 'Prepad', b: 'Suncokreti 117/6 → Ciglana 44/9', c: 'Jurišnik 120 · Kljucač 860 · Zaprega 24', p: 83 },
+    { k: 'in', t: '01:05:22', a: 'Transport', b: 'Suncokreti 121/11 → Suncokreti 117/6', c: 'Zrno 60.000 · Kreč 25.000', p: 41 },
+    { k: 'out', t: '03:40:00', a: 'Pohod u Divljinu', b: 'Pašnjak 203/14 → Šumarak', c: 'Zaprega 8 · Uhoda 4', p: 12 }
+  ];
+  const QUEUE = [
+    { ic: 'zgrade', n: 'Krečana', d: 'nivo 19 → 20', t: '01:24:05', p: 62, e: 9 },
+    { ic: 'inkubator', n: 'Kljucač ×120', d: 'iz 240 jaja · Inkubator 8', t: '02:11:00', p: 34, e: 14 },
+    { ic: 'istrazivanja', n: 'Genetika jajeta', d: 'nivo 6 → 7', t: '05:12:44', p: 18, e: 32 }
+  ];
+  const COOPS = [
+    { n: 'Matični kokošinjac', a: 'Suncokreti 117/6', p: '148/192', on: 1 },
+    { n: 'Ispostava Potok', a: 'Suncokreti 121/11', p: '97/138' },
+    { n: 'Drumska ispostava', a: 'Ciglana 44/2', p: '61/74' },
+    { n: 'Šumska straža', a: 'Pašnjak 203/14', p: '88/112' }
+  ];
+
+  const crest = `<svg viewBox="0 0 62 74" aria-hidden="true"><path d="M3,3 H59 V34 C59,54 44,66 31,71 C18,66 3,54 3,34 Z" fill="#a51d27" stroke="#d4a338" stroke-width="3"/><path d="M3,3 L59,52 M59,3 L3,52" stroke="#d4a338" stroke-width="0" /><ellipse cx="31" cy="33" rx="11" ry="14" fill="#f2d27a" stroke="#2a1a12" stroke-width="2"/><path d="M14,12 l4,6 4,-6 M40,12 l4,6 4,-6" stroke="#f2d27a" stroke-width="2.5" fill="none"/></svg>`;
+
+  function mainA() {
+    return `<div class="cv main mA skA">
+  <header class="mA-top">
+    <div class="mA-logo"><b>PERJE I GVOŽĐE</b><small>SEZONA III · DAN 64/90</small></div>
+    <div class="mA-res">${RES.map(r => `<div class="plate">${I(r.ic)}<div><b>${r.v}</b><small>${r.l} · ${r.r}</small></div></div>`).join('')}</div>
+    <div class="mA-user"><b>CRVENA MAMUZA</b><small>[KLJN] Kljun Pravde · 412. u Redu</small></div>
+  </header>
+  <nav class="mA-nav">${NAV.map((n, i) => `<div class="tab${i === 0 ? ' on' : ''}">${I(n.ic)}<span>${n.l}</span>${n.n ? `<em>${n.n}</em>` : ''}</div>`).join('')}</nav>
+  <main class="mA-center">
+    <div class="mA-photo pnl"><div class="mA-ph">${ART.scene('A')}</div>
+      <div class="mA-cap"><b>SUNCOKRETI 117/6</b> · matični kokošinjac, snimljeno 09.11.</div>
+      <div class="mA-stamp">LIVADA<br><small>PLAC 6</small></div></div>
+    <div class="mA-stats">
+      <div class="pnl st"><small>POLJA</small><b>148 / 192</b><i class="bar"><u style="width:77%"></u></i></div>
+      <div class="pnl st"><small>KLIMA</small><b>18 °C</b><span>umereno · +10% zrno</span></div>
+      <div class="pnl st"><small>ODBRANA</small><b>312</b><span>6 Strašila · mala kupola</span></div>
+      <div class="pnl st"><small>STAREŠINA</small><b>#04117</b><span>Somborska kaporka</span></div>
+    </div>
+    <div class="mA-queue pnl"><h3>Gradnja u toku</h3><table>${QUEUE.map(q => `<tr><td style="width:26px">${I(q.ic)}</td><td><b>${q.n}</b><span class="sub">${q.d}</span></td><td>${q.t}</td><td><span class="btn">Ubrzaj · ${q.e} jaja</span></td></tr>`).join('')}</table></div>
+  </main>
+  <aside class="mA-right">
+    <div class="pnl tele"><h3>Telegraf · odredi</h3>${EVENTS.slice(0, 3).map(e => `<div class="ev ${e.k}"><b>${e.k === 'bad' ? '⚠ ' : ''}${e.a.toUpperCase()}</b><span class="t">${e.t}</span><span>${e.b}</span></div>`).join('')}</div>
+    <div class="pnl tags"><h3>Kokošinjci 4 / 6</h3>${COOPS.map(c => `<div class="tag${c.on ? ' on' : ''}"><b>${c.n}</b><i>${c.p}</i><span>${c.a}</span></div>`).join('')}</div>
+    <div class="pnl wal"><h3>Jaja u novčaniku</h3><div class="big">1.284</div><p>7 Chikn u novčaniku<br>+14 jaja dnevno</p><span class="btn pri">${I('inkubator')} Pretvori u Inkubatoru</span></div>
+  </aside>
+  <footer class="mA-foot"><span>VREME SERVERA 21:32:07</span><span>ŽETVA ZA 26 DANA</span><span>LISIČJA NOĆ ZA 2 D 04 H</span><span>1.937 KOMANDANATA NA VEZI</span></footer>
+</div>`;
+  }
+
+  function mainB() {
+    const seal = (r) => `<div class="seal"><i>${I(r.ic)}</i><div><b>${r.v}</b><small>${r.l}</small><small>${r.r}</small></div></div>`;
+    return `<div class="cv main mB skB">
+  <header class="mB-top">
+    <div class="mB-res">${seal(RES[0])}${seal(RES[1])}</div>
+    <div class="mB-crest">${crest}<div><h1>Kuća Crvene Mamuze</h1><p>Jato Kljun Pravde · 412. mesto u Redu kljucanja</p></div></div>
+    <div class="mB-res r">${seal(RES[2])}${seal(RES[4])}</div>
+  </header>
+  <nav class="mB-nav">${NAV.map((n, i) => `<div class="sh${i === 0 ? ' on' : ''}">${I(n.ic)}${n.b2}${n.n ? ` (${n.n})` : ''}</div>`).join('')}</nav>
+  <section class="mB-left pnl"><h3>Imanje</h3>
+    <dl><dt>Adresa</dt><dd>Suncokreti 117/6</dd><dt>Predeo</dt><dd>Livada</dd><dt>Polja</dt><dd>148 od 192</dd></dl>
+    <i class="bar"><u style="width:77%"></u></i>
+    <dl><dt>Snaga</dt><dd>+142 (1.420 / 1.278)</dd><dt>Klima</dt><dd>18 °C, umereno</dd><dt>Bedemi</dt><dd>312 branilaca</dd><dt>Strašila</dt><dd>6</dd><dt>Kupola</dt><dd>mala, cela</dd></dl>
+    <div class="por">${ART.portrait('kaporka', 'B')}<div><b>Starešina #04117</b><span>Somborska kaporka, legendarna. Kapa Reda: +5% na sve.</span></div></div>
+  </section>
+  <section class="mB-center">
+    <div class="mB-map pnl"><div class="fr">${ART.scene('B')}</div><div class="mB-rib">Suncokreti · sokak 117 · plac 6</div></div>
+    <div class="mB-work pnl">${QUEUE.map(q => `<div class="row">${I(q.ic)}<span><b>${q.n}</b> <i>${q.d}</i></span><span class="t">${q.t}</span><span class="btn">Ubrzaj · ${q.e} jaja</span></div>`).join('')}</div>
+  </section>
+  <section class="mB-right pnl"><h3>Vesti s Imanja</h3>
+    ${EVENTS.map(e => `<div class="news ${e.k}"><span class="t">${e.t}</span><b>${e.a}</b>${e.b}<br><i>${e.c}</i></div>`).join('')}
+    <span class="btn pri" style="margin-top:auto">${I('inkubator')} Pretvori 1.284 jaja</span>
+  </section>
+  <footer class="mB-foot">${COOPS.map(c => `<div class="pen${c.on ? ' on' : ''}"><b>${c.n}</b><span>${c.a} · ${c.p}</span></div>`).join('')}</footer>
+</div>`;
+  }
+
+  function ring(p) {
+    const r = 22, c = 2 * Math.PI * r;
+    return `<svg class="ring" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="${r}" fill="none" stroke="rgba(95,240,255,.16)" stroke-width="4"/><circle cx="27" cy="27" r="${r}" fill="none" stroke="#5ff0ff" stroke-width="4" stroke-dasharray="${(c * p / 100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 27 27)" style="filter:drop-shadow(0 0 4px #5ff0ff)"/><text x="27" y="31" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#d9fbff">${p}%</text></svg>`;
+  }
+
+  function mainC() {
+    const mini = ['o', 'o', 'en', 'al', 'o', 'me', '', 'o', 'o', 'o', 'me', '', 'o', '', 'o'];
+    return `<div class="cv main mC skC">
+  <div class="mC-scene">${ART.scene('C', { fit: 'meet' })}</div>
+  <div class="mC-coord">SUNCOKRETI 117/6 · LIVADA · 148/192 POLJA · 18 °C</div>
+  <header class="gl mC-top">
+    <div class="mC-logo"><i><span>P&amp;G</span></i><b>PERJE I GVOŽĐE</b></div>
+    <div class="mC-res">${RES.slice(0, 4).map(r => `<div class="rs">${I(r.ic)}<b>${r.v}</b><small><span>${r.l.toUpperCase()}</span><span>${r.r}</span></small><i class="bar"><u style="width:${r.fill}%"></u></i></div>`).join('')}</div>
+    <div class="mC-wal">${I('novcanik')}<div><b>1.284</b><small>JAJA · 7 CHIKN · +14/24H</small></div><i class="dot"></i></div>
+  </header>
+  <nav class="gl mC-rail">${NAV.map((n, i) => `<div class="it${i === 0 ? ' on' : ''}">${I(n.ic)}<span>${n.l}</span>${n.n ? `<em>${n.n}</em>` : ''}</div>`).join('')}</nav>
+  <aside class="gl mC-time"><h3>Kretanje odreda</h3>
+    ${EVENTS.map(e => `<div class="tl ${e.k}"><div class="h"><b>${e.a}</b><span class="t">${e.t}</span></div><p>${e.b}<br>${e.c}</p><i class="bar"><u style="width:${e.p}%"></u></i></div>`).join('')}
+  </aside>
+  <section class="gl mC-queue">${QUEUE.map(q => `<div class="qi">${ring(q.p)}<b>${q.n}</b><span>${q.t}</span></div>`).join('')}</section>
+  <section class="mC-dock">${COOPS.map(c => `<div class="dk${c.on ? ' on' : ''}">${ART.building('kokosinjac', 'C', { bare: true })}<i>${c.p}</i><b>${c.n}</b><span>${c.a}</span></div>`).join('')}</section>
+  <section class="gl mC-mini"><h3>Sokak 117 · Suncokreti</h3><div class="mini">${mini.map(m => `<i class="${m}"></i>`).join('')}</div><div class="mini-z"><span>DRUM</span><span>LIVADA</span><span>BAŠTE</span><span>POTOK</span><span>ŠUMARAK</span></div></section>
+</div>`;
+  }
+
+  /* ---------- other screens ---------- */
+  function head(s, ic, title, sub) {
+    return `<div class="pnl scr-h"><div class="tt">${I(ic)}<div><h2>${title}</h2><p>${sub}</p></div></div><div class="mres">${RES.filter(r => r.ic !== 'snaga').map(r => `<span>${I(r.ic)}${r.v}</span>`).join('')}</div></div>`;
+  }
+
+  const PLOTS = [
+    [1, null, 'Uz drum'], [2, ['Prašnjavi ćošak', 'Kvočka Bosa', 'ZRNO', 61, '', 'n']], [3, ['Drumska straža', 'Žuta Kuna', 'OGRD', 88, '4.200']],
+    [4, ['Livadski dvor', 'Perjanik', 'KLJN', 214, '']], [5, ['Zlatna livada', 'Grebatorka', 'OGRD', 231, '']], [6, ['Matični kokošinjac', 'Crvena Mamuza', 'KLJN', 192, '', 'me']],
+    [7, null, 'Bašte'], [8, ['Baštovanova kuća', 'Čupava', 'ZRNO', 176, '', 'm']], [9, ['Trešnjin hlad', 'Crni Petao', '', 163, '31.200']],
+    [10, ['Kod potoka', 'Mala Kokoška', '', 120, '', 's']], [11, ['Ispostava Potok', 'Crvena Mamuza', 'KLJN', 138, '', 'me']], [12, null, 'Potok'],
+    [13, ['Šumska kuća', 'Lisičji Trag', 'LSC', 94, '', 'n']], [14, null, 'Šumarak'], [15, ['Poslednja ograda', 'Pernata Milica', 'OGRD', 101, '']]
+  ];
+  const STAT = { n: '<span class="st-n">(n)</span>', m: '<span class="st-m">(m)</span>', s: '<span class="st-s">(z)</span>', me: '' };
+
+  function scrMap(s) {
+    const zone = [['1–3', 'Uz drum · 44–110 polja'], ['4–6', 'Livada · 150–238 polja'], ['7–9', 'Bašte · 132–204 polja'], ['10–12', 'Potok · 102–166 polja'], ['13–15', 'Šumarak · 70–132 polja']];
+    const mc = ART.building('kokosinjac', s, { bare: true, cls: 'mini-c' });
+    return `<div class="cv scr ${'sk' + s}">${head(s, 'komsiluk', 'Komšiluk', 'Suncokreti · sokak 117 od 300')}
+<div class="scr-b" style="grid-template-columns:minmax(0,1fr) 270px">
+  <div class="pnl cell-p"><div class="addr"><span class="btn">◀</span><b>Komšiluk III · Suncokreti</b><span class="btn">▶</span><span style="width:24px"></span><span class="btn">◀</span><b>Sokak 117</b><span class="btn">▶</span><span style="flex:1"></span><span class="chip">Uhode: 80</span><span class="chip">Zaprege: 30</span></div>
+  <table class="tbl"><thead><tr><th>Plac</th><th></th><th>Kokošinjac</th><th>Vlasnik</th><th>Jato</th><th>Polja</th><th>Perje</th><th>Akcije</th></tr></thead><tbody>
+  ${PLOTS.map(([n, d, z]) => d ? `<tr class="${d[5] === 'me' ? 'me' : ''}"><td class="num">${n}</td><td>${mc}</td><td>${d[0]}</td><td>${d[1]} ${STAT[d[5]] || ''}</td><td>${d[2] ? '[' + d[2] + ']' : '—'}</td><td class="num">${d[3]}</td><td class="num">${d[4] || '—'}</td><td><span class="acts">${d[5] === 'me' ? '' : I('uhodi') + I('napad') + I('transport') + I('poruka')}</span></td></tr>`
+      : `<tr class="free"><td class="num">${n}</td><td></td><td>Slobodan plac · ${z}</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="chip">Naseli</span></td></tr>`).join('')}
+  </tbody></table></div>
+  <div class="pnl cell-p" style="gap:14px"><h3>Pojas sokaka</h3>
+    <div class="zone">${zone.map((z, i) => `<div class="${i === 1 ? 'me' : ''}"><i>${z[0]}</i><span>${z[1]}</span></div>`).join('')}</div>
+    <p class="note">Plac 6 je u Livadi: najviše polja, umerena klima, +10% zrna.</p>
+    <div class="legend"><span><span class="st-n">(n)</span> neaktivan 7+ dana</span><span><span class="st-m">(m)</span> u mitarenju, ne može se napasti</span><span><span class="st-s">(z)</span> zaštita pilića</span><span>Perje: polje perja posle bitke</span></div>
+  </div>
+</div></div>`;
+  }
+
+  function scrInk(s) {
+    const cards = [['uhoda', 'Uhoda', 1, '0 / 1 / 10'], ['kljucac', 'Kljucač', 2, '2 / 2 / 6'], ['jurisnik', 'Jurišnik', 10, '6 / 5 / 6'], ['zaprega', 'Zaprega', 6, '0 / 3 / 5'], ['tvrdjava', 'Tvrđava', 2400, '10 / 10 / 1']];
+    return `<div class="cv scr ${'sk' + s}">${head(s, 'inkubator', 'Inkubator', 'Pretvaranje jaja · Suncokreti 117/6 · nivo 8')}
+<div class="scr-b" style="grid-template-columns:270px minmax(0,1fr) 300px">
+  <div class="pnl cell-p" style="gap:8px"><h3>Novčanik</h3><span class="chip ok">● povezan · 0x7a3…e91c</span>
+    <div class="bigegg">1.284</div><div class="note">jaja spremnih za pretvaranje<br>7 Chikn nosi +14 jaja dnevno</div>
+    ${[['kaporka', '#04117 · Somborska kaporka', '5 jaja/dan'], ['brahma', '#20511 · Brahma', '3 jaja/dan'], ['leghorn', '#12890 · Leghorn', '2 jaja/dan']].map(c => `<div class="mchikn">${ART.portrait(c[0], s)}<span>${c[1]}<small>${c[2]}</small></span><span class="chip">+</span></div>`).join('')}
+    <div class="note" style="margin-top:auto">Jaja u novčaniku se ne mogu opljačkati. Napadač odnosi samo zrno, kreč i ulje.</div>
+  </div>
+  <div class="pnl cell-p"><div class="tabs"><span class="tb on">Sve</span><span class="tb">Vojska</span><span class="tb">Transport</span><span class="tb">Odbrana</span><span class="tb">Resursi</span><span class="tb">Ubrzanje</span></div>
+    <div class="ugrid">${cards.map((c, i) => `<div class="ucard${i === 1 ? ' sel' : ''}">${ART.unit(c[0], s)}<b>${c[1]}</b><div class="cost"><span>Napad / oklop / brzina</span></div><div class="cost"><span>${c[3]}</span><strong>${c[2].toLocaleString('sr-RS')} ${c[2] === 1 ? 'jaje' : 'jaja'}</strong></div><div class="step"><span>${I('minus')}</span>${i === 1 ? 120 : 0}<span>${I('plus')}</span></div></div>`).join('')}</div>
+    <div class="tabs" style="margin:14px 0 6px"><span class="tb on">Resursi</span></div>
+    <table class="tbl"><tr><td>1 jaje → 1.000 zrna</td><td>1 jaje → 500 kreča</td><td>1 jaje → 250 ulja</td><td>1 jaje → 10 min ubrzanja</td></tr></table>
+  </div>
+  <div class="pnl cell-p" style="gap:10px"><h3>Nalog</h3>
+    <dl class="kv"><dt>Kljucač × 120</dt><dd>240 jaja</dd><dt>Genetika jajeta 7</dt><dd>+21%</dd><dt>Dobijaš</dt><dd>145 Kljucača</dd><dt>Kapacitet Inkubatora</dt><dd>110 jaja/h</dd><dt>Vreme izleganja</dt><dd>2 h 11 min</dd><dt>Ostaje u novčaniku</dt><dd>1.044 jaja</dd></dl>
+    <span class="btn pri">${I('jaja')} Pretvori 240 jaja</span>
+    <p class="note">Pretvorena jaja se trajno troše (spaljuju) na lancu. Potvrđuješ potpisom u novčaniku.</p>
+    <h3 style="margin-top:6px">Red izleganja</h3>
+    <div class="kv"><dt>Kljucač ×145</dt><dd>34%</dd></div><i class="bar"><u style="width:34%"></u></i>
+    <div class="kv"><dt>Zaprega ×12</dt><dd>čeka</dd></div><i class="bar"><u style="width:0%"></u></i>
+  </div>
+</div></div>`;
+  }
+
+  function scrSend(s) {
+    const us = [['jurisnik', 'Jurišnik', '164', '120'], ['kljucac', 'Kljucač', '1.240', '860'], ['zaprega', 'Zaprega', '30', '24'], ['uhoda', 'Uhoda', '80', '0'], ['tvrdjava', 'Tvrđava na kokošjim nogama', '1', '0']];
+    const ms = [['napad', 'Prepad', 1], ['jato', 'Udruženi juriš'], ['transport', 'Transport'], ['strelica', 'Premeštanje'], ['odbrana', 'Čuvanje'], ['uhodi', 'Uhođenje'], ['pregled', 'Naseljavanje'], ['perje', 'Sakupljanje perja'], ['komsiluk', 'Pohod u Divljinu']];
+    return `<div class="cv scr ${'sk' + s}">${head(s, 'odred', 'Slanje odreda', 'Iz: Suncokreti 117/6 · matični kokošinjac')}
+<div class="scr-b" style="grid-template-columns:minmax(0,1fr) 330px">
+  <div style="display:grid;grid-template-rows:auto 1fr;gap:14px;min-height:0">
+    <div class="pnl cell-p"><h3>1 · Jedinice</h3><table class="tbl utbl"><thead><tr><th></th><th>Jedinica</th><th>Dostupno</th><th>Šalješ</th><th></th></tr></thead><tbody>
+    ${us.map(u => `<tr><td style="width:66px">${ART.unit(u[0], s, { bare: true, cls: 'uimg' })}</td><td>${u[1]}</td><td class="num">${u[2]}</td><td><span class="inp">${u[3]}</span></td><td><span class="chip">sve</span></td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="pnl cell-p"><h3>2 · Cilj i misija</h3>
+      <div class="addr"><span>Komšiluk</span><span class="inp" style="text-align:left">Ciglana</span><span>sokak</span><span class="inp">44</span><span>plac</span><span class="inp">9</span><span class="chip">Crni Petao · 163 polja</span></div>
+      <div class="miss">${ms.map(m => `<div class="${m[2] ? 'on' : ''}">${I(m[0])}${m[1]}</div>`).join('')}</div>
+    </div>
+  </div>
+  <div class="pnl cell-p" style="gap:10px"><h3>3 · Pregled</h3>
+    <dl class="kv"><dt>Udaljenost</dt><dd>4 komšiluka · 73 sokaka</dd><dt>Brzina odreda</dt><dd>100%</dd></dl>
+    <div class="speed">${'<i></i>'.repeat(10)}</div>
+    <dl class="kv"><dt>Trajanje</dt><dd>01:12:30</dd><dt>Dolazak</dt><dd>09.11. 22:44:37</dd><dt>Povratak</dt><dd>10.11. 00:09:44</dd><dt>Potrošnja ulja</dt><dd>3.120</dd><dt>Nosivost</dt><dd>600.000</dd><dt>Snaga napada</dt><dd>18.420</dd></dl>
+    <p class="note">Kiša u Ciglani usporava odred za 15% još 2 h 10 min (Meteorologija 3).</p>
+    <span class="btn pri" style="margin-top:auto">${I('odred')} Pošalji odred</span>
+  </div>
+</div></div>`;
+  }
+
+  function scrRep(s) {
+    const att = [['Jurišnik', '120', '104', '16'], ['Kljucač', '860', '702', '158'], ['Jajobacač', '40', '40', '0'], ['Zaprega', '24', '24', '0']];
+    const def = [['Kljucač', '300', '0', '300'], ['Mamuzar', '120', '0', '120'], ['Praćkaš', '40', '0', '40'], ['Strašilo', '6', '1', '5'], ['Ljuskasta kupola (mala)', '1', '0', '1']];
+    const t = (rows) => `<table class="tbl"><thead><tr><th>Jedinica</th><th>Pre</th><th>Posle</th><th>Gubitak</th></tr></thead><tbody>${rows.map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="l">−${r[3]}</td></tr>`).join('')}</tbody></table>`;
+    const rd = [[96, 88], [91, 52], [87, 19], [86, 0]];
+    return `<div class="cv scr ${'sk' + s}">${head(s, 'poruke', 'Izveštaj o borbi', 'Ciglana 44/9 · 09.11. u 22:44:37')}
+<div class="scr-b" style="grid-template-rows:auto auto auto auto;align-content:start">
+  <div class="pnl rep-h"><div><b>Prepad na Trešnjin hlad</b><p class="note" style="margin:2px 0 0">Napadač Crvena Mamuza [KLJN] · Branilac Crni Petao</p></div><span class="res">Pobeda napadača u 4. rundi</span></div>
+  <div class="rep-g"><div class="pnl cell-p"><h3>Napadač · Crvena Mamuza</h3><div class="side-t">Oštrenje kljuna 9 · Ljuskasti oklop 8 · Paperje 7</div>${t(att)}</div><div class="pnl cell-p"><h3>Branilac · Crni Petao</h3><div class="side-t">Oštrenje kljuna 6 · Ljuskasti oklop 7 · Paperje 5</div>${t(def)}</div></div>
+  <div class="pnl cell-p"><h3>Snaga posle svake runde</h3><div class="rounds">${rd.map((r, i) => `<div class="rd"><b>Runda ${i + 1}</b><span>Napadač ${r[0]}%</span><i class="bar"><u style="width:${r[0]}%"></u></i><span>Branilac ${r[1]}%</span><i class="bar d"><u style="width:${r[1]}%"></u></i></div>`).join('')}</div></div>
+  <div class="loot"><div class="pnl"><small>Plen · zrno</small><b>42.000</b></div><div class="pnl"><small>Plen · kreč</small><b>18.500</b></div><div class="pnl"><small>Plen · ulje</small><b>6.200</b></div><div class="pnl"><small>Polje perja iznad 44/9</small><b>31.200</b></div></div>
+</div></div>`;
+  }
+
+  const CHIKN = [
+    ['kaporka', '#04117', 'Somborska kaporka', 'l', 'Legendarna', 5, 'Kapa Reda: +5% na sve, dupli glas u Savetu jata', 'Suncokreti 117/6'],
+    ['brahma', '#20511', 'Brahma', 'e', 'Epska', 3, 'Bedem: +12% odbrana kokošinjca', 'Ciglana 44/2'],
+    ['leghorn', '#12890', 'Leghorn', 'r', 'Retka', 2, 'Nosilja: Inkubator radi 15% brže', 'Suncokreti 121/11'],
+    ['rodajlend', '#00873', 'Rodajlend', 'o', 'Obična', 1, 'Ratnica: +8% napad odreda', 'Pašnjak 203/14'],
+    ['svilenka', '#17702', 'Svilenka', 'o', 'Obična', 1, 'Senka: +25% uspeh uhođenja', ''],
+    ['orpington', '#28344', 'Orpington', 'o', 'Obična', 1, 'Domaćica: +10% proizvodnja', ''],
+    ['sussex', '#09150', 'Saseks', 'o', 'Obična', 1, 'Izviđač: +12% brzina odreda', '']
+  ];
+
+  function scrColl(s) {
+    return `<div class="cv scr ${'sk' + s}">${head(s, 'novcanik', 'Chikn kolekcija', '7 Chikn u novčaniku · 14 jaja dnevno · 4 starešine')}
+<div class="scr-b" style="grid-template-rows:auto 1fr">
+  <div class="tabs" style="margin:0"><span class="tb on">Sve (7)</span><span class="tb">Starešine (4)</span><span class="tb">Slobodne (3)</span><span class="tb">Legendarne (1)</span><span style="flex:1"></span><span class="chip gold">Sledeće nošenje za 03:12:40</span></div>
+  <div class="cgrid">${CHIKN.map(c => `<div class="ccard">${ART.portrait(c[0], s)}<div><span class="id">${c[1]}</span><b>${c[2]}</b><span class="rar ${c[3]}">${c[4]}</span><div class="tr">${c[6]}</div><div class="note">${c[5]} ${c[5] === 1 ? 'jaje' : 'jaja'} dnevno</div></div><div class="as">${c[7] ? `<span>Starešina · ${c[7]}</span><span class="chip">promeni</span>` : `<span>Slobodna</span><span class="btn pri" style="padding:5px 10px">Postavi</span>`}</div></div>`).join('')}
+    <div class="ccard empty">${I('pregled')}<b>Šumska straža nema starešinu</b><span class="note">Pašnjak 203/14 · postavi slobodnu Chikn za bonus kokošinjcu</span></div>
+  </div>
+</div></div>`;
+  }
+
+  const OTHER = [
+    { id: 'komsiluk', name: 'Komšiluk', desc: 'Pregled sokaka: 15 placeva, vlasnici, jata, polja perja i brze akcije.', fn: scrMap },
+    { id: 'inkubator', name: 'Inkubator', desc: 'Pretvaranje jaja iz novčanika u jedinice, transport, odbranu ili resurse.', fn: scrInk },
+    { id: 'odred', name: 'Slanje odreda', desc: 'Izbor jedinica, cilja i misije, sa trajanjem, gorivom i nosivošću.', fn: scrSend },
+    { id: 'borba', name: 'Izveštaj o borbi', desc: 'Gubici po jedinicama, snaga po rundama, plen i polje perja.', fn: scrRep },
+    { id: 'kolekcija', name: 'Chikn kolekcija', desc: 'NFT Chikn iz novčanika: rasa, retkost, jaja dnevno i ko je starešina.', fn: scrColl }
+  ];
+
+  global.SCREENS = { mainA, mainB, mainC, OTHER, CHIKN };
+})(window);
+
+/* Perje i gvožđe — page logic */
+(function () {
+  'use strict';
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const DIR = { A: 'Rovovski', B: 'Heraldički', C: 'Agro-tech' };
+  const KEYS = [['jedinice', 'Jedinice'], ['zgrade', 'Zgrade'], ['glavni', 'Glavni ekran'], ['ekrani', 'Ostali ekrani']];
+
+  document.body.insertAdjacentHTML('afterbegin', ART.DEFS);
+  $('#heroArt').innerHTML = ART.hero();
+
+  /* ---------- world: plots chart ---------- */
+  const ZONES = {
+    'Uz drum': { fx: 'Sunčano i suvo. +25% ulje i +15% snaga vetrenjača. Odredi kreću 10% brže, ali kokošinjac je lako uhoditi.', who: 'Za brze napadače i trgovce.' },
+    'Livada': { fx: 'Umerena klima i najviše polja. +10% zrno. Najtraženiji placevi u svakom sokaku.', who: 'Za matični kokošinjac i dugu igru.' },
+    'Bašte': { fx: 'Zaklon od vetra. +10% zrno, −10% snaga vetrenjača.', who: 'Za proizvodnju zrna.' },
+    'Potok': { fx: 'Vlažno i sveže. +25% kreč iz rečnog krečnjaka, −15% ulje.', who: 'Za kreč, oklop i odbranu.' },
+    'Šumarak': { fx: 'Hladovina uz šumu. −20% ulje i snaga. Uhođenje protiv tebe je 25% slabije, a Pohodi u Divljinu 30% kraći. Lisice dolaze češće.', who: 'Za pohode i skrivene ispostave.' }
+  };
+  const PLAC = [
+    [1, 'Uz drum', 44, 72, '28 do 34 °C'], [2, 'Uz drum', 52, 84, '26 do 32 °C'], [3, 'Uz drum', 70, 110, '24 do 30 °C'],
+    [4, 'Livada', 150, 210, '18 do 24 °C'], [5, 'Livada', 172, 238, '16 do 22 °C'], [6, 'Livada', 165, 226, '16 do 22 °C'],
+    [7, 'Bašte', 148, 204, '14 do 20 °C'], [8, 'Bašte', 140, 196, '12 do 18 °C'], [9, 'Bašte', 132, 186, '12 do 18 °C'],
+    [10, 'Potok', 118, 166, '8 do 14 °C'], [11, 'Potok', 110, 156, '6 do 12 °C'], [12, 'Potok', 102, 148, '6 do 12 °C'],
+    [13, 'Šumarak', 90, 132, '2 do 8 °C'], [14, 'Šumarak', 80, 120, '0 do 6 °C'], [15, 'Šumarak', 70, 110, '−2 do 4 °C']
+  ];
+  let selPlac = 4;
+  const C = { L: 46, R: 628, T: 28, B: 214, W: 640, H: 270 };
+  const yv = (v) => C.B - (v / 250) * (C.B - C.T);
+  const slot = (C.R - C.L) / 15;
+
+  function drawChart() {
+    let g = '';
+    for (const t of [0, 50, 100, 150, 200, 250]) g += `<line class="g" x1="${C.L}" x2="${C.R}" y1="${yv(t)}" y2="${yv(t)}"/><text x="${C.L - 8}" y="${yv(t) + 4}" text-anchor="end">${t}</text>`;
+    let bars = '';
+    PLAC.forEach((p, i) => {
+      const cx = C.L + slot * i + slot / 2, y1 = yv(p[3]), y0 = yv(p[2]);
+      bars += `<g class="bar${i === selPlac ? ' sel' : ''}" data-i="${i}" role="button" tabindex="0" aria-label="Plac ${p[0]}, ${p[1]}, od ${p[2]} do ${p[3]} polja" aria-pressed="${i === selPlac}">` +
+        `<rect class="hit" x="${(C.L + slot * i).toFixed(1)}" y="${C.T}" width="${slot.toFixed(1)}" height="${C.B - C.T}"/>` +
+        `<rect class="mk" x="${(cx - 10).toFixed(1)}" y="${y1.toFixed(1)}" width="20" height="${(y0 - y1).toFixed(1)}" rx="4"/>` +
+        `<text x="${cx.toFixed(1)}" y="${C.B + 16}" text-anchor="middle">${p[0]}</text></g>`;
+    });
+    const sp = PLAC[selPlac], scx = C.L + slot * selPlac + slot / 2;
+    const vl = `<text class="vl" x="${scx.toFixed(1)}" y="${(yv(sp[3]) - 8).toFixed(1)}" text-anchor="middle">${sp[2]}–${sp[3]}</text>`;
+    let zl = '';
+    ['Uz drum', 'Livada', 'Bašte', 'Potok', 'Šumarak'].forEach((z, j) => {
+      const x0 = C.L + slot * j * 3 + 4, x1 = C.L + slot * (j * 3 + 3) - 4;
+      zl += `<line class="zb" x1="${x0.toFixed(1)}" x2="${x1.toFixed(1)}" y1="${C.B + 26}" y2="${C.B + 26}"/><text class="zl" x="${((x0 + x1) / 2).toFixed(1)}" y="${C.B + 44}" text-anchor="middle">${z.toUpperCase()}</text>`;
+    });
+    $('#chart').innerHTML = `<svg viewBox="0 0 ${C.W} ${C.H}" role="group" aria-label="Raspon polja po placu, od 1 do 15">${g}${bars}${vl}${zl}</svg>`;
+    drawPlot();
+  }
+
+  function drawPlot() {
+    const p = PLAC[selPlac], z = ZONES[p[1]];
+    $('#plot').innerHTML = `<p class="eyebrow">Plac ${p[0]} od 15</p><div class="z">${p[1]}</div><div class="r">${p[2]}–${p[3]} polja · ${p[4]}</div><p class="muted">${z.fx}</p>` +
+      `<dl><dt>Primer</dt><dd>Suncokreti 117/${p[0]}</dd><dt>Za koga</dt><dd>${z.who}</dd><dt>Pravilo</dt><dd>Matični kokošinjac uvek dobija 175 polja. Proširenje ograde dodaje 4 polja po nivou.</dd></dl>`;
+  }
+
+  const chartEl = $('#chart'), tip = $('#tip'), box = $('.chartbox');
+  chartEl.addEventListener('click', (e) => { const b = e.target.closest('.bar'); if (b) { selPlac = +b.dataset.i; drawChart(); focusBar(); } });
+  chartEl.addEventListener('keydown', (e) => {
+    const b = e.target.closest('.bar'); if (!b) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selPlac = +b.dataset.i; drawChart(); focusBar(); }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); selPlac = Math.max(0, Math.min(14, selPlac + (e.key === 'ArrowRight' ? 1 : -1))); drawChart(); focusBar(); }
+  });
+  function focusBar() { const b = $(`.bar[data-i="${selPlac}"]`, chartEl); if (b) b.focus({ preventScroll: true }); }
+  function showTip(b) {
+    const p = PLAC[+b.dataset.i], r = b.querySelector('.mk').getBoundingClientRect(), br = box.getBoundingClientRect();
+    tip.innerHTML = `Plac ${p[0]} · ${p[1]}<br>${p[2]}–${p[3]} polja · ${p[4]}`;
+    tip.style.left = (r.left + r.width / 2 - br.left) + 'px';
+    tip.style.top = (r.top - br.top - 8) + 'px';
+    tip.hidden = false;
+  }
+  chartEl.addEventListener('mouseover', (e) => { const b = e.target.closest('.bar'); if (b) showTip(b); });
+  chartEl.addEventListener('mouseleave', () => { tip.hidden = true; });
+  chartEl.addEventListener('focusin', (e) => { const b = e.target.closest('.bar'); if (b) showTip(b); });
+  chartEl.addEventListener('focusout', () => { tip.hidden = true; });
+  drawChart();
+
+  const ZT = [['Uz drum', '1–3', '44–110', '24 do 34 °C'], ['Livada', '4–6', '150–238', '16 do 24 °C'], ['Bašte', '7–9', '132–204', '12 do 20 °C'], ['Potok', '10–12', '102–166', '6 do 14 °C'], ['Šumarak', '13–15', '70–132', '−2 do 8 °C']];
+  $('#zoneTable tbody').innerHTML = ZT.map(z => `<tr><td><b>${z[0]}</b></td><td class="n">${z[1]}</td><td class="n">${z[2]}</td><td class="n">${z[3]}</td><td>${ZONES[z[0]].fx}</td></tr>`).join('');
+
+  const HOODS = [['I', 'Stara Ekonomija', '+5% odbrana'], ['II', 'Kukuruzište', '+5% zrno'], ['III', 'Suncokreti', '+5% ulje'], ['IV', 'Vodenica', '+5% kreč'],
+    ['V', 'Vinogradi', '+5% nosivost'], ['VI', 'Pašnjak', '+5% brzina odreda'], ['VII', 'Ciglana', '−5% cena zgrada'], ['VIII', 'Pčelinjak', '+5% brzina istraživanja']];
+  $('#hoods').innerHTML = HOODS.map(h => `<div><i>Komšiluk ${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span></div>`).join('');
+
+  /* ---------- eggs calculator ---------- */
+  const cE = $('#cE'), cL = $('#cL'), cG = $('#cG');
+  function calc() {
+    const E = +cE.value, L = +cL.value, Gn = +cG.value, bonus = 1 + Gn * .03, cap = Math.round(6 * Math.pow(L, 1.4));
+    $('#oE').textContent = fmt(E); $('#oL').textContent = L; $('#oG').textContent = Gn + ' (+' + Gn * 3 + '%)';
+    const u = (cost) => Math.floor(E / cost * bonus);
+    const zr = E * 1000;
+    const zrS = zr >= 1e6 ? (zr / 1e6).toFixed(2).replace('.', ',') + ' mil.' : fmt(zr);
+    const minutes = E * 10, spd = minutes >= 120 ? fmt(minutes / 60) + ' h' : fmt(minutes) + ' min';
+    const tiles = [
+      [fmt(u(2)), 'Kljucača', 'laka pešadija · 2 jaja'], [fmt(u(10)), 'Jurišnika', 'elitni juriš · 10 jaja'], [fmt(u(6)), 'Zaprega', 'nosivost ' + fmt(u(6) * 25000)],
+      [fmt(u(40)), 'Strašila', 'teška odbrana · 40 jaja'], [zrS, 'zrna', '1 jaje = 1.000 zrna'], [spd, 'ubrzanja', '1 jaje = 10 minuta']
+    ];
+    const hrs = cap ? E / cap : 0, h = Math.floor(hrs), m = Math.round((hrs - h) * 60);
+    $('#outs').innerHTML = tiles.map(t => `<div class="out"><b>${t[0]}</b><span>${t[1]}</span><small>${t[2]}</small></div>`).join('') +
+      `<div class="ptime"><span class="muted">Izleganje jedinica i odbrane traje</span><b>${h} h ${m} min</b><span class="small muted">Inkubator ${L} izleže ${fmt(cap)} jaja na sat. Resursi i ubrzanje stižu odmah.</span></div>`;
+  }
+  [cE, cL, cG].forEach(i => i.addEventListener('input', calc));
+  calc();
+
+  const BREEDS = [['Leghorn', 'Nosilja', 'Inkubator radi 15% brže'], ['Rodajlend', 'Ratnica', '+8% napad odreda iz tog kokošinjca'], ['Brahma', 'Bedem', '+12% odbrana'],
+    ['Orpington', 'Domaćica', '+10% proizvodnja svih resursa'], ['Saseks', 'Izviđač', '+12% brzina odreda'], ['Svilenka', 'Senka', '+25% uspeh uhođenja'], ['Australorp', 'Gvozdeno perje', '+10% oklop jedinica'],
+    ['Somborska kaporka', 'Kapa Reda', '+5% na sve i dupli glas u Savetu jata', 1], ['Banatski gološijan', 'Bez straha', '+15% napad u prvoj rundi', 1], ['Svrljiška kokoš', 'Planinka', '+30% nalaza u Divljini', 1]];
+  $('#breeds tbody').innerHTML = BREEDS.map(b => `<tr><td><b>${b[0]}</b>${b[3] ? ' <span class="prar l">samo legendarna</span>' : ''}</td><td>${b[1]}</td><td>${b[2]}</td></tr>`).join('');
+
+  /* ---------- rules ---------- */
+  const RES = [['zrno', 'Zrno', 'Osnovni resurs za zgrade i jedinice. Daje ga Žitnica.'], ['krec', 'Kreč', 'Oklop, zidovi i istraživanja. Daje ga Krečana.'], ['ulje', 'Ulje', 'Gorivo za odrede i napredne zgrade. Daje ga Uljara.'],
+    ['snaga', 'Snaga', 'Pokreće proizvodnju. Daju je Vetrenjača i Kompostna peć.'], ['jaja', 'Jaja', 'Dolaze iz NFT novčanika i postaju bilo šta.']];
+  $('#res5').innerHTML = RES.map(r => `<div>${ART.icon(r[0])}<b>${r[1]}</b><p>${r[2]}</p></div>`).join('');
+  const pips = (n) => `<span class="pips" aria-label="${n} od 10">${Array.from({ length: 10 }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('')}</span>`;
+  const UNITS = [['Uhoda', 'Uhođenje', '1 jaje', 0, 1, 10, 0], ['Kljucač', 'Laka pešadija', '2 jaja', 2, 2, 6, 1], ['Mamuzar', 'Teška pešadija', '5 jaja', 4, 4, 5, 1], ['Jurišnik', 'Elitni juriš', '10 jaja', 6, 5, 6, 1],
+    ['Jajobacač', 'Artiljerija protiv odbrane', '18 jaja', 8, 3, 3, 0], ['Oklopnik', 'Brahma u oklopu', '30 jaja', 7, 9, 3, 2], ['Probijač', 'Opsada kupola i zidova', '45 jaja', 9, 7, 2, 0],
+    ['Tvrđava na kokošjim nogama', 'Titan', '2.400 jaja', 10, 10, 1, 8], ['Tačka', 'Mali transport, 5.000', '2 jaja', 0, 1, 7, 3], ['Zaprega', 'Veliki transport, 25.000', '6 jaja', 0, 3, 5, 8],
+    ['Seobna kola', 'Naseljavanje placa', '40 jaja', 0, 3, 3, 4], ['Skupljač perja', 'Sakuplja polja perja', '12 jaja', 0, 4, 3, 6]];
+  $('#units tbody').innerHTML = UNITS.map(u => `<tr><td><b>${u[0]}</b></td><td>${u[1]}</td><td class="n">${u[2]}</td><td>${pips(u[3])}</td><td>${pips(u[4])}</td><td>${pips(u[5])}</td><td>${pips(u[6])}</td></tr>`).join('');
+
+  /* ---------- design picker ---------- */
+  const st = { jedinice: null, zgrade: null, glavni: null, ekrani: null, napomena: '' };
+  let viewSkin = 'A';
+  const U5 = [['tvrdjava', 'Tvrđava na kokošjim nogama', 'Titan · 2.400 jaja', 1], ['uhoda', 'Uhoda', 'Uhođenje · 1 jaje'], ['kljucac', 'Kljucač', 'Laka pešadija · 2 jaja'], ['jurisnik', 'Jurišnik', 'Elitni juriš · 10 jaja'], ['zaprega', 'Zaprega', 'Veliki transport · 6 jaja']];
+  const B5 = [['kokosinjac', 'Kokošinjac', 'Glavna zgrada · brža gradnja', 1], ['vetrenjaca', 'Vetrenjača', 'Snaga'], ['zitnica', 'Žitnica', 'Zrno'], ['inkubator', 'Inkubator', 'Jedinice i pretvaranje jaja'], ['strasilo', 'Strašilo', 'Odbrana · 40 jaja']];
+
+  function cols(key, list, fn) {
+    return ['A', 'B', 'C'].map(s => `<div class="col s${s}" data-s="${s}"><div class="col-h"><b><i>${s}</i>${DIR[s]}</b><button class="pbtn sm" type="button" data-pick="${key}" data-v="${s}" aria-pressed="false">Izaberi ${s}</button></div>` +
+      `<div class="sheet">${list.map(it => `<figure class="card${it[3] ? ' wide' : ''}">${fn(it[0], s)}<figcaption><b>${it[1]}</b><span>${it[2]}</span></figcaption></figure>`).join('')}</div></div>`).join('');
+  }
+  $('#colsJedinice').innerHTML = cols('jedinice', U5, (id, s) => ART.unit(id, s));
+  $('#colsZgrade').innerHTML = cols('zgrade', B5, (id, s) => ART.building(id, s));
+  $$('.seg').forEach(sg => {
+    const key = sg.dataset.seg;
+    sg.innerHTML = ['A', 'B', 'C'].map(s => `<button class="pbtn sm" type="button" data-show="${s}" aria-pressed="${s === 'A'}">${s} · ${DIR[s]}</button>`).join('');
+    sg.addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      $(key === 'jedinice' ? '#colsJedinice' : '#colsZgrade').dataset.show = b.dataset.show;
+      $$('button', sg).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    });
+  });
+
+  const MAINS = [['A', 'Štab', 'Meni levo kao fascikle, resursi gore kao metalne pločice, dvorište u sredini kao fotografija sa terena, a desno telegraf sa kretanjem odreda.', SCREENS.mainA],
+    ['B', 'Dvor', 'Grb i voštani pečati gore, meni od štitova, iluminirana slika imanja u centru, vesti kao svitak i kokošinjci kao zastavice.', SCREENS.mainB],
+    ['C', 'Komandni HUD', 'Dvorište kao holografska projekcija preko celog ekrana, plutajući stakleni paneli, uski meni sa ikonama i mini-mapa sokaka.', SCREENS.mainC]];
+  $('#mainMocks').innerHTML = MAINS.map(m => `<figure class="mfig" data-s="${m[0]}"><div class="mfig-h"><div><b><i>${m[0]}</i>${m[1]}</b><p>${m[2]}</p></div><div class="acts"><button class="pbtn sm" type="button" data-zoom="main${m[0]}">Uvećaj</button><button class="pbtn sm" type="button" data-pick="glavni" data-v="${m[0]}" aria-pressed="false">Izaberi ${m[0]}</button></div></div><div class="mock">${m[3]()}</div></figure>`).join('');
+
+  function renderOther() {
+    $('#otherMocks').innerHTML = SCREENS.OTHER.map(o => `<figure class="mfig"><div class="mfig-h"><div><b>${o.name}</b><p>${o.desc}</p></div><div class="acts"><button class="pbtn sm" type="button" data-zoom="o:${o.id}">Uvećaj</button></div></div><div class="mock tall">${o.fn(viewSkin)}</div></figure>`).join('');
+    $('#skinBtns').innerHTML = ['A', 'B', 'C'].map(s => `<button class="pbtn sm" type="button" data-skin="${s}" aria-pressed="${s === viewSkin}">${s} · ${DIR[s]}</button>`).join('');
+    observeMocks();
+    renderState();
+  }
+  $('#skinBtns').addEventListener('click', (e) => { const b = e.target.closest('[data-skin]'); if (b && b.dataset.skin !== viewSkin) { viewSkin = b.dataset.skin; renderOther(); } });
+  $('#pickSkin').addEventListener('click', () => pick('ekrani', viewSkin));
+
+  /* mock scaling */
+  const ro = 'ResizeObserver' in window ? new ResizeObserver(es => es.forEach(en => en.target.style.setProperty('--k', (en.contentRect.width / 1280).toFixed(4)))) : null;
+  function observeMocks() {
+    $$('.mock').forEach(m => {
+      m.style.setProperty('--k', (m.clientWidth / 1280).toFixed(4));
+      if (ro && !m.dataset.obs) { ro.observe(m); m.dataset.obs = '1'; }
+    });
+  }
+
+  /* picks */
+  function pick(key, v) {
+    st[key] = v;
+    renderState();
+    save();
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-pick]');
+    if (b) pick(b.dataset.pick, b.dataset.v);
+    const z = e.target.closest('[data-zoom]');
+    if (z) openLb(z.dataset.zoom, z);
+  });
+
+  function renderState() {
+    $$('[data-pick]').forEach(b => {
+      const on = st[b.dataset.pick] === b.dataset.v;
+      b.setAttribute('aria-pressed', String(on));
+      b.textContent = on ? 'Izabrano ✓' : 'Izaberi ' + b.dataset.v;
+    });
+    $$('.cols3').forEach(c => {
+      const key = c.id === 'colsJedinice' ? 'jedinice' : 'zgrade';
+      $$('.col', c).forEach(col => col.classList.toggle('sel', st[key] === col.dataset.s));
+    });
+    $$('#mainMocks .mfig').forEach(f => f.classList.toggle('sel', st.glavni === f.dataset.s));
+    $$('#otherMocks .mfig').forEach(f => f.classList.toggle('sel', st.ekrani === viewSkin));
+    const pb = $('#pickSkin');
+    const on = st.ekrani === viewSkin;
+    pb.textContent = on ? 'Izabrano ✓' : 'Izaberi stil ' + viewSkin;
+    pb.setAttribute('aria-pressed', String(on));
+    KEYS.forEach(([k]) => {
+      const c = $(`[data-cur="${k}"]`);
+      c.textContent = st[k] ? 'Izabrano: ' + st[k] + ' · ' + DIR[st[k]] : 'Nije izabrano';
+      c.classList.toggle('on', !!st[k]);
+      $(`#navpick b[data-k="${k}"]`).classList.toggle('on', !!st[k]);
+    });
+    $('#sumt').innerHTML = KEYS.map(([k, l]) => `<div><span>${l}</span><a href="#${k}" class="${st[k] ? 'on' : ''}">${st[k] ? st[k] + ' · ' + DIR[st[k]] : 'izaberi →'}</a></div>`).join('');
+    const nt = $('#note');
+    if (document.activeElement !== nt && nt.value !== st.napomena) nt.value = st.napomena;
+  }
+
+  /* ---------- persistence ---------- */
+  const LSK = 'perje-gvozdje-izbor';
+  let docRef = null, saving = false, again = false, mode = 'loading';
+  const statusEl = $('#status');
+  function setStatus(kind, extra) {
+    const t = new Date().toLocaleTimeString('sr-RS', { hour: '2-digit', minute: '2-digit' });
+    const M = {
+      loading: ['', 'Učitavam sačuvan izbor…'],
+      empty: ['', 'Još nema sačuvanog izbora. Klikni „Izaberi” kod pravca koji ti se dopada.'],
+      loaded: ['ok', 'Sačuvan izbor je učitan.'],
+      saving: ['', 'Čuvam…'],
+      saved: ['ok', 'Sačuvano u ' + t + '. Claude može da pročita ovaj izbor.'],
+      slow: ['warn', 'Sačuvan izbor se još ne učitava. Novi izbor će se sačuvati kada veza proradi.'],
+      local: ['warn', 'Čuvanje uz stranicu nije dostupno u ovom prikazu. Izbor ostaje u ovom pregledaču, pa ga kopiraj kao tekst i pošalji u razgovor.'],
+      readonly: ['warn', 'Ovaj prikaz ne može da menja sačuvan izbor. Kopiraj ga kao tekst i pošalji u razgovor.'],
+      err: ['warn', 'Čuvanje nije uspelo. Pokušaj ponovo ili kopiraj izbor kao tekst.']
+    };
+    const m = M[kind] || M.err;
+    statusEl.className = 'status ' + m[0];
+    statusEl.textContent = m[1];
+  }
+  function valid(v) { return v === 'A' || v === 'B' || v === 'C' ? v : null; }
+  function apply(d) {
+    if (!d) return;
+    KEYS.forEach(([k]) => { st[k] = valid(d[k]); });
+    if (typeof d.napomena === 'string') st.napomena = d.napomena;
+    renderState();
+  }
+  function saveLocal() { try { localStorage.setItem(LSK, JSON.stringify(st)); } catch (e) { /* storage unavailable */ } }
+  function loadLocal() { try { const v = localStorage.getItem(LSK); if (v) apply(JSON.parse(v)); } catch (e) { /* storage unavailable */ } }
+
+  async function save() {
+    saveLocal();
+    if (!docRef) { if (mode !== 'loading') setStatus(mode === 'readonly' ? 'readonly' : 'local'); return; }
+    if (saving) { again = true; return; }
+    saving = true; setStatus('saving');
+    try {
+      await docRef.set({ jedinice: st.jedinice, zgrade: st.zgrade, glavni: st.glavni, ekrani: st.ekrani, napomena: st.napomena.slice(0, 4000), azurirano: new Date().toISOString() });
+      setStatus('saved');
+    } catch (e) {
+      if (e && e.code === 'invalid_argument') { docRef = null; mode = 'readonly'; setStatus('readonly'); }
+      else setStatus('err');
+    }
+    saving = false;
+    if (again) { again = false; save(); }
+  }
+
+  let noteTimer = null;
+  $('#note').addEventListener('input', (e) => {
+    st.napomena = e.target.value;
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(save, 900);
+  });
+  $('#saveBtn').addEventListener('click', () => { clearTimeout(noteTimer); save(); });
+
+  function asText() {
+    return ['Perje i gvožđe · izbor dizajna'].concat(KEYS.map(([k, l]) => `${l}: ${st[k] ? st[k] + ' · ' + DIR[st[k]] : 'nije izabrano'}`))
+      .concat(st.napomena ? ['Napomene: ' + st.napomena] : []).join('\n');
+  }
+  $('#copyBtn').addEventListener('click', () => {
+    const txt = asText(), ta = $('#copyTxt');
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); statusEl.className = 'status'; statusEl.textContent = 'Tekst je označen. Kopiraj ga i pošalji u razgovor.'; };
+    try {
+      navigator.clipboard.writeText(txt).then(() => { statusEl.className = 'status ok'; statusEl.textContent = 'Izbor je kopiran.'; }, fallback);
+    } catch (e) { fallback(); }
+  });
+
+  async function initDb() {
+    loadLocal();
+    const c = window.claude;
+    if (!c || typeof c.use !== 'function') { mode = 'local'; setStatus('local'); return; }
+    let db = null;
+    try { db = await c.use('db'); } catch (e) { db = null; }
+    if (!db) { mode = 'local'; setStatus('local'); return; }
+    try { docRef = db.doc('izbori/trenutni'); } catch (e) { docRef = null; mode = 'local'; setStatus('local'); return; }
+    mode = 'db';
+    let confirmed = false;
+    const timer = setTimeout(() => { if (!confirmed) setStatus('slow'); }, 10000);
+    docRef.onSnapshot((snap) => {
+      if (!snap.metadata.fromCache && !confirmed) { confirmed = true; clearTimeout(timer); setStatus(snap.exists ? 'loaded' : 'empty'); }
+      if (snap.exists && !snap.metadata.hasPendingWrites) apply(snap.data());
+    }, () => { clearTimeout(timer); docRef = null; mode = 'local'; setStatus('err'); });
+  }
+
+  /* ---------- lightbox ---------- */
+  const lb = $('#lb'), lbCanvas = $('#lbCanvas'), lbBody = $('#lbBody');
+  let lbFull = false, lbH = 800, lastFocus = null;
+  function lbScale() {
+    const avail = lbBody.clientWidth - 32;
+    let k = lbFull ? 1 : Math.min(1, avail / 1280);
+    if (!lbFull && window.innerWidth < 700) k = Math.max(k, .55);
+    lbCanvas.style.width = (1280 * k) + 'px';
+    lbCanvas.style.height = (lbH * k) + 'px';
+    const cv = lbCanvas.firstElementChild; if (cv) cv.style.transform = `scale(${k})`;
+    $('#lbZoom').textContent = lbFull ? 'Uklopi' : '100%';
+  }
+  function openLb(id, from) {
+    lastFocus = from;
+    let html = '', title = '';
+    if (id.startsWith('main')) { const s = id.slice(4); const m = MAINS.find(x => x[0] === s); html = m[3](); title = 'Glavni ekran ' + s + ' · ' + m[1]; lbH = 800; }
+    else { const o = SCREENS.OTHER.find(x => x.id === id.slice(2)); html = o.fn(viewSkin); title = o.name + ' · stil ' + viewSkin; lbH = 760; }
+    lbCanvas.innerHTML = html;
+    $('#lbTitle').textContent = title;
+    lb.hidden = false; lbFull = false; lbScale();
+    document.body.style.overflow = 'hidden';
+    $('#lbClose').focus();
+  }
+  function closeLb() { lb.hidden = true; lbCanvas.innerHTML = ''; document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+  $('#lbClose').addEventListener('click', closeLb);
+  $('#lbZoom').addEventListener('click', () => { lbFull = !lbFull; lbScale(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+  window.addEventListener('resize', () => { if (!lb.hidden) lbScale(); });
+
+  renderOther();
+  observeMocks();
+  renderState();
+  initDb();
+})();
+
+</script>
+</body></html>
