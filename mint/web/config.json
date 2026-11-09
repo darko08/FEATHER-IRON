@@ -1,0 +1,9 @@
+{
+  "collection": "Feather & Iron",
+  "chainId": 0,
+  "chainName": "RH Chain",
+  "rpcUrl": "",
+  "explorer": "",
+  "currency": { "name": "Ether", "symbol": "ETH", "decimals": 18 },
+  "contract": ""
+}

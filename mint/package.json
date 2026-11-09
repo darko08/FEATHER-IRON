@@ -1,0 +1,23 @@
+{
+  "name": "feather-iron-mint",
+  "private": true,
+  "description": "Feather & Iron NFT collection: contract, mint page and tools",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "vendor": "node -e \"require('fs').copyFileSync('node_modules/ethers/dist/ethers.umd.min.js', 'web/vendor/ethers.umd.min.js')\"",
+    "claims": "node scripts/build-claims.js",
+    "deploy": "node scripts/deploy.js",
+    "admin": "node scripts/admin.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.1.3",
+    "@openzeppelin/merkle-tree": "^1.0.8",
+    "chai": "^4.5.0",
+    "ethers": "^6.17.0",
+    "hardhat": "^2.29.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.7.0"
+  }
+}

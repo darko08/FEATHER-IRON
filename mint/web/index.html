@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Feather &amp; Iron Mint</title>
+<meta name="description" content="Mint a Feather &amp; Iron ticket: one NFT is one account in World 1. Roostr holders mint free.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Saira+Stencil+One&family=Courier+Prime:wght@400;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="logo"><b>FEATHER &amp; IRON</b><small>Ticket mint · World 1</small></div>
+  <span class="net" id="net">Network</span>
+  <button class="btn pri" id="connect" type="button">Connect wallet</button>
+</header>
+
+<section class="hero">
+  <img src="img/hero.webp" alt="War hens in helmets march past a giant armored Brahma hen at dusk">
+  <div class="hero-text">
+    <h1>Every Chikn is a seat in the world</h1>
+    <p>Each Feather &amp; Iron NFT is one account in World 1 and brings 1,000 eggs into the game. Traits are random and are revealed after the mint.</p>
+    <p class="roostr">Roostr holders mint free: one ticket for every Roostr in the snapshot.</p>
+  </div>
+</section>
+
+<main>
+  <section class="stats" aria-label="Mint status">
+    <div class="stat"><small>Minted</small><b id="minted">–</b><i class="bar"><u id="mintedBar"></u></i></div>
+    <div class="stat"><small>Price</small><b id="price">–</b><span id="perTx"></span></div>
+    <div class="stat"><small>Free claim</small><b id="claimState">–</b><span id="claimInfo"></span></div>
+    <div class="stat"><small>Public mint</small><b id="saleState">–</b><span id="saleInfo"></span></div>
+  </section>
+
+  <section class="panels">
+    <article class="pnl">
+      <h2>Roostr holders: free claim</h2>
+      <p class="lead" id="claimMsg">Connect the wallet that held Roostr NFTs at the snapshot.</p>
+      <div class="row">
+        <label for="claimQty">Quantity</label>
+        <div class="qty"><button type="button" data-step="claimQty" data-d="-1" aria-label="One fewer">−</button><input id="claimQty" type="number" min="1" value="1" inputmode="numeric"><button type="button" data-step="claimQty" data-d="1" aria-label="One more">+</button></div>
+        <button class="btn pri" id="claimBtn" type="button" disabled>Claim free</button>
+      </div>
+      <p class="note">Free. You only pay the network fee.</p>
+    </article>
+    <article class="pnl">
+      <h2>Public mint</h2>
+      <p class="lead" id="saleMsg">Open to everyone while tickets are left.</p>
+      <div class="row">
+        <label for="mintQty">Quantity</label>
+        <div class="qty"><button type="button" data-step="mintQty" data-d="-1" aria-label="One fewer">−</button><input id="mintQty" type="number" min="1" value="1" inputmode="numeric"><button type="button" data-step="mintQty" data-d="1" aria-label="One more">+</button></div>
+        <button class="btn pri" id="mintBtn" type="button" disabled>Mint</button>
+      </div>
+      <p class="note" id="mintTotal"></p>
+    </article>
+  </section>
+
+  <section class="pnl mine" id="mine" hidden>
+    <h2>Your tickets</h2>
+    <p id="mineMsg"></p>
+  </section>
+
+  <div class="status" id="status" role="status" aria-live="polite" hidden></div>
+</main>
+
+<footer class="foot">
+  <span id="contractLink"></span>
+  <span>Traits are revealed after the mint with a secret committed before the first token, so nobody can pick traits by minting.</span>
+</footer>
+<script src="vendor/ethers.umd.min.js"></script>
+<script src="mint.js"></script>
+</body>
+</html>

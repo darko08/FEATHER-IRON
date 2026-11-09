@@ -1,0 +1,6 @@
+{
+  "name": "Feather & Iron ticket",
+  "description": "A sealed ticket to World 1 of Feather & Iron. One NFT is one account in the game. Traits are revealed after the mint.",
+  "image": "https://YOUR-DOMAIN/metadata/unrevealed.webp",
+  "attributes": [{ "trait_type": "Status", "value": "Sealed" }]
+}
