@@ -77,7 +77,15 @@
     </div><div class="coopbar" id="coopbar"></div></header>
     <div class="frame"><nav class="nav" id="nav" aria-label="Game menu"></nav><main class="main" id="main"></main><aside class="side" id="side"></aside></div>
     <div class="foot"><span>Prototype with example neighbors. Game time runs at the speed you pick; 60× means one real minute is one game hour.</span><span><button type="button" data-act="reset" id="resetBtn">Start over</button></span></div>`;
-    renderPlates(); renderCoopbar(); renderNav(); renderMain(); renderSide(); paint();
+    renderPlates(); renderCoopbar(); renderNav(); renderMain(); renderSide(); paint(); watchHdr();
+  }
+  let hdrRO = null;
+  function watchHdr() {
+    const h = $('.hdr'); if (!h) return;
+    const set = () => document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px');
+    set();
+    if (hdrRO) hdrRO.disconnect();
+    if (window.ResizeObserver) { hdrRO = new ResizeObserver(set); hdrRO.observe(h); }
   }
   function renderPlates() {
     const c = G.cur(), p = G.prod(c);
@@ -263,6 +271,39 @@
     const own = G.ownAt(n, s, p), npc = own < 0 ? G.npcAt(n, s, p) : null, key = `${n}-${s}-${p}`, fe = G.featherAt(key);
     return { own, npc, fe, z: PLOT[p].z, key };
   }
+  const pctS = (v) => (v >= 0 ? '+' : '') + v + '%';
+  function rowActs(x, p) {
+    const s = S(); let a = '';
+    if (x.own >= 0) {
+      a = x.own === s.cur ? '<span class="chip gold">This coop</span>'
+        : `<button type="button" class="btn pri sm" data-act="flockto" data-m="transport" data-p="${p}">Transport</button><button type="button" class="btn sm" data-act="flockto" data-m="station" data-p="${p}">Station</button><button type="button" class="btn sm" data-act="switchto" data-v="${x.own}">Open</button>`;
+    } else if (x.npc) {
+      const safe = x.npc.status === 'm' || x.npc.status === 'f';
+      a = `<button type="button" class="btn sm" data-act="flockto" data-m="scout" data-p="${p}">Scout</button><button type="button" class="btn pri sm" data-act="flockto" data-m="raid" data-p="${p}"${safe ? ' disabled title="Protected"' : ''}>Raid</button>`;
+    } else a = `<button type="button" class="btn pri sm" data-act="flockto" data-m="settle" data-p="${p}">Settle</button>`;
+    if (x.fe) a += `<button type="button" class="btn sm egg" data-act="flockto" data-m="glean" data-p="${p}">Glean</button>`;
+    return a;
+  }
+  function plotRows(n, st, heat, zrange) {
+    const s = S(), out = ['<div class="plots-h" aria-hidden="true"><span>Plot</span><span></span><span>Coop</span><span>Player</span><span>Feathers</span><span>Actions</span></div>'];
+    let lastZ = null;
+    for (let p = 1; p <= 15; p++) {
+      const x = plotInfo(n, st, p), P = PLOT[p];
+      if (x.z !== lastZ) {
+        lastZ = x.z;
+        const ps = PLOT.map((q, i) => (q && q.z === x.z ? i : 0)).filter(Boolean), r = zrange(x.z);
+        out.push(`<div class="zh z-${x.z}"><b>${x.z}</b><span>Plots ${ps[0]}–${ps[ps.length - 1]} · ${r[0]}–${r[1]} fields · ${r[2]} to ${r[3]} °C · Oil ${pctS(heat(r[2]))} to ${pctS(heat(r[3]))}</span></div>`);
+      }
+      let cls = `prow zl-${x.z}`, name, sub, who, whoSub, st2 = '';
+      if (x.own >= 0) { const c = s.coops[x.own]; cls += ' mine'; name = c.name; sub = `${G.fieldsTotal(c)} fields · ${c.temp} °C`; who = 'You'; whoSub = `Chikn ${s.ticket}`; }
+      else if (x.npc) { name = x.npc.coop; sub = `${x.npc.fields} fields · ${x.npc.temp} °C`; who = x.npc.name; whoSub = (x.npc.tag ? `[${x.npc.tag}] · ` : '') + `${fmt(x.npc.points)} points`; st2 = x.npc.status; if (st2 === 'i' || st2 === 'I') cls += ' inactive'; }
+      else { cls += ' free'; name = 'Free plot'; sub = `${P.f[0]}–${P.f[1]} fields`; who = '—'; whoSub = 'Nobody lives here'; }
+      if (ui.sel === p) cls += ' sel';
+      const fe = x.fe ? `<span class="fe" title="${fmt(x.fe.g)} Grain · ${fmt(x.fe.r)} Grit">${I('perje')}<b>${fmt(x.fe.g + x.fe.r)}</b></span>` : '<span class="fe none"><span class="sr">No feather field</span><span aria-hidden="true">—</span></span>';
+      out.push(`<div class="${cls}"><button type="button" class="pick" data-act="plot" data-v="${p}" aria-pressed="${ui.sel === p}"><span class="pn">${p}</span>${img(ZONE[x.z].img, x.z + ' plot ' + p)}<span class="co"><b>${name}</b><small>${sub}</small></span><span class="pl"><b>${who}${st2 ? ` <i class="st st-${st2}">(${st2})</i>` : ''}</b><small>${whoSub}</small></span></button>${fe}<span class="ac">${rowActs(x, p)}</span></div>`);
+    }
+    return `<div class="plots">${out.join('')}</div>`;
+  }
   function nbScreen() {
     const s = S(), n = ui.nbN, st = ui.nbS;
     const tiles = [];
@@ -287,13 +328,15 @@
     if (x.fe) { who += `<p class="small">Feather field: ${fmt(x.fe.g)} Grain · ${fmt(x.fe.r)} Grit worth.</p>`; acts += `<button type="button" class="btn sm" data-act="flockto" data-m="glean">Glean</button>`; }
     const zones = ['Roadside', 'Meadow', 'Gardens', 'Creek', 'Grove'];
     const zrange = (z) => { const ps = PLOT.filter(q => q && q.z === z); return [Math.min(...ps.map(q => q.f[0])), Math.max(...ps.map(q => q.f[1])), Math.min(...ps.map(q => q.t[0])), Math.max(...ps.map(q => q.t[1]))]; };
-    return `<section class="pnl"><div class="nb-top"><div>${ringSvg()}<p class="small muted" style="text-align:center;margin-top:4px">Gold dots are your coops. Street 1 is next to the farmhouse, street 500 at the outer fence.</p></div>
+    return `<div class="nbwrap"><section class="pnl nb-side"><div class="nb-top"><div>${ringSvg()}<p class="small muted" style="text-align:center;margin-top:4px">Gold dots are your coops. Street 1 is next to the farmhouse, street 500 at the outer fence.</p></div>
         <div class="stack"><div><h2>${HOODS[n]} · Street ${st}</h2><p class="lead">Fifteen plots run from the road to the grove. The plot's place decides its size and climate, so each coop looks and works differently.</p></div>
         <div class="nav-street"><label for="nbN" class="small">Neighborhood</label><select id="nbN" data-act="nbN" data-keep="no">${HOODS.map((h, i) => `<option value="${i}"${i === n ? ' selected' : ''}>${h}</option>`).join('')}</select>
         <button type="button" class="btn sm" data-act="street" data-v="-1" aria-label="Previous street">◀</button><label for="nbS" class="small">Street</label><input id="nbS" type="number" min="1" max="${STREETS}" value="${st}" data-keep="no"><button type="button" class="btn sm" data-act="street" data-v="1" aria-label="Next street">▶</button><button type="button" class="btn sm" data-act="gostreet">Go</button><button type="button" class="btn sm" data-act="home">My coop</button></div>
         <div class="detail"><img src="img/${ZONE[x.z].img}.webp" alt="${x.z} plot ${ui.sel}"><div class="stack"><div><span class="chip">${x.z} · plot ${ui.sel}</span></div><p class="small">${P.f[0]}–${P.f[1]} fields · ${P.t[0]} to ${P.t[1]} °C · Oil ${heat(P.t[0]) >= 0 ? '+' : ''}${heat(P.t[0])}% to ${heat(P.t[1]) >= 0 ? '+' : ''}${heat(P.t[1])}%</p><p class="small muted">${ZONE[x.z].note}</p>${who}<div class="row">${acts}</div></div></div></div></div></section>
-      <section class="pnl"><h3>Street view</h3><div class="strip-wrap"><div class="zones">${zones.map(z => `<div class="z-${z}">${z} · ${PLOT.filter(q => q && q.z === z).length} plots</div>`).join('')}</div><div class="strip">${tiles.join('')}</div></div>
-        <div class="strip-lab"><span>← The road</span><span>(i) inactive · (m) molting · (f) fledgling shield · grey tile = free plot</span><span>The grove →</span></div></section>
+      <section class="pnl nb-street"><div class="head" style="margin-bottom:10px"><h3>Street view · ${HOODS[n]} ${st}</h3><div class="tabs" role="group" aria-label="Street layout">${[['rows', 'Rows'], ['cards', 'Cards']].map(([k, l]) => `<button type="button" data-act="sview" data-v="${k}" aria-pressed="${(ui.streetView || 'rows') === k}">${l}</button>`).join('')}</div></div>
+        ${(ui.streetView || 'rows') === 'rows' ? plotRows(n, st, heat, zrange) : `<div class="strip-wrap"><div class="zones">${zones.map(z => `<div class="z-${z}">${z} · ${PLOT.filter(q => q && q.z === z).length} plots</div>`).join('')}</div><div class="strip">${tiles.join('')}</div></div>
+        <div class="strip-lab"><span>← The road</span><span>(i) inactive · (m) molting · (f) fledgling shield · grey tile = free plot</span><span>The grove →</span></div>`}
+        ${(ui.streetView || 'rows') === 'rows' ? '<p class="small muted" style="margin-top:8px">Plot 1 is by the road, plot 15 by the grove. (i) inactive 7+ days · (I) inactive 28+ days · (m) molting · (f) fledgling shield.</p>' : ''}</section></div>
       <section class="pnl"><h3>What the plots look like</h3><div class="guide">${zones.map(z => { const r = zrange(z); return `<figure>${img(ZONE[z].img, z)}<figcaption><b>${z}</b>${r[0]}–${r[1]} fields<br>${r[2]} to ${r[3]} °C · Oil ${heat(r[2]) >= 0 ? '+' : ''}${heat(r[2])}% to ${heat(r[3]) >= 0 ? '+' : ''}${heat(r[3])}%<br><span class="muted">${ZONE[z].note}</span></figcaption></figure>`; }).join('')}</div></section>`;
   }
 
@@ -382,7 +425,8 @@
     else if (a === 'gostreet') { ui.nbN = +$('#nbN').value; ui.nbS = Math.max(1, Math.min(STREETS, Math.floor(+$('#nbS').value || 1))); ui.center = true; renderMain(); }
     else if (a === 'home') { const c = G.cur(); ui.nbN = c.addr.n; ui.nbS = c.addr.s; ui.sel = c.addr.p; ui.center = true; renderMain(); }
     else if (a === 'plot') { ui.sel = +v; renderMain(); }
-    else if (a === 'flockto') { ui.fm = el.dataset.m; ui.fto = { n: ui.nbN, s: ui.nbS, p: ui.sel }; ui.screen = 'flocks'; renderNav(); renderMain(); window.scrollTo(0, 0); }
+    else if (a === 'sview') { ui.streetView = v; ui.center = true; renderMain(); }
+    else if (a === 'flockto') { if (el.dataset.p) ui.sel = +el.dataset.p; ui.fm = el.dataset.m; ui.fto = { n: ui.nbN, s: ui.nbS, p: ui.sel }; ui.screen = 'flocks'; renderNav(); renderMain(); window.scrollTo(0, 0); }
     else if (a === 'mission') { ui.fm = v; renderMain(); }
     else if (a === 'allunits') { const inp = document.getElementById('fu-' + v); if (inp) { inp.value = G.cur().units[v] || 0; updatePlan(); } }
     else if (a === 'send') { const f = readFlock(); const err = G.sendFlock({ mission: ui.fm, to: f.to, units: f.units, cargo: f.cargo, pct: f.pct }); const box = $('#ferr'); if (err) { if (box) box.textContent = err; } else { if (box) box.textContent = ''; act(null, `${missionName(ui.fm)} flock is on its way`); } }

@@ -426,7 +426,7 @@
     const to = o.mission === 'expedition' ? { wilds: true } : { n: +o.to.n, s: +o.to.s, p: +o.to.p };
     if (!to.wilds) {
       if (!(to.s >= 1 && to.s <= STREETS && to.p >= 1 && to.p <= 15)) return 'Pick a valid street (1–500) and plot (1–15).';
-      if (to.n === c.addr.n && to.s === c.addr.s && to.p === c.addr.p) return 'That is this coop.';
+      if (to.n === c.addr.n && to.s === c.addr.s && to.p === c.addr.p && o.mission !== 'glean') return 'That is this coop.';
     }
     const own = to.wilds ? -1 : ownAt(to.n, to.s, to.p), npc = to.wilds ? null : npcAt(to.n, to.s, to.p);
     const m = o.mission;

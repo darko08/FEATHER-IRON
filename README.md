@@ -25,7 +25,7 @@ Progress saves in the browser. When the page runs as a claude.ai Artifact it als
 1. **Enter World 1.** Your home coop stands on Sunflower 117/6, a Meadow plot with 175 build fields, and the wallet holds 1,000 eggs.
 2. **Buildings.** Windmills make Power; Grain Fields, Grit Pits and Oil Presses need it. One construction at a time per coop.
 3. **Hatchery.** Hatch with resources (the Workshop speeds this up) or with eggs. Every egg passes through the Hatchery: level 3 handles 28 eggs an hour. Eggs can also crack into resources, and any queue can be finished early at 1 egg per 10 minutes.
-4. **Neighborhood.** Twelve neighborhoods form a ring around the farmhouse, each with 500 streets of 15 plots. Pick a plot to scout, raid, settle or send a transport.
+4. **Neighborhood.** Twelve neighborhoods form a ring around the farmhouse, each with 500 streets of 15 plots. The street view lists the 15 plots as rows, grouped by zone, with the coop, its player, any feather field left by a battle and the actions: scout, raid, settle, transport or glean. A Rows/Cards switch shows the same street as picture cards.
 5. **Flocks.** Pick a mission, target, units and speed. The slowest unit sets the pace and the round trip's Oil is paid when the flock leaves. Reports arrive in Messages.
 6. **Protection.** A fledgling shield lasts 7 game days and drops the moment you raid someone. After that, hostile flocks show up on the telegraph; a Watchtower spots them earlier.
 

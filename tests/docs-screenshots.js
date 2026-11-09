@@ -51,22 +51,23 @@ async function play(page, base) {
   const srv = await serve();
   const base = `http://127.0.0.1:${srv.address().port}/`;
   const browser = await chromium.launch();
-  const opts = { type: 'jpeg', quality: 82 };
+  const opts = { type: 'jpeg', quality: 78 };
 
-  const desk = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2, reducedMotion: 'reduce' });
+  const desk = await browser.newContext({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 2, reducedMotion: 'reduce' });
   const page = await desk.newPage();
   await play(page, base);
   await page.evaluate(() => { window.GAME.S.speed = 1; });
   await settle(page);
   await page.screenshot({ path: `${OUT}/overview.jpg`, ...opts });
 
-  await page.setViewportSize({ width: 1440, height: 1400 });
+  await page.setViewportSize({ width: 1920, height: 1300 });
   await page.click('#nav [data-v="neighborhood"]');
   await page.click('[data-act="plot"][data-v="7"]');
+  await page.mouse.move(5, 1290);
   await settle(page);
   await page.screenshot({ path: `${OUT}/neighborhood.jpg`, ...opts });
 
-  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.setViewportSize({ width: 1920, height: 1080 });
   await page.click('#nav [data-v="hatchery"]');
   await settle(page);
   await page.screenshot({ path: `${OUT}/hatchery.jpg`, ...opts });

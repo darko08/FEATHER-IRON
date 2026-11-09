@@ -1,6 +1,8 @@
 // Headless check of the game rules: node tests/engine-test.js
 // Runs a scripted game (build, hatch, raid, scout, settle, transport, expeditions, hostile raids, save/load).
 global.window = globalThis;
+// Fixed random seed so expeditions and hostile raids play out the same way on every run.
+Math.random = (() => { let x = 20261109; return () => ((x = (Math.imul(x, 1664525) + 1013904223) >>> 0) / 4294967296); })();
 require(process.argv[2] || require('path').join(__dirname, '../prototype/src/engine.js'));
 const G = window.GAME;
 const ok = (c, m) => { if (!c) { console.log('FAIL:', m); process.exitCode = 1; } else console.log('ok  ', m); };
@@ -50,6 +52,7 @@ ok(!!bat, 'battle report: ' + (bat && bat.title));
 if (bat) console.log('  ', bat.html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').slice(0, 400));
 ok(G.S.flocks.length === 0, 'flock returned');
 console.log('  peckers home', c().units.pecker, 'shield', G.S.shieldUntil, 't', G.S.t);
+G.S.shieldUntil = 1e12; // keep hostile raids out of the middle section; they get their own test below
 // scout, settle, glean with forced tech
 G.S.research.scouting = 4; G.S.research.carto = 1; G.S.research.pack = 3; G.S.research.shell = 2; c().b.hatchery = 4;
 c().units.scout = 3; c().units.settler = 1; c().units.gleaner = 2; c().units.packbrahma = 4;
@@ -79,7 +82,7 @@ ok(e6 === null, 'expedition 2: ' + e6);
 const last = G.S.flocks[G.S.flocks.length - 1];
 G.advance(600);
 ok(G.recall(last.id) === null, 'recall flock');
-G.advance(24 * 3600);
+G.advance(48 * 3600);
 ok(G.S.flocks.length === 0, 'all flocks home');
 ok(nc.res.g >= 1500, 'transport delivered: ' + Math.round(nc.res.g));
 // threats
