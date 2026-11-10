@@ -83,6 +83,13 @@ async function play(page, base) {
   await page.click('.msg button[data-act="openmsg"]');
   await settle(page);
   await page.screenshot({ path: `${OUT}/battle-report.jpg`, ...opts });
+
+  await page.evaluate(() => { const G = window.GAME; G.cur().b.market = 2; G.advance(20 * 3600); G.marketTrade('e', 'g', 20); G.marketTrade('e', 'o', 12); G.advance(3 * 3600); });
+  await page.click('#nav [data-v="market"]');
+  await page.selectOption('#mkPay', 'g'); await page.selectOption('#mkGet', 'o'); await page.fill('#mkAmt', '1500');
+  await page.mouse.move(5, 1070);
+  await settle(page);
+  await page.screenshot({ path: `${OUT}/market.jpg`, ...opts });
   await desk.close();
 
   const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, reducedMotion: 'reduce', isMobile: true, hasTouch: true });

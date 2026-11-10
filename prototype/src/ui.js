@@ -8,7 +8,7 @@
   const app = $('#app');
   const RES = [['g', 'Grain', 'zrno'], ['r', 'Grit', 'krec'], ['o', 'Oil', 'ulje']];
   const SPEEDS = [1, 10, 60, 300];
-  const NAV = [['overview', 'Overview', 'pregled'], ['buildings', 'Buildings', 'zgrade'], ['research', 'Research', 'istrazivanja'], ['hatchery', 'Hatchery', 'inkubator'], ['defense', 'Defense', 'odbrana'], ['neighborhood', 'Neighborhood', 'komsiluk'], ['flocks', 'Flocks', 'odred'], ['messages', 'Messages', 'poruke'], ['wallet', 'Wallet', 'novcanik'], ['ranks', 'Pecking Order', 'rang']];
+  const NAV = [['overview', 'Overview', 'pregled'], ['buildings', 'Buildings', 'zgrade'], ['research', 'Research', 'istrazivanja'], ['hatchery', 'Hatchery', 'inkubator'], ['defense', 'Defense', 'odbrana'], ['neighborhood', 'Neighborhood', 'komsiluk'], ['flocks', 'Flocks', 'odred'], ['market', 'Market', 'trziste'], ['messages', 'Messages', 'poruke'], ['wallet', 'Wallet', 'novcanik'], ['ranks', 'Pecking Order', 'rang']];
   const ui = { screen: 'overview', tab: 'army', nbN: 2, nbS: 117, sel: 6, open: null, fm: 'raid', fto: { n: 2, s: 117, p: 5 }, fpct: 1, crackInto: 'g' };
   let dirty = false, dirtySide = false, lastRender = 0, toastTimer = null;
   const img = (f, alt, cls) => `<img src="img/${f}.webp" alt="${alt || ''}"${cls ? ` class="${cls}"` : ''} loading="lazy" decoding="async">`;
@@ -130,6 +130,7 @@
     if (sw) { const t = $(`.plot[data-v="${ui.sel}"]`, sw); if ((ui.center || sx == null) && t) sw.scrollLeft = t.offsetLeft - (sw.clientWidth - t.offsetWidth) / 2; else if (sx != null) sw.scrollLeft = sx; ui.center = false; }
     lastRender = performance.now(); dirty = false;
     if (ui.screen === 'flocks') updatePlan();
+    if (ui.screen === 'market') updateQuote();
   }
   const SCREENS = {
     overview() {
@@ -170,6 +171,7 @@
     defense() { return hatcheryScreen('defense'); },
     neighborhood: nbScreen,
     flocks: flocksScreen,
+    market: marketScreen,
     messages() {
       const s = S();
       return `<section class="pnl"><div class="head"><div><h2>Messages</h2><p class="lead">Battle, scout and expedition reports.</p></div>${s.msgs.some(m => !m.read) ? '<button type="button" class="btn sm" data-act="readall">Mark all read</button>' : ''}</div>
@@ -179,7 +181,7 @@
       const s = S();
       return `<section class="pnl"><h2>Chikn wallet</h2><p class="lead">Demo wallet 0x7a3…e91c. In the real game this is your connected crypto wallet.</p>
         <div class="ticket"><span class="egg">${I('jaja')}</span><div><b>Chikn ${s.ticket}</b><p class="small">Seat in World 1 · this NFT carries the account. Started with 1,000 eggs.</p></div></div>
-        <div class="facts" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="fact"><small>Eggs now</small><b data-eggs>${fmt(s.eggs)}</b></div><div class="fact"><small>Eggs used</small><b>${fmt(1000 - s.eggs)}</b></div><div class="fact"><small>Hatchery speed</small><b>${G.capEggs(G.cur().b.hatchery)}/h</b></div></div></section>
+        <div class="facts" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="fact"><small>Eggs now</small><b data-eggs>${fmt(s.eggs)}</b></div><div class="fact"><small>Market fees paid</small><b>${s.market.paidEth} ETH</b></div><div class="fact"><small>Hatchery speed</small><b>${G.capEggs(G.cur().b.hatchery)}/h</b></div></div></section>
         <section class="pnl"><h3>Egg ledger</h3><div class="tblwrap"><table class="tbl ledger"><thead><tr><th>Day</th><th>What</th><th>Eggs</th></tr></thead><tbody>${s.ledger.map(l => `<tr><td>${Math.floor(l.t / 86400) + 1}</td><td>${l.txt}</td><td>${l.d > 0 ? '+' : '−'}${fmt(Math.abs(l.d))}</td></tr>`).join('')}</tbody></table></div><p class="small muted" style="margin-top:8px">Used eggs are burned. Raids never touch eggs.</p></section>`;
     },
     ranks() {
@@ -340,6 +342,56 @@
       <section class="pnl"><h3>What the plots look like</h3><div class="guide">${zones.map(z => { const r = zrange(z); return `<figure>${img(ZONE[z].img, z)}<figcaption><b>${z}</b>${r[0]}–${r[1]} fields<br>${r[2]} to ${r[3]} °C · Oil ${heat(r[2]) >= 0 ? '+' : ''}${heat(r[2])}% to ${heat(r[3]) >= 0 ? '+' : ''}${heat(r[3])}%<br><span class="muted">${ZONE[z].note}</span></figcaption></figure>`; }).join('')}</div></section>`;
   }
 
+  /* ---------- market ---------- */
+  const MK = [['e', 'Eggs', 'jaja'], ['g', 'Grain', 'zrno'], ['r', 'Grit', 'krec'], ['o', 'Oil', 'ulje']];
+  function spark(vals) {
+    if (!vals || vals.length < 2) return '<div class="spark"></div>';
+    const w = 160, h = 40, min = Math.min(...vals), max = Math.max(...vals), span = max - min || 1;
+    const pts = vals.map((v, i) => `${(i / (vals.length - 1) * w).toFixed(1)},${(h - 4 - (v - min) / span * (h - 8)).toFixed(1)}`).join(' ');
+    return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts}"/></svg>`;
+  }
+  function marketScreen() {
+    const s = S(), c = G.cur(), m = s.market, L = c.b.market || 0, limit = G.marketLimit(c), used = G.marketUsedToday();
+    const pools = ['g', 'r', 'o'].map((k) => {
+      const p = m.pools[k], rate = p.x / p.e, h = m.hist[k], ref = h[Math.max(0, h.length - 25)] || rate, ch = (rate / ref - 1) * 100;
+      return `<article class="mk-pool"><div class="mk-h">${I(MK.find((x) => x[0] === k)[2])}<b>${G.RES_NAMES[k]}</b><span class="${ch >= 0 ? 'up' : 'down'}">${ch >= 0 ? '+' : ''}${ch.toFixed(1)}% in 24 h</span></div>
+        <div class="mk-rate">1 egg = <b>${fmt(rate)}</b> ${G.RES_NAMES[k]}</div>${spark(h)}
+        <div class="small muted">Pool ${fmt(p.e)} eggs · ${fmt(p.x)} ${G.RES_NAMES[k]}. Cracking an egg gives ${fmt(G.MARKET.crack[k])}, so the price stays above that.</div></article>`;
+    }).join('');
+    const opts = (sel) => MK.map(([k, l]) => `<option value="${k}"${sel === k ? ' selected' : ''}>${l}</option>`).join('');
+    const pay = ui.mkPay || 'e', get = ui.mkGet || 'g';
+    const form = `<section class="pnl"><h3>Trade</h3>
+      ${L ? '' : '<p class="req" style="margin-bottom:10px">This coop has no Market. Build one in Buildings (needs Henhouse 2) to trade from here.</p>'}
+      <div class="mk-form">
+        <label for="mkPay">You pay</label><div class="mk-in"><select id="mkPay" data-act="mkq">${opts(pay)}</select><input id="mkAmt" type="number" min="1" step="1" value="${ui.mkAmt || 10}" data-act="mkq" aria-label="Amount you pay"><button type="button" class="btn sm" data-act="mkmax">Max</button></div>
+        <span class="small muted mk-have" id="mkHave"></span>
+        <button type="button" class="mk-flip" data-act="mkflip" aria-label="Swap what you pay and what you get">⇅</button>
+        <label for="mkGet">You get</label><div class="mk-in"><select id="mkGet" data-act="mkq">${opts(get)}</select></div>
+      </div>
+      <dl class="kv" id="mkQuote" style="margin-top:12px"></dl><p class="msg-err" id="mkErr"></p>
+      <button type="button" class="btn pri" data-act="mktrade" style="width:100%"${L ? '' : ' disabled'}>${I('trziste')} Trade · ${G.MARKET.feeEth} ETH fee</button>
+      <p class="small muted" style="margin-top:8px">On Robinhood Chain you confirm each trade in your wallet and pay the ETH fee there. The 0.3% pool fee stays in the pool.</p></section>`;
+    const trades = m.trades.length
+      ? `<div class="tblwrap"><table class="tbl"><thead><tr><th>Day</th><th>Coop</th><th>Paid</th><th>Got</th></tr></thead><tbody>${m.trades.slice(0, 10).map((t) => `<tr><td>${Math.floor(t.t / 86400) + 1}</td><td>${t.coop}</td><td>${fmt(t.amount)} ${G.RES_NAMES[t.pay]}</td><td>${fmt(t.out)} ${G.RES_NAMES[t.get]}</td></tr>`).join('')}</tbody></table></div>`
+      : '<p class="empty">No trades yet.</p>';
+    return `<section class="pnl"><div class="head"><div><h2>Market · Estate Exchange</h2><p class="lead">Trade eggs and resources with shared pools on Robinhood Chain. Every trade goes against the pools, never to another player, so nobody can push goods to someone else.</p></div><span class="chip ${L ? 'ok' : ''}">${L ? 'Market level ' + L : 'No Market in this coop'}</span></div>
+      <div class="mk-limit"><span>Today's limit</span><b>${fmt(used)} / ${fmt(limit)} eggs</b><i class="bar"><u style="width:${limit ? Math.min(100, used / limit * 100) : 0}%"></u></i><span class="small muted">Each Market level allows ${G.MARKET.perLevel} eggs of trade a day. ETH fees paid so far: ${m.paidEth} ETH.</span></div></section>
+      <section class="mk-pools">${pools}</section>
+      <div class="mk-cols">${form}<section class="pnl"><h3>Your trades</h3>${trades}</section></div>`;
+  }
+  function updateQuote() {
+    const box = $('#mkQuote'); if (!box) return;
+    const pay = $('#mkPay').value, get = $('#mkGet').value, amt = Math.floor(+$('#mkAmt').value || 0), c = G.cur();
+    ui.mkPay = pay; ui.mkGet = get; ui.mkAmt = amt;
+    const have = Math.floor(pay === 'e' ? S().eggs : c.res[pay]);
+    $('#mkHave').textContent = `You have ${fmt(have)} ${G.RES_NAMES[pay]}`;
+    const q = G.marketQuote(pay, get, amt), err = $('#mkErr');
+    if (q.err) { box.innerHTML = ''; err.textContent = q.err; return; }
+    const used = G.marketUsedToday(), limit = G.marketLimit(c);
+    err.textContent = amt > have ? `You have ${fmt(have)} ${G.RES_NAMES[pay]}.` : (limit && used + q.eggs > limit) ? `This counts as ${fmt(q.eggs)} eggs and ${fmt(Math.max(0, limit - used))} is left today.` : '';
+    box.innerHTML = `<dt>You get</dt><dd><b>${fmt(q.out)}</b> ${G.RES_NAMES[get]}</dd><dt>At least</dt><dd>${fmt(q.min)} (1% slippage)</dd><dt>Price impact and pool fee</dt><dd>${(q.impact * 100).toFixed(2)}%</dd><dt>Counts toward the limit</dt><dd>${Number.isInteger(q.eggs) ? fmt(q.eggs) : q.eggs.toFixed(1)} eggs</dd><dt>Fee</dt><dd>${G.MARKET.feeEth} ETH</dd>`;
+  }
+
   /* ---------- flocks ---------- */
   const MISSIONS = [['raid', 'Raid', 'napad'], ['scout', 'Scout', 'uhodi'], ['transport', 'Transport', 'transport'], ['station', 'Station', 'strelica'], ['settle', 'Settle', 'pregled'], ['glean', 'Glean', 'perje'], ['expedition', 'Expedition', 'komsiluk'], ['joint', 'Joint Raid', 'jato'], ['guard', 'Guard', 'odbrana']];
   function flocksScreen() {
@@ -431,6 +483,17 @@
     else if (a === 'allunits') { const inp = document.getElementById('fu-' + v); if (inp) { inp.value = G.cur().units[v] || 0; updatePlan(); } }
     else if (a === 'send') { const f = readFlock(); const err = G.sendFlock({ mission: ui.fm, to: f.to, units: f.units, cargo: f.cargo, pct: f.pct }); const box = $('#ferr'); if (err) { if (box) box.textContent = err; } else { if (box) box.textContent = ''; act(null, `${missionName(ui.fm)} flock is on its way`); } }
     else if (a === 'recall') act(G.recall(v), 'Flock recalled');
+    else if (a === 'mkflip') { const p = $('#mkPay'), g = $('#mkGet'), t = p.value; p.value = g.value; g.value = t; updateQuote(); }
+    else if (a === 'mkmax') {
+      const pay = $('#mkPay').value, get = $('#mkGet').value, P = s.market.pools, c = G.cur();
+      const have = Math.floor(pay === 'e' ? s.eggs : c.res[pay]);
+      const cap = Math.floor((pay === 'e' ? P[get === 'e' ? 'g' : get].e : P[pay].x) * G.MARKET.maxTradeBps / 10000);
+      $('#mkAmt').value = Math.max(0, Math.min(have, cap)); updateQuote();
+    }
+    else if (a === 'mktrade') {
+      const pay = $('#mkPay').value, get = $('#mkGet').value, amt = Math.floor(+$('#mkAmt').value || 0), q = G.marketQuote(pay, get, amt);
+      act(G.marketTrade(pay, get, amt, q.min), q.err ? '' : `Traded ${fmt(amt)} ${G.RES_NAMES[pay]} for ${fmt(q.out)} ${G.RES_NAMES[get]}`);
+    }
     else if (a === 'openmsg') { const m = s.msgs.find(x => x.id === v); if (m) { m.read = true; ui.open = ui.open === v ? null : v; changed(); renderNav(); renderMain(); } }
     else if (a === 'readall') { s.msgs.forEach(m => m.read = true); changed(); renderNav(); renderMain(); }
     else if (a === 'reset') { if (el.dataset.armed) { G.S = null; try { localStorage.removeItem(LSK); } catch (err) { /* storage unavailable */ } if (store.ref) store.ref.delete().catch(() => {}); renderIntro(); } else { el.dataset.armed = '1'; el.textContent = 'Click again to wipe the coop'; setTimeout(() => { if (el.isConnected) { delete el.dataset.armed; el.textContent = 'Start over'; } }, 4000); } }
@@ -440,8 +503,9 @@
     if (el.id === 'coopSel') { S().cur = +el.value; changed(); renderAll(); }
     else if (el.id === 'nbN') { ui.nbN = +el.value; ui.center = true; renderMain(); }
     else if (el.dataset.act === 'fplan') updatePlan();
+    else if (el.dataset.act === 'mkq') updateQuote();
   });
-  document.addEventListener('input', (e) => { if (e.target.dataset && e.target.dataset.act === 'fplan') updatePlan(); });
+  document.addEventListener('input', (e) => { if (!e.target.dataset) return; if (e.target.dataset.act === 'fplan') updatePlan(); else if (e.target.dataset.act === 'mkq') updateQuote(); });
   document.addEventListener('keydown', (e) => {
     const el = e.target.closest && e.target.closest('g[data-act="hood"]');
     if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); ui.nbN = +el.dataset.v; ui.center = true; renderMain(); }

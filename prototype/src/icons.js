@@ -18,6 +18,7 @@
     jato: '<path d="M3 14c3-4 6-4 9 0 3-4 6-4 9 0"/><path d="M6 9c2-2.6 4-2.6 6 0 2-2.6 4-2.6 6 0"/>',
     poruke: '<rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/>',
     rang: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
+    trziste: '<path d="M12 3v17M7 20h10M4 7h16"/><path d="M7 7l-3 6a3 3 0 0 0 6 0zM17 7l-3 6a3 3 0 0 0 6 0z"/>',
     novcanik: '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12h5v3h-5a1.5 1.5 0 0 1 0-3z"/><path d="M5 6l10-3 1 3"/>',
     upozorenje: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',
     sat: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',

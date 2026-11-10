@@ -99,3 +99,32 @@ ok(!Object.values(G.cur().res).some(v => !isFinite(v) || v < 0), 'resources fini
 // battle sanity: big army vs tier-5 coop
 let big = null; for (let s = 1; s < 500 && !big; s++) for (let p = 1; p <= 15 && !big; p++) { const n = G.npcAt(5, s, p); if (n && n.tier === 5 && n.status === '') big = n; }
 console.log('  tier-5 sample', big && JSON.stringify({ defs: big.defs, units: big.units }));
+
+// ---------- market: the same pricing as the on-chain exchange ----------
+G.newGame('#00001');
+const mc = G.cur();
+ok(G.marketTrade('e', 'g', 10) === 'Build a Market in this coop first.', 'market needs the building');
+mc.b.market = 1;
+const pools0 = JSON.parse(JSON.stringify(G.S.market.pools));
+const q = G.marketQuote('e', 'g', 10);
+const want = Math.floor(10 * 9970 * 1100000 / (5000 * 10000 + 10 * 9970));
+ok(q.out === want, `quote matches the exchange contract formula (10 eggs -> ${q.out} Grain)`);
+const g0 = mc.res.g, e0 = G.S.eggs;
+ok(G.marketTrade('e', 'g', 10, q.min) === null, 'trade 10 eggs for Grain');
+ok(G.S.eggs === e0 - 10 && mc.res.g === g0 + want, 'eggs paid and Grain received');
+ok(G.S.market.pools.g.e === pools0.g.e + 10 && G.S.market.pools.g.x === pools0.g.x - want, 'pool moved like the contract');
+ok(/limit/.test(G.marketTrade('e', 'g', 45) || ''), 'daily limit of 50 eggs per Market level holds');
+ok(/5%/.test(G.marketQuote('e', 'o', 400).err || ''), 'trades above 5% of a pool are refused');
+const two = G.marketQuote('g', 'o', 2000);
+ok(two.out > 0 && two.eggs > 0, `Grain to Oil goes through eggs (${two.eggs} eggs -> ${two.out} Oil)`);
+G.advance(86400);
+ok(G.marketUsedToday() === 0, 'the limit resets the next day');
+G.S.market.pools.g = { e: 6000, x: 900000 }; // 150 Grain per egg, below the 200 an egg cracks into
+G.advance(30 * 86400);
+const rate = G.S.market.pools.g.x / G.S.market.pools.g.e;
+ok(rate >= 195, `arbitrage lifts Grain back to the cracking value (${rate.toFixed(1)} per egg after 30 days)`);
+ok(Object.values(G.S.market.pools).every((pl) => pl.e > 0 && pl.x > 0 && Number.isFinite(pl.e)), 'pools stay positive');
+const old = JSON.parse(JSON.stringify(G.S)); delete old.market; old.coops.forEach((c) => delete c.b.market);
+G.S = old;
+ok(!!G.S.market && G.cur().b.market === 0 && Number.isFinite(G.fieldsUsed(G.cur())), 'old saves get the market and the new building');
+

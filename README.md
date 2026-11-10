@@ -27,7 +27,8 @@ Progress saves in the browser. When the page runs as a claude.ai Artifact it als
 3. **Hatchery.** Hatch with resources (the Workshop speeds this up) or with eggs. Every egg passes through the Hatchery: level 3 handles 28 eggs an hour. Eggs can also crack into resources, and any queue can be finished early at 1 egg per 10 minutes.
 4. **Neighborhood.** Twelve neighborhoods form a ring around the farmhouse, each with 500 streets of 15 plots. The street view lists the 15 plots as rows, grouped by zone, with the coop, its player, any feather field left by a battle and the actions: scout, raid, settle, transport or glean. A Rows/Cards switch shows the same street as picture cards.
 5. **Flocks.** Pick a mission, target, units and speed. The slowest unit sets the pace and the round trip's Oil is paid when the flock leaves. Reports arrive in Messages.
-6. **Protection.** A fledgling shield lasts 7 game days and drops the moment you raid someone. After that, hostile flocks show up on the telegraph; a Watchtower spots them earlier.
+6. **Market.** A Market building lets a coop trade eggs and resources with shared pools: Grain, Grit and Oil each against eggs. Prices move with every trade. Each Market level allows 50 eggs of trade a day, and each trade costs a flat ETH fee on Robinhood Chain. Trades go against the pools, never to another player.
+7. **Protection.** A fledgling shield lasts 7 game days and drops the moment you raid someone. After that, hostile flocks show up on the telegraph; a Watchtower spots them earlier.
 
 The clock runs at 1×, 10×, 60× or 300×. At 60× one real minute is one game hour.
 
@@ -36,8 +37,10 @@ The clock runs at 1×, 10×, 60× or 300×. At 60× one real minute is one game 
 | Neighborhood and street view | Hatchery |
 |---|---|
 | ![Neighborhood map](docs/screenshots/neighborhood.jpg) | ![Hatchery](docs/screenshots/hatchery.jpg) |
-| **Battle report** | **Phone** |
-| ![Battle report](docs/screenshots/battle-report.jpg) | ![Phone layout](docs/screenshots/phone.jpg) |
+| **Battle report** | **Market** |
+| ![Battle report](docs/screenshots/battle-report.jpg) | ![Market](docs/screenshots/market.jpg) |
+| **Phone** | |
+| ![Phone layout](docs/screenshots/phone.jpg) | |
 
 ## Story
 
@@ -123,6 +126,7 @@ Each building level takes one build field. Costs grow with every level.
 | Workshop | Speeds up hatching with resources. | Henhouse 2 |
 | Hatchery | Hatches units and defenses. Its level sets how many eggs it handles per hour. | Henhouse 2 |
 | Academy | Runs research. Each level speeds it up. | Henhouse 1 |
+| Market | Trades eggs and resources on the Estate exchange. Each level raises the daily trade limit. | Henhouse 2 |
 | Fence Extension | Adds 4 build fields per level. | Henhouse 8, Academy 6 |
 | Watchtower | Spots hostile flocks earlier: 30 minutes plus 30 per level. | Henhouse 4 |
 | Feeder Depot | Feeds allied flocks guarding your coop. Alliances are not in this prototype. | Henhouse 6 |
@@ -168,6 +172,7 @@ art/runway/                full-size Runway originals (PNG)
   heraldic/                the second style offered in the design document
   style-c-dropped/         an early third style, dropped (nothing futuristic)
 media/                     corn-cannon-fires.mp4, a 10-second animation of the Corn Cannon
+dex/                       the Estate exchange on Robinhood Chain: contract, server permit library, deploy and admin scripts (dex/README.md)
 docs/screenshots/          images for this README
 tests/                     engine-test.js, browser-test.js, docs-screenshots.js
 ```
@@ -203,6 +208,7 @@ node tests/docs-screenshots.js
 - The wallet is a demo (Chikn #04117 with 1,000 eggs). Nothing connects to a chain yet.
 - There is no server. The neighbors are generated example players, so the game is single-player.
 - Alliances (Joint Raid, Guard, Feeder Depot) are not in.
+- The Market runs its pools inside the page with the same pricing as the exchange contract in `dex/`. Nothing is sent to a chain.
 - The numbers are a first pass and need balancing.
 
 ## Art

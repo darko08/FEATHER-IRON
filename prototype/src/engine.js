@@ -50,6 +50,7 @@
     workshop: { name: 'Workshop', img: 'b_workshop', g: 350, r: 180, o: 80, f: 2, grp: 'Facilities', req: { henhouse: 2 }, desc: 'Speeds up hatching with resources.' },
     hatchery: { name: 'Hatchery', img: 'b_hatchery', g: 300, r: 150, o: 60, f: 2, grp: 'Facilities', req: { henhouse: 2 }, desc: 'Hatches units and defenses. Its level sets how many eggs it handles per hour.' },
     academy: { name: 'Academy', img: 'b_academy', g: 180, r: 300, o: 150, f: 2, grp: 'Facilities', req: { henhouse: 1 }, desc: 'Runs research. Each level speeds it up.' },
+    market: { name: 'Market', img: 'b_market', g: 600, r: 300, o: 100, f: 2, grp: 'Facilities', req: { henhouse: 2 }, desc: 'Trades eggs and resources on the Estate exchange. Each level raises the daily trade limit.' },
     fence: { name: 'Fence Extension', img: 'b_fence', g: 20000, r: 40000, o: 20000, f: 2, grp: 'Facilities', req: { henhouse: 8, academy: 6 }, desc: 'Adds 4 build fields per level.' },
     tower: { name: 'Watchtower', img: 'b_tower', g: 2000, r: 4000, o: 1000, f: 2, grp: 'Facilities', req: { henhouse: 4 }, desc: 'Spots hostile flocks earlier: 30 minutes plus 30 per level.' },
     depot: { name: 'Feeder Depot', img: 'b_depot', g: 15000, r: 15000, o: 0, f: 2, grp: 'Facilities', req: { henhouse: 6 }, desc: 'Feeds allied flocks guarding your coop. Alliances are not in this prototype.' }
@@ -125,7 +126,7 @@
     S = {
       v: 1, t: 0, speed: 60, ticket, eggs: 1000, ledger: [{ t: 0, txt: `Ticket Chikn ${ticket} entered World 1`, d: 1000 }],
       research, rq: null, coops: [home], cur: 0, flocks: [], threats: [], msgs: [], npc: {}, feathers: {}, seq: 1,
-      shieldUntil: 7 * 86400, spent: 0, hourMark: 0, scoutLog: {}, stats: {}, savedAt: Date.now()
+      shieldUntil: 7 * 86400, spent: 0, hourMark: 0, scoutLog: {}, stats: {}, market: newMarket(), savedAt: Date.now()
     };
     addMsg('info', 'Welcome to the Estate', `<p>Your Chikn <b>${ticket}</b> holds a seat in World 1. Your home coop stands on <b>Sunflower 117/6</b>, a Meadow plot with 175 build fields.</p><p>1,000 eggs are in your wallet. Everything you hatch from eggs passes through the Hatchery, which handles ${capEggs(3)} eggs an hour at level 3.</p><p>Your fledgling shield keeps other players away for 7 days, or until you raid someone.</p>`);
     return S;
@@ -399,6 +400,90 @@
   }
   const techOfNpc = (npc) => ({ beak: Math.max(0, npc.tier * 2 - 1), shell: Math.max(0, npc.tier * 2 - 1), down: Math.max(0, npc.tier - 1) });
 
+  /* ---------- market: the Estate exchange ----------
+     Same pricing as dex/contracts/EstateExchange.sol: constant-product pools of eggs against each
+     resource, a 0.3% pool fee that stays in the pool, and no trade bigger than 5% of the paying side.
+     Pools keep fractions of eggs (the contract counts millionths), players pay and get whole eggs.
+     On Robinhood Chain each trade is a wallet transaction with a flat ETH fee; here the fee is only counted. */
+  const MARKET = { feeEth: 0.0002, poolFeeBps: 30, maxTradeBps: 500, perLevel: 50, crack: { g: 200, r: 100, o: 50 } };
+  const RES_NAMES = { e: 'Eggs', g: 'Grain', r: 'Grit', o: 'Oil' };
+  function newMarket() {
+    return { pools: { g: { e: 5000, x: 1100000 }, r: { e: 5000, x: 550000 }, o: { e: 5000, x: 280000 } }, hist: { g: [220], r: [110], o: [56] }, day: 0, used: 0, paidEth: 0, trades: [] };
+  }
+  function migrate(s) {
+    for (const c of s.coops || []) for (const k in B) if (c.b[k] == null) c.b[k] = 0;
+    if (!s.market) s.market = newMarket();
+    if (!s.stats) s.stats = {};
+  }
+  function poolOut(p, amountIn, eggsIn) {
+    const rIn = eggsIn ? p.e : p.x, rOut = eggsIn ? p.x : p.e;
+    if (amountIn * 10000 > rIn * MARKET.maxTradeBps) return { err: 'big' };
+    const inAfterFee = amountIn * (10000 - MARKET.poolFeeBps);
+    return { out: inAfterFee * rOut / (rIn * 10000 + inAfterFee) };
+  }
+  const marketLimit = (c) => MARKET.perLevel * ((c || cur()).b.market || 0);
+  const marketUsedToday = () => (S.market.day === Math.floor(S.t / 86400) ? S.market.used : 0);
+  /** What paying `amount` of `pay` for `get` returns now. Keys: e (eggs), g, r, o. */
+  function marketQuote(pay, get, amount) {
+    amount = Math.floor(amount);
+    if (!RES_NAMES[pay] || !RES_NAMES[get] || pay === get) return { err: 'Pick two different goods.' };
+    if (!(amount > 0)) return { err: 'Enter how much you pay.' };
+    const P = S.market.pools, big = { err: 'Too big for one trade: at most 5% of a pool. Split it up.' };
+    let out, eggs, spot;
+    if (pay === 'e') { const r = poolOut(P[get], amount, true); if (r.err) return big; out = Math.floor(r.out); eggs = amount; spot = amount * P[get].x / P[get].e; }
+    else if (get === 'e') { const r = poolOut(P[pay], amount, false); if (r.err) return big; out = Math.floor(r.out); eggs = out; spot = amount * P[pay].e / P[pay].x; }
+    else {
+      const a = poolOut(P[pay], amount, false); if (a.err) return big;
+      const b = poolOut(P[get], a.out, true); if (b.err) return big;
+      out = Math.floor(b.out); eggs = Math.floor(a.out * 1e6) / 1e6; spot = amount * (P[pay].e / P[pay].x) * (P[get].x / P[get].e);
+    }
+    return { out, eggs, impact: spot > 0 ? Math.max(0, 1 - out / spot) : 0, min: Math.floor(out * 0.99) };
+  }
+  function applyPool(p, amountIn, out, eggsIn) { if (eggsIn) { p.e += amountIn; p.x -= out; } else { p.x += amountIn; p.e -= out; } }
+  function marketTrade(pay, get, amount, minOut) {
+    const c = cur(), m = S.market;
+    amount = Math.floor(amount);
+    if (!c.b.market) return 'Build a Market in this coop first.';
+    const q = marketQuote(pay, get, amount);
+    if (q.err) return q.err;
+    if (q.out < 1) return 'That is too little to get anything back.';
+    const have = pay === 'e' ? S.eggs : c.res[pay];
+    if (have < amount) return `You have ${fmt(have)} ${RES_NAMES[pay]}.`;
+    const day = Math.floor(S.t / 86400);
+    if (m.day !== day) { m.day = day; m.used = 0; }
+    const limit = marketLimit(c);
+    if (m.used + q.eggs > limit) return `This trade counts as ${fmt(q.eggs)} eggs. Today's Market limit is ${fmt(limit)} and ${fmt(Math.max(0, limit - m.used))} is left.`;
+    if (minOut && q.out < minOut) return 'The price moved. Check the new quote.';
+    const P = m.pools;
+    if (pay === 'e') applyPool(P[get], amount, q.out, true);
+    else if (get === 'e') applyPool(P[pay], amount, q.out, false);
+    else { applyPool(P[pay], amount, q.eggs, false); applyPool(P[get], q.eggs, q.out, true); }
+    if (pay === 'e') { S.eggs -= amount; S.ledger.unshift({ t: S.t, txt: `Market: ${fmt(amount)} eggs for ${fmt(q.out)} ${RES_NAMES[get]}`, d: -amount }); }
+    else c.res[pay] -= amount;
+    if (get === 'e') { S.eggs += q.out; S.ledger.unshift({ t: S.t, txt: `Market: ${fmt(amount)} ${RES_NAMES[pay]} for eggs`, d: q.out }); }
+    else c.res[get] += q.out;
+    m.used += q.eggs;
+    m.paidEth = +(m.paidEth + MARKET.feeEth).toFixed(6);
+    m.trades.unshift({ t: S.t, pay, get, amount, out: q.out, coop: c.name });
+    if (m.trades.length > 30) m.trades.length = 30;
+    return null;
+  }
+  // Every game hour other players trade, and arbitrage keeps an egg worth at least its cracking value.
+  function marketHour() {
+    const m = S.market;
+    for (const k of ['g', 'r', 'o']) {
+      const p = m.pools[k], eggsIn = Math.random() < 0.5, share = Math.random() * 0.006;
+      const amt = Math.floor((eggsIn ? p.e : p.x) * share);
+      if (amt > 0) { const r = poolOut(p, amt, eggsIn); if (!r.err) applyPool(p, amt, eggsIn ? Math.floor(r.out) : r.out, eggsIn); }
+      if (p.x / p.e < MARKET.crack[k]) {
+        const want = Math.floor(Math.sqrt(p.e * p.x * MARKET.crack[k]) - p.x), sell = Math.min(want, Math.floor(p.x * 0.04));
+        if (sell > 0) { const r = poolOut(p, sell, false); if (!r.err) applyPool(p, sell, r.out, false); }
+      }
+      m.hist[k].push(+(p.x / p.e).toFixed(2));
+      if (m.hist[k].length > 49) m.hist[k].shift();
+    }
+  }
+
   /* ---------- reports ---------- */
   function addMsg(type, title, html) {
     S.msgs.unshift({ id: 'm' + (S.seq++), t: S.t, type, title, html, read: false });
@@ -596,12 +681,13 @@
     for (const h of S.threats) if (S.t >= h.arrive) { threatArrive(h); h.done = true; emit('flock', h); }
     S.threats = S.threats.filter(h => !h.done);
     const hr = Math.floor(S.t / 3600);
-    while (S.hourMark < hr) { S.hourMark++; maybeThreat(); }
+    while (S.hourMark < hr) { S.hourMark++; maybeThreat(); marketHour(); }
   }
   function advance(dt) { while (dt > 0) { const s = Math.min(dt, 60); step(s); dt -= s; } }
 
   global.GAME = {
-    get S() { return S; }, set S(v) { S = v; },
+    get S() { return S; }, set S(v) { S = v; if (v) migrate(v); },
+    marketQuote, marketTrade, marketLimit, marketUsedToday, MARKET, RES_NAMES,
     newGame, advance, step, build, research, hatch, crack, speedUp, speedCost, sendFlock, recall, planFlock, distance, npcAt, npcRes, ownAt, featherAt,
     prod, caps, capEggs, storeCap, maxCoops, maxFlocks, fieldsUsed, fieldsTotal, reqMet, canPay, bCost, rCost, eggsOf, cargoOf, points, threatSeen, cur, oilHeat,
     on: (fn) => listeners.push(fn),

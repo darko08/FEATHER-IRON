@@ -96,6 +96,15 @@ function serve() {
     expect(await page.evaluate(() => GAME.S.msgs.some((m) => m.type === 'battle')), 'battle report arrives');
     await page.click('.msg button[data-act="openmsg"]');
     await shot('06-report'); await noSideScroll('messages');
+    await page.evaluate(() => { GAME.cur().b.market = 1; });
+    await page.click('#nav [data-v="market"]');
+    await page.selectOption('#mkPay', 'e'); await page.selectOption('#mkGet', 'g'); await page.fill('#mkAmt', '10');
+    expect(/You get/.test(await page.textContent('#mkQuote')), 'market shows a quote');
+    const eggsBefore = await page.evaluate(() => GAME.S.eggs);
+    await page.click('[data-act="mktrade"]');
+    expect(/Traded 10 Eggs for [\d,]+ Grain/.test(await toast()), 'market trade goes through');
+    expect(await page.evaluate((n) => GAME.S.eggs === n - 10, eggsBefore), 'the trade takes 10 eggs');
+    await shot('07-market'); await noSideScroll('market');
     for (const s of ['research', 'wallet', 'ranks']) { await page.click(`#nav [data-v="${s}"]`); await noSideScroll(s); }
 
     await page.reload({ waitUntil: 'networkidle' }); await page.waitForTimeout(300);
