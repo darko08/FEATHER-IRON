@@ -1,11 +1,13 @@
 // Deploys the collection with the settings in deploy.config.json.
 //
-//   RH_RPC_URL=<rpc url> DEPLOYER_KEY=<owner private key> node scripts/deploy.js [--config deploy.config.json] [--web-dir web]
+//   DEPLOYER_KEY=<owner private key> node scripts/deploy.js --network robinhood-testnet [--config deploy.config.json] [--web-dir web]
+//
+// --network robinhood for mainnet. RH_RPC_URL overrides the public RPC (for example with an Alchemy URL).
 //
 // The deploying wallet becomes the owner. Afterwards web/config.json holds the contract
 // address and web/abi.json the interface, so the mint page is ready to upload.
 const path = require('path');
-const { ROOT, args, readJson, writeJson, artifact, signer, webDir, ethers } = require('./lib');
+const { ROOT, args, readJson, writeJson, artifact, network, signer, webDir, ethers } = require('./lib');
 
 (async () => {
   const a = args();
@@ -18,8 +20,10 @@ const { ROOT, args, readJson, writeJson, artifact, signer, webDir, ethers } = re
   if (!(Number(cfg.royaltyBps) >= 0 && Number(cfg.royaltyBps) <= 1000)) problems.push('royaltyBps: 0 to 1000 (1000 = 10%)');
   if (problems.length) { console.error('Fix deploy.config.json first:\n- ' + problems.join('\n- ')); process.exit(1); }
 
-  const wallet = signer();
+  const preset = network(a);
+  const wallet = signer(a);
   const net = await wallet.provider.getNetwork();
+  if (preset && Number(net.chainId) !== preset.chainId) { console.error(`The RPC is chain ${net.chainId}, not ${preset.chainName} (${preset.chainId}). Check RH_RPC_URL.`); process.exit(1); }
   const art = artifact();
   const factory = new ethers.ContractFactory(art.abi, art.bytecode, wallet);
   console.log(`Deploying "${cfg.name}" to chain ${net.chainId} from ${wallet.address} ...`);
@@ -32,6 +36,7 @@ const { ROOT, args, readJson, writeJson, artifact, signer, webDir, ethers } = re
   const webCfg = readJson(webCfgFile);
   webCfg.contract = address;
   webCfg.chainId = Number(net.chainId);
+  if (preset) Object.assign(webCfg, { chainName: preset.chainName, rpcUrl: preset.rpcUrl, explorer: preset.explorer, currency: preset.currency });
   writeJson(webCfgFile, webCfg);
   writeJson(path.join(dir, 'abi.json'), art.abi);
   console.log(`Deployed at ${address}`);

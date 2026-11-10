@@ -18,9 +18,21 @@ test/                          contract tests (npm test)
 e2e/run.js                     whole flow on a local chain, clicked through in a browser
 ```
 
+## Robinhood Chain
+
+| | Mainnet | Testnet |
+|---|---|---|
+| `--network` | `robinhood` | `robinhood-testnet` |
+| Chain ID | 4663 | 46630 |
+| Public RPC | https://rpc.mainnet.chain.robinhood.com | https://rpc.testnet.chain.robinhood.com |
+| Explorer | https://robinhoodchain.blockscout.com | https://explorer.testnet.chain.robinhood.com |
+| Gas | ETH | Sepolia ETH, free from https://faucet.testnet.chain.robinhood.com |
+
+ETH reaches Robinhood Chain through the Arbitrum bridge (https://portal.arbitrum.io/bridge?destinationChain=robinhood-chain&sourceChain=ethereum). The public RPCs are rate-limited; for launch day, Robinhood recommends a private RPC such as Alchemy, which you set with `RH_RPC_URL`. Both networks run the Cancun EVM, which this contract needs.
+
 ## Costs
 
-Only gas: deploying the contract and the team's admin transactions. Holders pay the small network fee of their own claim or mint. Everything here is open source and the page is static, so it runs on any web server.
+Only gas: deploying the contract and the team's admin transactions. Deploying takes about 2.55 million gas; at mainnet's gas price in November 2026 (0.02 gwei) that is about 0.00005 ETH. Holders pay the small network fee of their own claim or mint. Everything here is open source and the page is static, so it runs on any web server.
 
 ## Setup
 
@@ -35,15 +47,20 @@ npm test
 
 ## Launch, step by step
 
-Do the whole run on the RH chain's testnet first.
+Do the whole run on the Robinhood Chain testnet first.
 
-**1. Snapshot of Roostr holders.** Pick the snapshot block and run it against the chain where Roostr lives:
+**1. Snapshot of Roostr holders.** Roostr lives on Avalanche C-Chain: contract `0xCf91B99548b1C17dD1095c0680E20de380635e20`, 12,000 tokens with ids 1 to 12000. Pick the snapshot block and run:
 
 ```bash
-node scripts/snapshot-holders.js --rpc <roostr chain rpc> --contract <roostr address> --from 1 --to <last token id> --block <snapshot block> --out snapshot/roostr.csv
+node scripts/snapshot-holders.js --rpc https://api.avax.network/ext/bc/C/rpc \
+  --contract 0xCf91B99548b1C17dD1095c0680E20de380635e20 --from 1 --to 12000 \
+  --block <snapshot block> --resolve-like 0xE8516dB065b0D3ab5FB1E4b209955A1A172D6DfC \
+  --out snapshot/roostr.csv
 ```
 
-Look at the largest holders it prints. If one of them is a marketplace or escrow contract, those tokens belong to the people who listed them: run again with `--exclude <address>` and add those holders by hand if you want to.
+Roostrs in Roostr Daycare sit in small custody contracts (55 of them held 355 Roostrs in November 2026). `--resolve-like` takes any one of them and counts all of their Roostrs for the wallet that put them there (`owner()` of each contract). The script then lists the contracts still on the list; in the November 2026 test, four held nine Roostrs. If one is a marketplace or escrow contract, run again with `--exclude <address>`. A smart-contract wallet that belongs to a holder can stay.
+
+The test run at block 99,893,884 gave 1,900 holders and 12,000 free mints, in 42 seconds.
 
 **2. Free-claim list.**
 
@@ -53,15 +70,16 @@ npm run claims -- snapshot/roostr.csv
 
 This writes `web/claims/` (256 small files plus `index.json` with the root and total).
 
-**3. Settings.** In `deploy.config.json` set the treasury wallet (`royaltyReceiver`, also receives royalties), your domain in `placeholderURI`, the price, supply and per-transaction limit. In `web/config.json` set the chain name, RPC address, block explorer and currency. Upload `metadata/unrevealed.json` and `metadata/unrevealed.webp` to `https://<your domain>/metadata/` and change `YOUR-DOMAIN` inside the JSON.
+**3. Settings.** In `deploy.config.json` set the treasury wallet (`royaltyReceiver`, also receives royalties), your domain in `placeholderURI`, the price, supply and per-transaction limit. Upload `metadata/unrevealed.json` and `metadata/unrevealed.webp` to `https://<your domain>/metadata/` and change `YOUR-DOMAIN` inside the JSON.
 
 **4. Deploy.** Use a wallet made only for deploying; it becomes the owner.
 
 ```bash
-export RH_RPC_URL=<rh chain rpc>
 export DEPLOYER_KEY=<private key of the owner wallet>   # never commit it or paste it anywhere
-npm run deploy
+npm run deploy -- --network robinhood-testnet           # later: --network robinhood
 ```
+
+The deploy fills `web/config.json` with the contract, chain, RPC and explorer, so the page and the admin commands below know where to look.
 
 **5. Prepare and open.**
 
@@ -104,7 +122,7 @@ location ~ ^/mint/(config\.json|claims/) { add_header Cache-Control "no-cache"; 
 
 - The contract is standard OpenZeppelin code with a small amount of mint logic and has tests, but no paid audit. Run everything on the testnet first and keep the owner key offline when you don't need it. Later, `transferOwnership` can move ownership to a hardware wallet or a multisig.
 - `secret.txt`, `.env` and `snapshot/` are in `.gitignore`. Keep them that way.
-- The contract targets the Cancun EVM (OpenZeppelin 5 needs it). If the RH chain rejects the deploy, pin `@openzeppelin/contracts` to 5.0.2 and set `evmVersion` to `shanghai` in `hardhat.config.js`.
+- The contract targets the Cancun EVM (OpenZeppelin 5 needs it). Robinhood Chain runs it: a deploy estimate passed on both networks in November 2026.
 
 ## Tests
 

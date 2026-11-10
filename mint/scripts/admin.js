@@ -1,5 +1,6 @@
-// Team commands for the deployed collection. Uses RH_RPC_URL and, for anything that changes the
-// contract, DEPLOYER_KEY (the owner wallet). The contract address comes from web/config.json.
+// Team commands for the deployed collection. The chain and contract come from web/config.json
+// (written by the deploy); RH_RPC_URL or --network can override the RPC. Anything that changes the
+// contract needs DEPLOYER_KEY (the owner wallet).
 //
 //   node scripts/admin.js status
 //   node scripts/admin.js set-claim                 put the Roostr list from web/claims/index.json on the contract
@@ -26,7 +27,7 @@ function contract(write) {
   const cfg = readJson(path.join(dir, 'config.json'));
   if (!cfg.contract) throw new Error('web/config.json has no contract address. Deploy first: npm run deploy');
   const abi = readJson(path.join(dir, 'abi.json'));
-  return new ethers.Contract(cfg.contract, abi, write ? signer() : provider());
+  return new ethers.Contract(cfg.contract, abi, write ? signer(a, cfg.rpcUrl) : provider(a, cfg.rpcUrl));
 }
 
 async function send(label, txPromise) {
