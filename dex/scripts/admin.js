@@ -1,4 +1,5 @@
-// Team commands for the Estate exchange. Uses RH_RPC_URL, and DEPLOYER_KEY (the owner) for changes.
+// Team commands for the Estate exchange. The chain comes from dex.deployed.json (or --network, or
+// RH_RPC_URL); changes need DEPLOYER_KEY (the owner).
 //
 //   node scripts/admin.js status
 //   node scripts/admin.js set-pool <GRAIN|GRIT|OIL> <eggs> <goods>
@@ -7,17 +8,20 @@
 //   node scripts/admin.js pause | unpause
 //   node scripts/admin.js withdraw <to>
 //
-// Option: --dir <folder with dex.deployed.json> (default: this folder).
+// Options: --dir <folder with dex.deployed.json> (default: this folder), --network <name>.
 const { readJson, provider, signer, resourceId, deployedFile, ethers, TOKENS } = require('./lib');
 
 const argv = process.argv.slice(2);
 const dirAt = argv.indexOf('--dir');
 const dir = dirAt >= 0 ? argv.splice(dirAt, 2)[1] : undefined;
+const netAt = argv.indexOf('--network');
+const netName = netAt >= 0 ? argv.splice(netAt, 2)[1] : undefined;
 const [cmd, ...rest] = argv;
 
 function exchange(write) {
   const d = readJson(deployedFile(dir));
-  return new ethers.Contract(d.address, d.abi, write ? signer() : provider());
+  const name = netName || d.network || undefined;
+  return new ethers.Contract(d.address, d.abi, write ? signer(name) : provider(name));
 }
 async function send(label, txp) { const tx = await txp; process.stdout.write(`${label}: ${tx.hash} ... `); await tx.wait(); console.log('done'); }
 

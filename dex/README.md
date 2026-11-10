@@ -25,6 +25,18 @@ The ETH fee is the revenue: every trade pays `tradeFee` (0.0002 ETH by default),
 
 Eggs inside the pools are counted in millionths (`EGG_UNIT`), so a Grain-for-Oil trade loses nothing to rounding in the middle. Players always pay and receive whole eggs.
 
+## Robinhood Chain
+
+| | Mainnet | Testnet |
+|---|---|---|
+| `--network` | `robinhood` | `robinhood-testnet` |
+| Chain ID | 4663 | 46630 |
+| Public RPC | https://rpc.mainnet.chain.robinhood.com | https://rpc.testnet.chain.robinhood.com |
+| Explorer | https://robinhoodchain.blockscout.com | https://explorer.testnet.chain.robinhood.com |
+| Gas | ETH | Sepolia ETH, free from https://faucet.testnet.chain.robinhood.com |
+
+Deploying the exchange takes about 1.75 million gas: about 0.000035 ETH at mainnet's gas price in November 2026 (0.02 gwei). Players pay their own gas plus the trade fee. For launch, set a private RPC (Alchemy, as Robinhood recommends) with `RH_RPC_URL`.
+
 ## Files
 
 ```
@@ -54,9 +66,8 @@ node e2e/run.js
 4. Deploy, on the testnet first:
 
 ```bash
-export RH_RPC_URL=<robinhood chain rpc>
 export DEPLOYER_KEY=<private key of the owner wallet>   # never commit it or paste it anywhere
-npm run deploy
+npm run deploy -- --network robinhood-testnet           # later: --network robinhood
 node scripts/admin.js status
 ```
 
@@ -70,4 +81,4 @@ Team commands: `node scripts/admin.js set-pool GRAIN <eggs> <grain>`, `fees <eth
 - The server's signing key can create trades. If it leaks: `pause`, then `signer <new address>`, then `unpause`. Permits expire, so set short deadlines (10 minutes is plenty).
 - Only the holder of the account's NFT can use a permit, and each nonce works once.
 - The owner sets the pools. That's a trust point, like any game operator's; every change emits `PoolSet`, so players can see it.
-- The contract targets the Cancun EVM (OpenZeppelin 5 needs it). If the chain rejects the deploy, pin `@openzeppelin/contracts` to 5.0.2 and set `evmVersion` to `shanghai`.
+- The contract targets the Cancun EVM (OpenZeppelin 5 needs it). Robinhood Chain runs it: a deploy estimate passed on both networks in November 2026.

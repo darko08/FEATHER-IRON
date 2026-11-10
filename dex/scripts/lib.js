@@ -13,13 +13,23 @@ function artifact() {
   if (!fs.existsSync(file)) throw new Error('Compile the contract first: npm run compile');
   return readJson(file);
 }
-function provider() {
-  if (!process.env.RH_RPC_URL) throw new Error('Set RH_RPC_URL to the Robinhood Chain RPC address.');
-  return new ethers.JsonRpcProvider(process.env.RH_RPC_URL);
+// Robinhood Chain settings: robinhood-testnet or robinhood (see networks.json).
+const NETWORKS = readJson(path.join(ROOT, 'networks.json'));
+function network(name) {
+  if (!name) return null;
+  if (!NETWORKS[name]) throw new Error(`Unknown network "${name}". Use one of: ${Object.keys(NETWORKS).join(', ')}`);
+  return { name, ...NETWORKS[name] };
 }
-function signer() {
+// RPC from RH_RPC_URL (for example a private Alchemy URL), else the network's public RPC.
+function provider(name) {
+  const net = network(name);
+  const rpc = process.env.RH_RPC_URL || (net && net.rpcUrl);
+  if (!rpc) throw new Error('Pick the chain with --network robinhood-testnet (or robinhood), or set RH_RPC_URL.');
+  return new ethers.JsonRpcProvider(rpc);
+}
+function signer(name) {
   if (!process.env.DEPLOYER_KEY) throw new Error('Set DEPLOYER_KEY to the private key of the owner wallet. Never commit it.');
-  return new ethers.Wallet(process.env.DEPLOYER_KEY, provider());
+  return new ethers.Wallet(process.env.DEPLOYER_KEY, provider(name));
 }
 function resourceId(name) {
   const id = TOKENS[String(name || '').toUpperCase()];
@@ -28,4 +38,4 @@ function resourceId(name) {
 }
 const deployedFile = (dir) => path.resolve(dir || ROOT, 'dex.deployed.json');
 
-module.exports = { ROOT, readJson, writeJson, artifact, provider, signer, resourceId, deployedFile, ethers, TOKENS };
+module.exports = { ROOT, NETWORKS, readJson, writeJson, artifact, network, provider, signer, resourceId, deployedFile, ethers, TOKENS };

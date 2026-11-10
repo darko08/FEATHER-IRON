@@ -1,11 +1,13 @@
 // Deploys the Estate exchange for one world and seeds its pools from dex.config.json.
 //
-//   RH_RPC_URL=<rpc> DEPLOYER_KEY=<owner key> node scripts/deploy.js [--config dex.config.json] [--out-dir .]
+//   DEPLOYER_KEY=<owner key> node scripts/deploy.js --network robinhood-testnet [--config dex.config.json] [--out-dir .]
+//
+// --network robinhood for mainnet. RH_RPC_URL overrides the public RPC (for example with an Alchemy URL).
 //
 // "tickets" is the Feather & Iron NFT address (from the mint), "signer" is the address of the
 // game server's signing key. The deploying wallet becomes the owner. Writes dex.deployed.json.
 const path = require('path');
-const { ROOT, readJson, writeJson, artifact, signer, resourceId, deployedFile, ethers } = require('./lib');
+const { ROOT, readJson, writeJson, artifact, network, signer, resourceId, deployedFile, ethers } = require('./lib');
 
 const arg = (name) => { const i = process.argv.indexOf('--' + name); return i > 0 ? process.argv[i + 1] : undefined; };
 
@@ -14,8 +16,10 @@ const arg = (name) => { const i = process.argv.indexOf('--' + name); return i > 
   const problems = [];
   for (const k of ['tickets', 'signer']) if (!ethers.isAddress(cfg[k]) || cfg[k] === ethers.ZeroAddress) problems.push(`${k}: put in the real address`);
   if (problems.length) { console.error('Fix dex.config.json first:\n- ' + problems.join('\n- ')); process.exit(1); }
-  const wallet = signer();
+  const preset = network(arg('network'));
+  const wallet = signer(arg('network'));
   const net = await wallet.provider.getNetwork();
+  if (preset && Number(net.chainId) !== preset.chainId) { console.error(`The RPC is chain ${net.chainId}, not ${preset.chainName} (${preset.chainId}). Check RH_RPC_URL.`); process.exit(1); }
   const art = artifact();
   console.log(`Deploying the Estate exchange to chain ${net.chainId} from ${wallet.address} ...`);
   const ex = await new ethers.ContractFactory(art.abi, art.bytecode, wallet)
@@ -29,6 +33,6 @@ const arg = (name) => { const i = process.argv.indexOf('--' + name); return i > 
     await tx.wait();
     console.log(`Pool ${name}: ${p.eggs} eggs and ${p.goods} ${name} (1 egg = ${(p.goods / p.eggs).toFixed(1)})`);
   }
-  writeJson(deployedFile(arg('out-dir')), { address, chainId: Number(net.chainId), deployBlock: block, abi: art.abi });
+  writeJson(deployedFile(arg('out-dir')), { address, chainId: Number(net.chainId), network: preset ? preset.name : null, deployBlock: block, abi: art.abi });
   console.log(`Deployed at ${address} in block ${block}. Wrote dex.deployed.json (the game server reads it).`);
 })().catch((e) => { console.error(e.shortMessage || e.message); process.exit(1); });
