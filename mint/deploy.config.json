@@ -1,0 +1,10 @@
+{
+  "name": "Feather & Iron",
+  "symbol": "FNI",
+  "maxSupply": 40000,
+  "priceEth": "0.01",
+  "maxPerTx": 10,
+  "placeholderURI": "https://YOUR-DOMAIN/metadata/unrevealed.json",
+  "royaltyReceiver": "0x0000000000000000000000000000000000000000",
+  "royaltyBps": 500
+}

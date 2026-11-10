@@ -172,6 +172,7 @@ art/runway/                full-size Runway originals (PNG)
   heraldic/                the second style offered in the design document
   style-c-dropped/         an early third style, dropped (nothing futuristic)
 media/                     corn-cannon-fires.mp4, a 10-second animation of the Corn Cannon
+mint/                      the NFT collection: contract, mint page, Roostr snapshot and deploy tools (mint/README.md)
 dex/                       the Estate exchange on Robinhood Chain: contract, server permit library, deploy and admin scripts (dex/README.md)
 docs/screenshots/          images for this README
 tests/                     engine-test.js, browser-test.js, docs-screenshots.js
