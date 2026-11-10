@@ -1,0 +1,272 @@
+<div class="wrap">
+<nav class="rail" aria-label="Wiki">
+  <div class="brand"><b>FEATHER &amp; IRON</b><small>Wiki · predlozi</small></div>
+  <div class="toc">
+    <a href="#start">Početna <span>šta je ovde</span></a>
+    <a href="#kitovi">Kitovi i mali <span>ravnoteža snage</span></a>
+    <a href="#koalicije">Udruženi napadi <span>kako mali ruše kita</span></a>
+    <a href="#sezona">Sezona i nagrade <span>90 dana, nagradni fond</span></a>
+    <a href="#biznis">Biznis plan <span>prihod i kalkulator</span></a>
+    <a href="#egg">EGG token <span>simulacija</span></a>
+    <a href="#pravno">Rizici i pravo <span>pre lansiranja</span></a>
+  </div>
+  <p class="railnote">Sve na ovim stranama je predlog za razgovor, ne konačna pravila. Brojke su pretpostavke i menjaju se posle testiranja.</p>
+</nav>
+<main id="main">
+
+<!-- ================================================================ START -->
+<section class="page" id="p-start" data-page="start">
+  <p class="eyebrow">Wiki · novembar 2026</p>
+  <h1>Predlozi za sledeću verziju igre</h1>
+  <p class="lede">Ovde su skupljeni predlozi o kojima smo pričali: kako kitovi ostaju kitovi, a da se ipak plaše manjih igrača; udruženi napadi; sezona od tri meseca sa novčanom nagradom; kako tim zarađuje; i šta se dešava ako EGG postane token sa cenom.</p>
+  <div class="grid2">
+    <a class="card rust" href="#kitovi" style="text-decoration:none;color:inherit"><h3>Kitovi i mali igrači</h3><p>Više NFT-ova daje više, ali sporije od broja NFT-ova. Mali igrači dobijaju podrum, hrabrost, diverzante i krunu.</p></a>
+    <a class="card rust" href="#koalicije" style="text-decoration:none;color:inherit"><h3>Udruženi napadi</h3><p>Do osam igrača spaja flote u jedan napad sa zajedničkim vremenom dolaska. Glavni način da kit padne.</p></a>
+    <a class="card brass" href="#sezona" style="text-decoration:none;color:inherit"><h3>Sezona i nagrade</h3><p>Sezona traje 90 dana. 30% prihoda iz sezone ide u nagradni fond, a najveći deo dobijaju prva tri mesta.</p></a>
+    <a class="card brass" href="#biznis" style="text-decoration:none;color:inherit"><h3>Biznis plan</h3><p>Zarada između sezona (prodaja NFT-ova, royalty) i tokom sezone (naknade, propusnica, kozmetika). Kalkulator sa tvojim brojkama.</p></a>
+    <a class="card olive" href="#egg" style="text-decoration:none;color:inherit"><h3>EGG token</h3><p>Simulacija 90 dana: cena, spaljivanje, otkup i nagradni fond, u četiri scenarija koje možeš da menjaš.</p></a>
+    <a class="card olive" href="#pravno" style="text-decoration:none;color:inherit"><h3>Rizici i pravo</h3><p>Token sa cenom i novčane nagrade traže pravnu proveru pre lansiranja. Ovde je spisak šta proveriti.</p></a>
+  </div>
+  <div class="callout brass">
+    <b class="t">Promena ranije odluke</b>
+    <p>Ranije smo odlučili da na našem DEX-u nema zamene EGG za ETH. Strana „EGG token“ opisuje suprotan predlog: EGG ima cenu i može da se kupi za ETH, uz plafon koji prednost od kupovine drži malom. Ako ga usvojimo, ugovor berze treba da dobije EGG/ETH bazen. Kod resursa ostaje sve kako jeste: nema prenosa između igrača.</p>
+  </div>
+  <div class="sheet">
+    <h3>Šta je već usvojeno</h3>
+    <div class="prose"><ul>
+      <li>Jedan NFT je ulaznica i nalog. Novi nalog počinje sa 1.000 jaja.</li>
+      <li>Roostr vlasnici mintuju besplatno, po jedan za svaki Roostr (probni snimak: 1.900 vlasnika, 12.000 mintova).</li>
+      <li>Berza na Robinhood Chainu: bazeni resursa protiv jaja, ETH naknada po trgovini, bez slanja između igrača.</li>
+      <li>Za ETH se nikad ne prodaje snaga, samo izgled i udobnost koja ne menja ishod.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ================================================================ KITOVI -->
+<section class="page" id="p-kitovi" data-page="kitovi" hidden>
+  <span class="stamp">Predlog</span>
+  <h1>Kitovi i mali igrači</h1>
+  <p class="lede">Kit sme da bude jak. Ali snaga raste sporije od broja NFT-ova, a rizik raste brže. Mali igrači imaju alate kojima stvarno mogu da ga ozlede, pa kit nikad ne spava mirno.</p>
+
+  <h2>1. Koliko kit dobija</h2>
+  <div class="prose">
+    <p><b>Nošenje raste kao koren broja koka.</b> Jaja dnevno = √(broj koka). Koke se drže u gnezdima kokošinjaca, a broj gnezda raste sa nivoom Henhouse-a, pa kit mora da ima mnogo kokošinjaca. Svaki je jedna meta više.</p>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>NFT koka na nalogu</th><th class="n">Jaja dnevno</th><th class="n">Linearno bi bilo</th><th class="n">Prednost nad 1 kokom</th><th class="n">Potrebno gnezda</th></tr></thead>
+    <tbody>
+      <tr><td>1 (Shrimp)</td><td class="n">1,0</td><td class="n">1</td><td class="n">×1,0</td><td class="n">1</td></tr>
+      <tr><td>5</td><td class="n">2,2</td><td class="n">5</td><td class="n">×2,2</td><td class="n">5</td></tr>
+      <tr><td>10</td><td class="n">3,2</td><td class="n">10</td><td class="n">×3,2</td><td class="n">10</td></tr>
+      <tr><td>25</td><td class="n">5,0</td><td class="n">25</td><td class="n">×5,0</td><td class="n">25</td></tr>
+      <tr><td>50</td><td class="n">7,1</td><td class="n">50</td><td class="n">×7,1</td><td class="n">50</td></tr>
+      <tr><td>100 (kit)</td><td class="n">10,0</td><td class="n">100</td><td class="n">×10</td><td class="n">100</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid3">
+    <div class="card"><h3>Gnezda</h3><p>Henhouse nivo 1 ima 4 gnezda, a svaki sledeći nivo dodaje 4. Koka bez gnezda ne nosi. Sto koka znači više kokošinjaca ili veoma visok Henhouse.</p></div>
+    <div class="card"><h3>Vojska jede</h3><p>Svaka jedinica troši Grain svakog sata (Pecker 1, Ironhen 12, War Brahma 900). Gladne jedinice dezertiraju 2% na sat. Velika vojska zavisi od snabdevanja.</p></div>
+    <div class="card"><h3>Dnevni limit jaja</h3><p>Svaki nalog troši najviše 120 jaja dnevno na izleganje i ubrzanja, bez obzira na broj koka i kupljene EGG tokene.</p></div>
+  </div>
+
+  <h2>2. Alati malih igrača</h2>
+  <div class="grid2">
+    <div class="card rust"><h3>Podrum</h3><p>Svaki kokošinjac čuva 20.000 svakog resursa od pljačke, a Podrum dodaje još 5.000 po nivou. Malom igraču to je skoro sve, a kitu sitnica. Sve iznad podruma može da se opljačka, a kod igrača iz top 50 plen ide do 50% umesto 40%.</p></div>
+    <div class="card rust"><h3>Hrabrost</h3><p>Ko napada mnogo jačeg, dobija bonus na napad, a ko napada mnogo slabijeg, dobija kaznu. Napad na nekog sa manje od 1/5 tvojih poena nije moguć.</p></div>
+    <div class="card rust"><h3>Diverzanti</h3><p>Sapper Hen košta 300 Grain, 400 Grit i 100 Oil. Ako prođe stražu, uništi 2% zaliha iznad podruma ili zaustavi gradnju na 1 sat. Straža je hvata sa šansom 30% + 5% po nivou Watchtower-a. Na istu metu može najviše jednom u 6 sati.</p></div>
+    <div class="card rust"><h3>Velike flote su spore i vide se</h3><p>Flota iznad 2.000 jedinica gubi 10% brzine na svakih sledećih 2.000, do najviše 30%. Na telegrafu mete se vidi 30 minuta ranije.</p></div>
+    <div class="card brass"><h3>Kruna</h3><p>Prvih 10 na rang-listi sezone nosi krunu. Ko pobedi nosioca krune u napadu, uzima 10% njegovih sezonskih poena i krunu. Na vrhu se ne sedi mirno.</p></div>
+    <div class="card brass"><h3>Lovac na kitove</h3><p>Šteta naneta igračima iz top 10 broji se posebno. Najbolji lovci dele poseban deo nagradnog fonda, pa mali igrači imaju razlog da love velike.</p></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Napadač prema meti (poeni)</th><th class="n">Hrabrost napadača</th><th>Smisao</th></tr></thead>
+    <tbody>
+      <tr><td>Meta ima 10× više ili još više</td><td class="n">+30%</td><td>Mali napada kita</td></tr>
+      <tr><td>Meta ima 3× do 10× više</td><td class="n">+15%</td><td>Mali napada većeg</td></tr>
+      <tr><td>Između 1/3 i 3×</td><td class="n">0%</td><td>Ravnopravna borba</td></tr>
+      <tr><td>Meta ima 1/5 do 1/3 tvojih poena</td><td class="n">−15%</td><td>Veliki napada manjeg</td></tr>
+      <tr><td>Meta ima manje od 1/5 tvojih poena</td><td class="n">—</td><td>Napad nije moguć</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>3. Šta kit i dalje ima</h2>
+  <div class="prose"><p>Najveću ekonomiju, najviše kokošinjaca, vrh rang-liste, krunu i sezonske titule. Može da bude predvodnik koalicije i da štiti savez. Ali mora da bude aktivan, da hrani vojsku, da plaća stražu i da brani svaki kokošinjac. To je stalni strah od gubitka koji igru drži živom.</p></div>
+  <div class="callout">
+    <b class="t">Otvoreno pitanje</b>
+    <p>Ako se jaja više NFT-ova slivaju u jedan nalog, to je i dalje „više novca, više snage“, samo ograničeno korenom i izbalansirano rizikom. Strožija varijanta je da je svaki NFT svoj nalog. Odluka je tvoja.</p>
+  </div>
+</section>
+
+<!-- ================================================================ KOALICIJE -->
+<section class="page" id="p-koalicije" data-page="koalicije" hidden>
+  <span class="stamp">Predlog</span>
+  <h1>Udruženi napadi</h1>
+  <p class="lede">Do osam igrača spaja flote u jedan napad koji stiže u isto vreme i bori se kao jedna strana. Tako šest malih igrača može da sruši kita koga niko od njih sam ne može ni da ogrebe.</p>
+
+  <h2>Kako ide</h2>
+  <div class="prose"><ol>
+    <li><b>Predvodnik otvara udruženi napad.</b> Bira metu i vreme dolaska, najranije 1 sat od tog trenutka.</li>
+    <li><b>Pozvani saveznici šalju flote.</b> Igra svakoj floti sama podešava brzinu da stigne u isto vreme. Flota koja ne može da stigne na vreme ni najvećom brzinom ne može ni da se pridruži.</li>
+    <li><b>Prijave se zatvaraju 15 minuta pre dolaska.</b> Posle toga niko ne može da uđe, a predvodnik može samo da otkaže ceo napad.</li>
+    <li><b>Svi stižu u istom prozoru od 10 minuta.</b> Bitka se vodi jednom, protiv svih branilaca i svih saveznika koji čuvaju metu.</li>
+    <li><b>Plen i poeni se dele.</b> Plen polovinom prema nosivosti flote, a polovinom prema nanetoj šteti. Poeni sezone, Kruna i Lovac na kitove dele se prema šteti.</li>
+  </ol></div>
+
+  <div class="sheet">
+    <h3>Primer: šest malih protiv kita</h3>
+    <div class="diagram" id="coalitionDiagram" role="img" aria-label="Vremenska linija: šest flota polazi u različito vreme sa različitih udaljenosti i sve stižu u isti prozor od 10 minuta"></div>
+    <p class="num" style="font-size:13.5px;color:var(--ink2)">Svaka traka je jedna flota: od polaska do dolaska. Brže i bliže flote kreću kasnije, pa sve stižu u zeleni prozor.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card olive"><h3>Hrabrost u koaliciji</h3><p>Bonus hrabrosti računa se prema najjačem članu koalicije, ne prema najslabijem. Kit ne može da povede male igrače i iskoristi njihov bonus.</p></div>
+    <div class="card olive"><h3>Odbrana: Čuvanje</h3><p>Saveznici mogu da pošalju flote da čuvaju tvoj kokošinjac. One se bore uz tvoju odbranu, a hranu im daje Feeder Depot. To je kitov odgovor na koalicije.</p></div>
+    <div class="card"><h3>Upozorenje meti</h3><p>Kad se ka meti kreće 3 ili više flota iste koalicije, meta na telegrafu dobija „Koalicija se okuplja“, sa brojem flota, ali bez sastava.</p></div>
+    <div class="card"><h3>Pravila protiv zloupotrebe</h3><p>Nalozi iz istog novčanika ne mogu u istu koaliciju. Na metu pod zaštitom ne može se ni udruženo. Ista koalicija može na istu metu najviše jednom u 12 sati.</p></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Pravilo</th><th class="n">Vrednost</th></tr></thead>
+    <tbody>
+      <tr><td>Najviše članova</td><td class="n">8</td></tr>
+      <tr><td>Najkraće vreme do dolaska</td><td class="n">1 h</td></tr>
+      <tr><td>Prijave se zatvaraju pre dolaska</td><td class="n">15 min</td></tr>
+      <tr><td>Prozor dolaska</td><td class="n">10 min</td></tr>
+      <tr><td>Plen: prema nosivosti / prema šteti</td><td class="n">50% / 50%</td></tr>
+      <tr><td>Ponovni napad iste koalicije na istu metu</td><td class="n">posle 12 h</td></tr>
+      <tr><td>Potrebno istraživanje</td><td class="n">Logistics 3</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================ SEZONA -->
+<section class="page" id="p-sezona" data-page="sezona" hidden>
+  <span class="stamp">Predlog</span>
+  <h1>Sezona od 90 dana i nagrade</h1>
+  <p class="lede">Svet se igra u sezonama od tri meseca. Na kraju prva tri mesta dobijaju veliku novčanu nagradu u ETH, a nagrade postoje i za lovce na kitove, najbolju koaliciju i svaku nedelju. Tako i oni koji nisu u vrhu imaju razlog da igraju svaki dan.</p>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Nedelje</th><th>Faza</th><th>Šta se dešava</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td>Mladi štit</td><td>Svi grade. Napadi su mogući tek posle 7 dana ili kad sam napadneš nekog.</td></tr>
+      <tr><td class="n">2–10</td><td>Rat</td><td>Pljačke, koalicije, kruna. Svake nedelje nedeljna nagrada.</td></tr>
+      <tr><td class="n">11–12</td><td>Velika žetva</td><td>Poeni za borbu se duplo računaju. Najveće bitke sezone.</td></tr>
+      <tr><td class="n">13 (poslednja 2 dana)</td><td>Zaključavanje</td><td>Rang-lista se zaključava i proverava. Isplata posle provere.</td></tr>
+      <tr><td>Pauza 1–2 nedelje</td><td>Između sezona</td><td>Prodaja novih NFT-ova, kozmetike i propusnica. Najava sledeće sezone.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Kako se dobijaju poeni sezone</h2>
+  <div class="grid3">
+    <div class="card"><h3>Ekonomija</h3><p>1 poen na 1.000 potrošenih resursa, kao i do sada.</p></div>
+    <div class="card"><h3>Borba</h3><p>2 poena na 1.000 vrednosti uništenih jedinica i odbrane, pomnoženo sa hrabrošću (ko pobedi jačeg, dobija više).</p></div>
+    <div class="card"><h3>Kruna i koalicije</h3><p>Otimanje krune nosi 10% poena nosioca. Učešće u pobedničkoj koaliciji deli poene po šteti.</p></div>
+  </div>
+
+  <h2>Nagradni fond</h2>
+  <div class="prose"><p>U fond ide <b>30% svih prihoda tokom sezone</b>: naknade za trgovinu, naknade EGG bazena, sezonska propusnica i kozmetika. Prodaja NFT-ova između sezona ne ulazi u fond i ostaje timu. Fond je javan: brojač u igri pokazuje koliko je ETH-a u njemu u svakom trenutku, što je i najbolja reklama.</p></div>
+  <div class="tablewrap"><table id="prizeTable">
+    <thead><tr><th>Nagrada</th><th class="n">Udeo fonda</th><th class="n">Primer, ETH</th><th class="n">Primer, USD</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="num" style="font-size:13.5px;color:var(--ink2)">Primer: fond od <span id="prizePoolEx">55,8</span> ETH iz kalkulatora na strani Biznis plan (osnovni scenario: 6.000 aktivnih igrača, 1,5 trgovina dnevno, 0,0002 ETH naknada, propusnica i kozmetika), uz ETH po 3.000 $. Promeni brojke u kalkulatoru i tabela se menja.</p>
+
+  <h2>Šta tera igrače da igraju svaki dan</h2>
+  <div class="grid2">
+    <div class="card brass"><h3>Vidljiv fond koji raste</h3><p>Svaka trgovina u igri puni fond, pa igrači gledaju kako raste. Što se više igra, nagrada je veća.</p></div>
+    <div class="card brass"><h3>Nedeljne nagrade</h3><p>Svake nedelje najbolji napadač, branilac i lovac na kitove. Ko nije u vrhu sezone, može da osvoji nedelju.</p></div>
+    <div class="card brass"><h3>Strah od gubitka</h3><p>Neaktivan nalog postaje (i) i laka meta. Jaja u gnezdu mogu da se opljačkaju (10% po izgubljenoj odbrani). Kruna se gubi u jednoj bici.</p></div>
+    <div class="card brass"><h3>Sezonski ulog</h3><p>Za borbu za glavne nagrade igrač zaključava 50 EGG u Season Vault. Ulog se vraća na kraju sezone, a dok je zaključan, ne može da se proda.</p></div>
+  </div>
+  <div class="callout">
+    <b class="t">Uslovi za isplatu</b>
+    <p>Dobitnici prolaze proveru identiteta (KYC). Jedna osoba može da osvoji samo jednu glavnu nagradu po sezoni. Nalozi uhvaćeni u varanju (više naloga koji hrane jedan, botovi) gube pravo na nagradu. Detalji su na strani Rizici i pravo.</p>
+  </div>
+</section>
+
+<!-- ================================================================ BIZNIS -->
+<section class="page" id="p-biznis" data-page="biznis" hidden>
+  <span class="stamp">Predlog</span>
+  <h1>Biznis plan</h1>
+  <p class="lede">Tim zarađuje u dva talasa: između sezona prodajom NFT-ova i royalty-jem, a tokom sezone naknadama za trgovinu, propusnicom i kozmetikom. Od prihoda iz sezone 30% ide u nagradni fond, a ostatak pokriva troškove i ostaje kao dobit.</p>
+
+  <div class="grid2">
+    <div class="card"><h3>Između sezona</h3><p><b>Prodaja NFT-ova:</b> 28.000 koje Roostr vlasnici ne dobiju besplatno prodaju se u talasima, pred svaku sezonu.<br><b>Royalty:</b> 5% od svake preprodaje na tržištima.<br><b>Kozmetika:</b> nove serije izgleda jedinica i kokošinjaca.</p></div>
+    <div class="card"><h3>Tokom sezone</h3><p><b>Naknada za trgovinu:</b> fiksni ETH po svakoj trgovini na Market-u.<br><b>EGG bazen:</b> 0,3% od svake zamene EGG i ETH.<br><b>Sezonska propusnica:</b> kozmetičke nagrade za igranje.<br><b>Kozmetika i iznajmljivanje:</b> provizija na iznajmljene NFT-ove.</p></div>
+  </div>
+
+  <h2>Kalkulator</h2>
+  <div class="sheet">
+    <div class="controls" id="bizControls"></div>
+    <div class="btns"><button type="button" class="btn" data-biz="small">Mali start</button><button type="button" class="btn" data-biz="base" aria-pressed="true">Osnovni</button><button type="button" class="btn" data-biz="big">Veliki</button></div>
+  </div>
+  <div class="kpis" id="bizKpis"></div>
+  <div class="grid2">
+    <div class="sheet"><div class="chart" id="bizChart"></div></div>
+    <div class="tablewrap"><table id="bizTable"><thead><tr><th>Stavka</th><th class="n">ETH</th><th class="n">USD</th></tr></thead><tbody></tbody></table></div>
+  </div>
+  <div class="callout brass">
+    <b class="t">Pretpostavke</b>
+    <p>Sve brojke u kalkulatoru su pretpostavke za razgovor, ne prognoza: broj igrača, cena NFT-a, broj trgovina dnevno i cena ETH-a moraju da se zamene stvarnim podacima posle testne sezone. Troškovi razvoja u našem dogovoru su do 100 $; ovde su dodati troškovi koji dolaze sa pravim igračima (serveri, RPC, marketing, pravnik, kasnije revizija ugovora).</p>
+  </div>
+</section>
+
+<!-- ================================================================ EGG -->
+<section class="page" id="p-egg" data-page="egg" hidden>
+  <span class="stamp">Predlog · simulacija</span>
+  <h1>EGG kao token sa cenom</h1>
+  <p class="lede">Cilj: da EGG vredi, da ljudi ne žele da ga bace na tržište, ali da ga stalno pretvaraju u nešto u igri; i da ga neki kupuju za ETH zbog male prednosti. Ispod su pravila koja to postižu i simulacija jedne sezone.</p>
+
+  <div class="grid2">
+    <div class="card olive"><h3>Zašto se EGG drži</h3><p>Sezonski ulog (50 EGG zaključano cele sezone). Otkup i spaljivanje iz naknada kad cena padne ispod cilja. Ukupna količina opada kad se troši više nego što koke snesu.</p></div>
+    <div class="card olive"><h3>Zašto se EGG troši</h3><p>Izleganje jedinica, ubrzanja i pucanje u resurse rade samo sa jajima. U finišu sezone potražnja raste. Jaja u gnezdu mogu da se opljačkaju, pa se ne isplati držati ih u igri neiskorišćena.</p></div>
+    <div class="card olive"><h3>Zašto se EGG kupuje</h3><p>Igrač koji kupi EGG za ETH može da troši do dnevnog limita od 120 jaja i kad mu ponestane sopstvenih. Aktivan igrač koji ne kupuje ima oko 80 jaja dnevno iz koke i Market-a, pa je prednost oko 1,5× u brzini trošenja jaja. Jaja su samo jedan deo rasta, pa ukupna prednost ostaje mala.</p></div>
+    <div class="card olive"><h3>Odakle dolaze novi EGG tokeni</h3><p>Samo iz koka: 1 jaje dnevno po NFT-u aktivnog naloga. Početnih 1.000 jaja ostaje vezano za nalog i nikad ne ide na tržište, da prvi dan ne bi bio dump od 40 miliona jaja.</p></div>
+  </div>
+
+  <h2>Simulacija sezone</h2>
+  <div class="sheet">
+    <div class="btns" id="simScenarios"></div>
+    <div class="controls" id="simControls"></div>
+  </div>
+  <div class="kpis" id="simKpis"></div>
+  <div class="sheet"><div class="chart" id="chPrice"></div></div>
+  <div class="grid2">
+    <div class="sheet"><div class="chart" id="chSupply"></div></div>
+    <div class="sheet"><div class="chart" id="chMoney"></div></div>
+  </div>
+  <div class="sheet">
+    <h3>Kako model radi</h3>
+    <div class="prose"><ul>
+      <li>Jedan bazen EGG/ETH sa konstantnim proizvodom. Na početku ima 100 ETH i 2.000.000 EGG, pa jaje vredi 0,00005 ETH. Naknada je 0,3% i ide u trezor.</li>
+      <li>Svakog dana koke snesu jaja. Deo igrači potroše u igri (spaljeno), deo prodaju, a ostatak čuvaju.</li>
+      <li>Igrači kupuju više kad je jaje jeftinije od svoje vrednosti u igri, a prodaju više kad je skuplje. Zato cena ne beži u nedogled.</li>
+      <li>Sezonski ulog se kupuje u prve dve nedelje i ostaje zaključan. Potražnja raste prema kraju sezone (finiš).</li>
+      <li>Prihod sezone čine naknade za trgovinu na Market-u i naknade bazena. 30% ide u nagradni fond. Udeo za otkup troši se samo dok je cena ispod cilja, a inače ostaje u trezoru.</li>
+    </ul></div>
+  </div>
+  <div class="callout">
+    <b class="t">Šta simulacija pokazuje</b>
+    <p>EGG drži cenu samo ako se troši više jaja nego što koke snesu. Bez potrošnje neiskorišćena jaja se gomilaju i cena polako pada. Kod dumpa je otkup iz naknada pod koji sprečava slom, ali ne i pad. Najjači pokretač cene je takmičenje: finiš sezone i kupovina zbog prednosti.</p>
+  </div>
+</section>
+
+<!-- ================================================================ PRAVNO -->
+<section class="page" id="p-pravno" data-page="pravno" hidden>
+  <span class="stamp">Pre lansiranja</span>
+  <h1>Rizici i pravo</h1>
+  <p class="lede">Token koji se kupuje za ETH i novčane nagrade za rang-listu zajedno čine igru koju regulatori u mnogim zemljama gledaju pažljivo. Ovo nije pravni savet, nego spisak pitanja za pravnika pre nego što pustimo prvu sezonu sa pravim novcem.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Rizik</th><th>Zašto je važan</th><th>Šta predlažem</th></tr></thead>
+    <tbody>
+      <tr><td>EGG kao hartija od vrednosti</td><td>Ako ljudi kupuju EGG očekujući zaradu od rada tima, u nekim zemljama to može da se smatra investicionim proizvodom.</td><td>EGG predstaviti i dizajnirati kao predmet u igri. Bez obećanja cene, bez otkupa koji garantuje vrednost. Pravnik pre listanja.</td></tr>
+      <tr><td>Nagrade i kockanje</td><td>Novčana nagrada uz plaćeni ulaz može da se smatra igrom na sreću tamo gde ishod ne zavisi dovoljno od veštine.</td><td>Ulaz u sezonu bez obavezne kupovine (svaki NFT koji već imaš). Rang po veštini. Zvanična pravila sezone. Spisak zemalja gde nagrade nisu dostupne.</td></tr>
+      <tr><td>KYC i porezi</td><td>Isplata većih iznosa traži proveru identiteta i poštovanje poreskih pravila.</td><td>KYC samo za dobitnike, preko servisa za proveru. Isplata u ETH na proverenu adresu.</td></tr>
+      <tr><td>Više naloga i botovi</td><td>Ko kontroliše više naloga može da ih koristi da hrani glavni.</td><td>Pravila iz strane Kitovi, detekcija obrazaca, oduzimanje nagrade za varanje.</td></tr>
+      <tr><td>Pay to win</td><td>Kupovina EGG-a za ETH je prednost, ma koliko mala.</td><td>Dnevni limit od 120 jaja, prednost samo u brzini trošenja. Pratiti podatke posle prve sezone i smanjiti limit ako prednost raste.</td></tr>
+      <tr><td>Ugovori bez revizije</td><td>Greška u ugovoru sa EGG/ETH bazenom može da košta stvarni novac igrača.</td><td>Mali iznosi u bazenu dok nema revizije. Reviziju platiti iz prihoda prve sezone.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</main>
+</div>
